@@ -1,17 +1,22 @@
-# My Talks
+# Talks Repository
 
-## Past Talks
+👋🏻 Hi I'm Christopher Tineo, but you can call me Chris.
 
-### KCD New York 2025
+I'm a software engineer and I feel very passionate about open source and cloud native technologies.
 
-**Talk Title:** Empowering Cloud Native Development: Driving Data-Driven Decisions with OpenTelemetry
-**Date:** Wednesday 2:55 PM
-**Duration:** 10 min
-**Location:** The East Hub
-**Speaker:** Christopher Tineo, Software Engineer, Innovative Defense Technologies
+I share my knowledge and experiences through talks and presentations at conferences and meetups.
 
-**Description:** Did you know only 1/3 of features improve business metrics? Most fail to deliver value, adding complexity without benefit. This session dives into integrating metrics into cloud-native application development, providing methodologies and best practices to design, execute, and analyze experiments. Attendees will learn to make data-driven decisions, enhancing user experience and ensuring new features deliver measurable value.
+So far, I've been a member of:
 
-**Session Type:** Lightning Talk
-**Open Source Projects:** Kubernetes, Prometheus, Grafana, OpenTelemetry, OpenFeature, Fluentd, Flagger, Istio
-**Level:** Any
+- Cloud Native Santo Domingo
+- KCD New York
+
+But I'm always open to join new communities.
+
+🔗 Connect with me on [LinkedIn](https://www.linkedin.com/in/christopher-tineo/).
+
+## Talks
+
+| Event | Title | Slides |
+| :--- | :--- | :--- |
+| KCD NY 2025 | Empowering Cloud Native Development | [Slides](slides/ChristopherTineo_Empowering_Cloud_Native_Development_KCDNY2025.pdf) |
