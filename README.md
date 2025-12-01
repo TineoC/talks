@@ -17,6 +17,7 @@ But I'm always open to join new communities.
 
 ## Talks
 
-| Event | Title | Slides |
-| :--- | :--- | :--- |
-| KCD NY 2025 | Empowering Cloud Native Development | [Slides](slides/ChristopherTineo_Empowering_Cloud_Native_Development_KCDNY2025.pdf) |
+| Event | Title | Slides | Date |
+| :--- | :--- | :--- | :--- |
+| Private Class at INTEC University | Masterclass Cloud Native & Open Source | [Slides](https://docs.google.com/presentation/d/11xAC6LqOMyUr9ii3dzjZQA94KfVtkNqQM2LYf67qJOw/edit?usp=sharing) | January 2026 |
+| KCD NY 2025 | Empowering Cloud Native Development | [Slides](slides/ChristopherTineo_Empowering_Cloud_Native_Development_KCDNY2025.pdf) | Summer 2025 |
