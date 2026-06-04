@@ -1084,9 +1084,10 @@
                 <i class="fa-brands fa-github"></i> GitHub CLI (gh)
               </p>
               <div class="terminal" style="margin: 0; padding: 18px 22px; font-size: 11.5pt; line-height: 1.5;">
-                <span class="text-muted"># 1. Fetch transitive dependencies from SBOM</span><br />
-                <span class="prompt">$</span> gh api repos/:owner/:repo/dependency-graph/sbom \<br />
-                &nbsp;&nbsp;&nbsp;&nbsp;--jq '.sbom.packages[].name'<br />
+                <span class="text-muted"># 1. Fetch transitives from lockfile (Free Tier)</span><br />
+                <span class="prompt">$</span> gh api repos/:owner/:repo/contents/package-lock.json \<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;-H "Accept: application/vnd.github.raw" | \<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;jq -r '.packages | keys[] | select(. != "") | sub("^node_modules/"; "")'<br />
                 <br />
                 <span class="text-muted"># 2. Tag a dependency repo (Sponsor or Star)</span><br />
                 <span class="prompt">$</span> gh repo sponsor org/dependency<br />
@@ -1104,8 +1105,9 @@
                 <i class="fa-brands fa-gitlab"></i> GitLab CLI (glab)
               </p>
               <div class="terminal" style="margin: 0; padding: 18px 22px; font-size: 11.5pt; line-height: 1.5;">
-                <span class="text-muted"># 1. List project dependency graph (Requires Ultimate)</span><br />
-                <span class="prompt">$</span> glab api projects/:id/dependencies | jq '.[] | .name'<br />
+                <span class="text-muted"># 1. Fetch transitives from lockfile (Free Tier)</span><br />
+                <span class="prompt">$</span> glab api projects/:id/repository/files/package-lock.json/raw | \<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;jq -r '.packages | keys[] | select(. != "") | sub("^node_modules/"; "")'<br />
                 <br />
                 <span class="text-muted"># 2. Tag / Star a GitLab project</span><br />
                 <span class="prompt">$</span> glab api -X POST projects/:id/star<br />
