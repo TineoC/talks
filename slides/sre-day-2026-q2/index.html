@@ -1091,13 +1091,14 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;gh api repos/$repo/contents/package-lock.json \<br />
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-H "Accept: application/vnd.github.raw" | \<br />
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;jq -r '.packages | keys[] | select(. != "")'<br />
-                <span class="prompt">$</span> done<br />
+                &nbsp;&nbsp;done<br />
                 <br />
                 <span class="text-muted"># Bulk check Lottery Factor (>10 contributors)</span><br />
-                <span class="prompt">$</span> for repo in $repos; do<br />
+                <span class="prompt">$</span> for repo in $(gh repo list --limit 100 \<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;--json nameWithOwner -q '.[].nameWithOwner'); do<br />
                 &nbsp;&nbsp;&nbsp;&nbsp;gh api repos/$repo/contributors \<br />
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--jq '[.[] | select(.contributions > 10)] | length'<br />
-                <span class="prompt">$</span> done
+                &nbsp;&nbsp;done
               </div>
             </div>
 
@@ -1114,14 +1115,15 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;enc="${repo//\//%2F}"<br />
                 &nbsp;&nbsp;&nbsp;&nbsp;glab api projects/$enc/repository/files/package-lock.json/raw | \<br />
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;jq -r '.packages | keys[] | select(. != "")'<br />
-                <span class="prompt">$</span> done<br />
+                &nbsp;&nbsp;done<br />
                 <br />
                 <span class="text-muted"># Bulk check Lottery Factor (>10 commits)</span><br />
-                <span class="prompt">$</span> for repo in $repos; do<br />
+                <span class="prompt">$</span> for repo in $(glab repo list -F json | \<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;jq -r '.[].path_with_namespace'); do<br />
                 &nbsp;&nbsp;&nbsp;&nbsp;enc="${repo//\//%2F}"<br />
                 &nbsp;&nbsp;&nbsp;&nbsp;glab api projects/$enc/repository/contributors | \<br />
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;jq 'map(select(.commits > 10)) | length'<br />
-                <span class="prompt">$</span> done
+                &nbsp;&nbsp;done
               </div>
             </div>
           </div>
