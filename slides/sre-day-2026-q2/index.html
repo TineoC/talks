@@ -1089,9 +1089,9 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;-H "Accept: application/vnd.github.raw" | \<br />
                 &nbsp;&nbsp;&nbsp;&nbsp;jq -r '.packages | keys[] | select(. != "") | sub("^node_modules/"; "")'<br />
                 <br />
-                <span class="text-muted"># 2. Tag a dependency repo (Sponsor or Star)</span><br />
-                <span class="prompt">$</span> gh repo sponsor org/dependency<br />
-                <span class="prompt">$</span> gh repo star org/dependency<br />
+                <span class="text-muted"># 2. Tag / Star a dependency repo</span><br />
+                <span class="prompt">$</span> gh repo edit :owner/:repo --add-topic "critical-dep"<br />
+                <span class="prompt">$</span> gh api -X PUT user/starred/:owner/:repo<br />
                 <br />
                 <span class="text-muted"># 3. Assess Lottery Factor (Active Contributors)</span><br />
                 <span class="prompt">$</span> gh api repos/:owner/:repo/contributors \<br />
@@ -1110,8 +1110,8 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;jq -r '.packages | keys[] | select(. != "") | sub("^node_modules/"; "")'<br />
                 <br />
                 <span class="text-muted"># 2. Tag / Star a GitLab project</span><br />
+                <span class="prompt">$</span> glab api -X PUT projects/:id -F "topics=critical-dep"<br />
                 <span class="prompt">$</span> glab api -X POST projects/:id/star<br />
-                <span class="prompt">$</span> glab api projects/:id | jq '.topics'<br />
                 <br />
                 <span class="text-muted"># 3. Assess Lottery Factor (Active Contributors)</span><br />
                 <span class="prompt">$</span> glab api projects/:id/repository/contributors \<br />
