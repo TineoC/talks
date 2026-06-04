@@ -1,0 +1,13 @@
+# System files
+.DS_Store
+
+# Agent / Tool files
+.agents/
+skills-lock.json
+
+# Editor / IDE settings
+.vscode/
+.idea/
+
+# Logs
+*.log
