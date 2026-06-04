@@ -1135,6 +1135,56 @@
           You can automate this via CLI scripts querying the API. Active contributors
           can be estimated by filtering for users with >10 contributions/commits in the
           repository history.
+      </section>
+
+      <section id="ort-analyzer">
+        <p class="title-prompt">❯ enterprise-tools</p>
+        <h2>Automating with OSS Review Toolkit (ORT)</h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; width: 100%;">
+            <!-- GitHub Actions -->
+            <div>
+              <p class="text-mono" style="margin: 0 0 8px 0; color: var(--primary-color); font-size: 14pt; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">
+                <i class="fa-brands fa-github"></i> GitHub Action (.github/workflows/ort.yml)
+              </p>
+              <div class="terminal" style="margin: 0; padding: 18px 22px; font-size: 10pt; line-height: 1.4;">
+                <span class="text-muted"># Run ORT Analyzer in GitHub Actions workflow</span><br />
+                - name: Run ORT Analyzer<br />
+                &nbsp;&nbsp;uses: oss-review-toolkit/ort-ci-github-action@v1<br />
+                &nbsp;&nbsp;with:<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;vcs-url: "https://github.com/TineoC/contributor-site"<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;output-dir: "ort-output"<br />
+                <br />
+                <span class="text-muted"># Or CLI locally:</span><br />
+                <span class="prompt">$</span> ort analyze -i /project -o /project/ort-output
+              </div>
+            </div>
+
+            <!-- GitLab CI -->
+            <div>
+              <p class="text-mono" style="margin: 0 0 8px 0; color: var(--secondary-color); font-size: 14pt; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">
+                <i class="fa-brands fa-gitlab"></i> GitLab CI/CD (.gitlab-ci.yml)
+              </p>
+              <div class="terminal" style="margin: 0; padding: 18px 22px; font-size: 10pt; line-height: 1.4;">
+                <span class="text-muted"># Run ORT Analyzer in GitLab CI/CD Pipeline</span><br />
+                ort_analyzer:<br />
+                &nbsp;&nbsp;image: ghcr.io/oss-review-toolkit/ort:latest<br />
+                &nbsp;&nbsp;script:<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;- ort analyze -i . -o ort-output<br />
+                &nbsp;&nbsp;artifacts:<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;paths:<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- ort-output/analyzer-result.yml
+              </div>
+            </div>
+          </div>
+        </div>
+        <aside class="notes">
+          If you want to move beyond lightweight CLI scripts, the Linux Foundation's
+          OSS Review Toolkit (ORT) is the enterprise standard.
+
+          You can run it as a GitHub Action using the official ORT CI runner, or as a
+          GitLab CI job mounting the official Docker container. The output is a
+          declarative dependency map that integrates with vulnerability databases.
         </aside>
       </section>
 
