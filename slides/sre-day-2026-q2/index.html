@@ -1098,6 +1098,12 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;--json nameWithOwner -q '.[].nameWithOwner'); do<br />
                 &nbsp;&nbsp;&nbsp;&nbsp;gh api repos/$repo/contributors \<br />
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--jq '[.[] | select(.contributions > 10)] | length'<br />
+                &nbsp;&nbsp;done<br />
+                <br />
+                <span class="text-muted"># Bulk Tag / Star dependency repos</span><br />
+                <span class="prompt">$</span> for repo in $deps; do<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;gh repo edit $repo --add-topic "critical-dep"<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;gh api -X PUT user/starred/$repo<br />
                 &nbsp;&nbsp;done
               </div>
             </div>
@@ -1123,6 +1129,13 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;enc="${repo//\//%2F}"<br />
                 &nbsp;&nbsp;&nbsp;&nbsp;glab api projects/$enc/repository/contributors | \<br />
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;jq 'map(select(.commits > 10)) | length'<br />
+                &nbsp;&nbsp;done<br />
+                <br />
+                <span class="text-muted"># Bulk Tag / Star GitLab projects</span><br />
+                <span class="prompt">$</span> for repo in $deps; do<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;enc="${repo//\//%2F}"<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;glab api -X PUT projects/$enc -F "topics=critical-dep"<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;glab api -X POST projects/$enc/star<br />
                 &nbsp;&nbsp;done
               </div>
             </div>
