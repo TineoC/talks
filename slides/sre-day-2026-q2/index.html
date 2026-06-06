@@ -60,8 +60,10 @@
 
           <div class="cert-row" style="justify-content: flex-start;">
             <div class="cert-item">
-              <img class="cert-badge" src="assets/cert-gcp-pca.png" alt="GCP Professional Cloud Architect"
-                title="GCP Professional Cloud Architect" />
+              <img class="cert-badge cert-gcp-light" src="assets/cert-gcp-pca.png"
+                alt="GCP Professional Cloud Architect" title="GCP Professional Cloud Architect" />
+              <img class="cert-badge cert-gcp-dark" src="assets/cert-gcp-pca-dark.png"
+                alt="GCP Professional Cloud Architect" title="GCP Professional Cloud Architect" />
               <span class="cert-label">GCP Pro Cloud Architect</span>
             </div>
             <div class="cert-item">
@@ -370,7 +372,7 @@
           </div>
 
           <div
-            style="margin-top: 56px; padding: 24px 28px; border-top: 1px solid var(--line-color); border-bottom: 1px solid var(--line-color); display: grid; grid-template-columns: auto 1fr; gap: 32px; align-items: center;">
+            style="margin-top: 56px; padding: 24px 28px; border-top: 1px solid var(--line-color); border-bottom: 1px solid var(--line-color); display: grid; grid-template-columns: auto 1fr auto; gap: 32px; align-items: center;">
             <p class="font-mono"
               style="margin: 0; font-size: 56pt; font-weight: 800; color: var(--primary-color); line-height: 1; letter-spacing: -0.03em;">
               ~60%</p>
@@ -386,8 +388,13 @@
                 style="margin: 8px 0 0 0; color: var(--muted-color); font-style: italic; font-size: 10pt;">
                 Source: <a
                   href="https://www.cncf.io/blog/2026/04/02/ingress-nginx-retirement-experience-from-end-users/"
-                  target="_blank" rel="noopener">CNCF End User TAB</a> · Apr 2026
+                  target="_blank" rel="noopener" style="text-decoration: underline; color: var(--primary-color);">CNCF End User TAB</a> · Apr 2026
               </p>
+            </div>
+            <div style="display: flex; align-items: center; gap: 14px; border-left: 3px solid var(--primary-color); padding-left: 24px;">
+              <img class="ref-qr qr-dark-theme" src="assets/cncf-tab-qr-dark.png" alt="CNCF TAB QR Code" style="width: 76px; height: 76px;" />
+              <img class="ref-qr qr-light-theme" src="assets/cncf-tab-qr-light.png" alt="CNCF TAB QR Code" style="width: 76px; height: 76px;" />
+              <span class="font-mono text-xs text-muted" style="font-size: 8pt; line-height: 1.25; max-width: 70px; display: inline-block;">Scan to read CNCF report</span>
             </div>
           </div>
 
@@ -420,18 +427,26 @@
       </section>
 
       <section id="hook">
-        <div class="content" style="justify-content: center;">
-          <h1 class="text-3xl" style="max-width: 1100px; line-height: 1.1; color: var(--text-color);">
-            "In 9 years, ingress-nginx had exactly<br />one 'call for maintainers' issue."
-          </h1>
-          <h1 class="text-3xl"
-            style="max-width: 1100px; line-height: 1.1; margin-top: 32px; color: var(--critical-color);">
-            It got 10 thank-you comments and 0 volunteers.
-          </h1>
-          <p class="font-mono text-muted" style="margin-top: 56px; font-size: 13pt; letter-spacing: 0.02em;">
-            ↳ <a href="https://github.com/kubernetes/ingress-nginx/issues/4404" target="_blank" rel="noopener">@aledbf
-              stepping down · kubernetes/ingress-nginx#4404</a>
-          </p>
+        <div class="content" style="justify-content: center; align-items: center; width: 100%;">
+          <div style="display: grid; grid-template-columns: 1.35fr 0.65fr; gap: 48px; width: 100%; max-width: 1100px; align-items: center; text-align: left; margin: 0 auto;">
+            <div>
+              <h1 class="text-3xl" style="line-height: 1.15; color: var(--text-color); margin: 0;">
+                "In 9 years, ingress-nginx had exactly<br />one 'call for maintainers' issue."
+              </h1>
+              <h1 class="text-3xl" style="line-height: 1.15; margin-top: 28px; color: var(--critical-color);">
+                It got 10 thank-you comments and 0 volunteers.
+              </h1>
+              <p class="font-mono text-muted" style="margin-top: 48px; font-size: 11pt; letter-spacing: 0.02em; line-height: 1.4;">
+                ↳ <a href="https://github.com/kubernetes/ingress-nginx/issues/4404" target="_blank" rel="noopener" style="text-decoration: underline; color: var(--primary-color);">@aledbf stepping down · kubernetes/ingress-nginx#4404</a>
+              </p>
+            </div>
+            
+            <div class="panel primary" style="margin: 0; padding: 22px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; background: rgba(94, 168, 167, 0.04); border-left: 3px solid var(--primary-color); border-color: var(--primary-color); width: 220px; justify-self: center;">
+              <img class="ref-qr qr-dark-theme" src="assets/issue-4404-qr-dark.png" alt="QR code pointing to ingress-nginx issue 4404" style="width: 180px; height: 180px;" />
+              <img class="ref-qr qr-light-theme" src="assets/issue-4404-qr-light.png" alt="QR code pointing to ingress-nginx issue 4404" style="width: 180px; height: 180px;" />
+              <span class="font-mono text-xs" style="color: var(--primary-color); font-weight: 600; font-size: 8.5pt;">Scan to view issue</span>
+            </div>
+          </div>
         </div>
         <aside class="notes">
           [TIMING: 90s. The number is the punch. Pause after "0 volunteers." Let the room feel the weight before you
@@ -457,33 +472,43 @@
 
       <section id="case-ingress-timeline">
         <h2>The announcement → EOL</h2>
-        <div class="content">
-          <div class="timeline">
-            <div class="event">
-              <span class="date">Mar 2025</span>
-              <span class="what"><strong>Maintenance Mode:</strong> Entering security-only maintenance. No new
-                features.</span>
+        <div class="content" style="width: 100%;">
+          <div style="display: grid; grid-template-columns: 1.4fr 0.6fr; gap: 48px; width: 100%; max-width: 1100px; align-items: center; text-align: left; margin: 0 auto;">
+            <div>
+              <div class="timeline" style="margin: 0;">
+                <div class="event">
+                  <span class="date">Mar 2025</span>
+                  <span class="what"><strong>Maintenance Mode:</strong> Entering security-only maintenance. No new
+                    features.</span>
+                </div>
+                <div class="event">
+                  <span class="date">Mid 2025</span>
+                  <span class="what"><strong>Migration Scramble:</strong> Downstream projects begin coordinating emergency
+                    migrations.</span>
+                </div>
+                <div class="event">
+                  <span class="date">Mar 2026</span>
+                  <span class="what"><strong>End of Life:</strong> Security updates stop. Production workloads are on
+                    borrowed time.</span>
+                </div>
+                <div class="event">
+                  <span class="date">Now</span>
+                  <span class="what"><strong>The Legacy Gap:</strong> Thousands of organizations are still running
+                    unsupported ingress controllers.</span>
+                </div>
+              </div>
+              <p class="text-sm text-muted" style="margin-top: 24px; margin-bottom: 0;">
+                Source: <a href="https://kubernetes.io/blog/2026/01/29/ingress-nginx-statement/" target="_blank"
+                  rel="noopener" style="text-decoration: underline; color: var(--primary-color);">Kubernetes project — Ingress NGINX retirement statement</a>
+              </p>
             </div>
-            <div class="event">
-              <span class="date">Mid 2025</span>
-              <span class="what"><strong>Migration Scramble:</strong> Downstream projects begin coordinating emergency
-                migrations.</span>
-            </div>
-            <div class="event">
-              <span class="date">Mar 2026</span>
-              <span class="what"><strong>End of Life:</strong> Security updates stop. Production workloads are on
-                borrowed time.</span>
-            </div>
-            <div class="event">
-              <span class="date">Now</span>
-              <span class="what"><strong>The Legacy Gap:</strong> Thousands of organizations are still running
-                unsupported ingress controllers.</span>
+            
+            <div class="panel primary" style="margin: 0; padding: 22px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; background: rgba(94, 168, 167, 0.04); border-left: 3px solid var(--primary-color); border-color: var(--primary-color); width: 220px; justify-self: center;">
+              <img class="ref-qr qr-dark-theme" src="assets/k8s-statement-qr-dark.png" alt="QR code pointing to Ingress NGINX EOL statement" style="width: 180px; height: 180px;" />
+              <img class="ref-qr qr-light-theme" src="assets/k8s-statement-qr-light.png" alt="QR code pointing to Ingress NGINX EOL statement" style="width: 180px; height: 180px;" />
+              <span class="font-mono text-xs" style="color: var(--primary-color); font-weight: 600; text-align: center; font-size: 8.5pt;">Scan to read statement</span>
             </div>
           </div>
-          <p class="text-sm text-muted" style="margin-top: 24px;">
-            Source: <a href="https://kubernetes.io/blog/2026/01/29/ingress-nginx-statement/" target="_blank"
-              rel="noopener">Kubernetes project — Ingress NGINX retirement statement</a> (kubernetes.io, Jan 2026)
-          </p>
         </div>
         <aside class="notes">
           The timeline is the spine of this story. Walk the audience through
@@ -651,42 +676,86 @@
 
       <section id="cost-companies">
         <h2>Cost to companies</h2>
-        <div class="content">
-          <div style="display: grid; grid-template-columns: 1.15fr 1fr; gap: 48px; align-items: center; width: 100%;">
-            <div class="terminal" style="margin: 0; padding: 24px 28px;">
-              <p class="text-mono" style="margin: 0 0 12px 0; color: var(--muted-color);">❯ what EOL actually costs</p>
-              <p style="margin: 0; font-size: 15pt; line-height: 1.65;">
-                <span class="prompt">$</span> unplanned migration work<br />
-                <span class="prompt">$</span> security risk on EOL versions<br />
-                <span class="prompt">$</span> dev hours to qualify replacement<br />
-                <span class="prompt">$</span> roadmap opportunity cost
-              </p>
+        <div class="content"
+          style="justify-content: center; align-items: center; padding-top: 0; width: 100%; max-width: 1200px;">
+          <div
+            style="display: grid; grid-template-columns: 1fr 1.25fr; gap: 40px; align-items: stretch; width: 100%; margin: 0 auto;">
+
+            <!-- Left Column: Big Stats -->
+            <div style="display: flex; flex-direction: column; gap: 24px; justify-content: space-between;">
+              <div class="stat panel primary"
+                style="margin: 0; padding: 24px; display: flex; flex-direction: column; gap: 4px; text-align: left; background: rgba(94, 168, 167, 0.05); border-color: var(--primary-color);">
+                <span class="number"
+                  style="font-size: 56pt; font-weight: 800; line-height: 1; color: var(--primary-color);">50%</span>
+                <span class="label text-muted"
+                  style="font-size: 11pt; line-height: 1.4; text-transform: none; letter-spacing: 0;">
+                  of cloud-native environments are affected, relying on <code>ingress-nginx</code> as critical
+                  infrastructure.
+                </span>
+              </div>
+              <div class="stat panel critical"
+                style="margin: 0; padding: 24px; display: flex; flex-direction: column; gap: 4px; text-align: left; background: rgba(207, 90, 90, 0.05); border-color: var(--critical-color);">
+                <span class="number"
+                  style="font-size: 56pt; font-weight: 800; line-height: 1; color: var(--critical-color);">Zero</span>
+                <span class="label text-muted"
+                  style="font-size: 11pt; line-height: 1.4; text-transform: none; letter-spacing: 0;">
+                  direct 1-1 drop-in replacements exist. Every migration requires manual annotation translation.
+                </span>
+              </div>
             </div>
-            <div>
-              <p class="text-xl" style="margin: 0; line-height: 1.45; font-weight: 500;">
-                For a typical mid-size organization, an unplanned ingress controller
-                migration is measured in <strong>engineer-months</strong>, not
-                engineer-hours.
-              </p>
-              <p class="text-lg text-muted" style="margin-top: 20px; line-height: 1.45;">
-                Multiply that by every project in your stack that could go EOL this year, and you have a massive budget
-                line item that didn't exist a decade ago.
-              </p>
+
+            <!-- Right Column: Context & Official Statement -->
+            <div class="panel"
+              style="margin: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 32px; gap: 20px; background: var(--panel-bg); border: 1px solid var(--panel-border); text-align: left;">
+              <div style="display: flex; flex-direction: column; gap: 16px;">
+                <p class="text-mono"
+                  style="margin: 0; color: var(--primary-color); text-transform: uppercase; letter-spacing: 0.12em; font-size: 10.5pt; font-weight: 600;">
+                  Official Steering Committee Statement
+                </p>
+
+                <p
+                  style="margin: 0; font-style: italic; font-size: 13.5pt; line-height: 1.55; border-left: 3px solid var(--muted-color); padding-left: 16px; color: var(--text-color);">
+                  "None of the available alternatives are direct drop-in replacements. This will require planning and
+                  engineering time."
+                </p>
+
+                <p class="text-muted" style="margin: 0; font-size: 11pt; line-height: 1.5;">
+                  Translate hundreds of custom Nginx annotations. Unplanned migrations are measured in
+                  <strong>engineer-months</strong> of lost roadmap velocity.
+                </p>
+              </div>
+
+              <div
+                style="border-top: 1px solid var(--line-color); padding-top: 20px; display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: center;">
+                <div style="display: flex; flex-direction: column; gap: 6px;">
+                  <span class="text-muted font-mono" style="font-size: 9.5pt;">Source: Kubernetes Blog (Jan 2026)</span>
+                  <a href="https://kubernetes.io/blog/2026/01/29/ingress-nginx-statement/" target="_blank" rel="noopener"
+                    class="font-mono"
+                    style="color: var(--primary-color); font-size: 10.5pt; font-weight: 600; text-decoration: underline; display: flex; align-items: center; gap: 6px;">
+                    Read statement <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 9pt;"></i>
+                  </a>
+                </div>
+                <div style="display: flex; align-items: center; gap: 10px; border-left: 3px solid var(--primary-color); padding-left: 18px;">
+                  <img class="ref-qr qr-dark-theme" src="assets/k8s-statement-qr-dark.png" alt="Kubernetes EOL Statement QR Code" style="width: 70px; height: 70px;" />
+                  <img class="ref-qr qr-light-theme" src="assets/k8s-statement-qr-light.png" alt="Kubernetes EOL Statement QR Code" style="width: 70px; height: 70px;" />
+                  <span class="font-mono text-xs text-muted" style="font-size: 7.5pt; line-height: 1.2; max-width: 60px; display: inline-block;">Scan to read statement</span>
+                </div>
+              </div>
             </div>
+
           </div>
         </div>
         <aside class="notes">
-          The terminal block is the punchline: these are line items in a
-          budget somewhere, just not labeled as "open source" line items.
-          They're labeled as "infra," "security," "platform," or
-          "miscellaneous engineering."
+          Highlight the two massive numbers:
+          1. 50% of the internet/k8s users are running ingress-nginx. This is
+          not a niche problem; it affects half the room.
+          2. Zero drop-in replacements. Emphasize the Steering Committee quote:
+          "None of the available alternatives are direct drop-in replacements."
 
-          The key move is to make the audience see these costs as what they
-          are: bills for software they were told was free.
+          Unplanned migration means going through every ingress YAML to translate
+          Nginx annotations. It is months of engineering time.
 
-          [TIMING: 2 minutes. Cite a real number if you have one from your
-          own org. The specific figure matters less than the unit (months,
-          not hours).]
+          [TIMING: 2 minutes. Reference the official K8s statement from Jan 2026.]
         </aside>
       </section>
 
@@ -696,8 +765,12 @@
           <div
             style="display: grid; grid-template-columns: 1fr 1.6fr; gap: 40px; align-items: center; margin-bottom: 24px;">
             <div class="stat" style="margin: 0;">
-              <span class="number warn">70%+</span>
-              <span class="label">of open source maintainers are unpaid for their work</span>
+              <span class="number warn">60%</span>
+              <span class="label" style="margin-bottom: 2px;">of open source maintainers are unpaid for their
+                work</span>
+              <span class="text-muted font-mono"
+                style="font-size: 10pt; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 8px;">Source:
+                ByteIota / It's FOSS</span>
             </div>
             <div>
               <p class="text-mono"
@@ -723,9 +796,10 @@
           They're the people who would be maintainers if the economics were
           different.
 
-          The "70%+" number is broadly supported by Tidelift's annual
-          maintainer survey and similar reports. The exact figure moves
-          year to year, but the order of magnitude doesn't.
+          The "60%" number is supported by ByteIota's 2025 Open Source Analysis
+          and It's FOSS, re-verifying that 60% of open-source maintainers are
+          entirely uncompensated, despite 95% of enterprise software relying
+          fundamentally on their code.
 
           The @BenTheElder quote on the right is the strongest single line
           in the entire kubernetes.org record. He's on the Steering Committee.
@@ -749,11 +823,11 @@
         <h2>Vulnerabilities are becoming significantly more frequent and severe due to AI</h2>
         <div class="content">
           <div style="display: grid; grid-template-columns: 1.15fr 1fr; gap: 40px; align-items: stretch; width: 100%;">
-            <div style="height: 100%;">
+            <div class="panel" style="margin: 0; padding: 18px; height: 100%; box-sizing: border-box; display: flex; flex-direction: column;">
               <figure style="margin: 0; display: flex; flex-direction: column; height: 100%;">
                 <img src="assets/glasswing.jpg"
                   alt="Anthropic Project Glasswing / Claude Mythos Preview vulnerability detection visualization"
-                  style="flex: 1; min-height: 0; width: 100%; object-fit: cover; border: 1px solid var(--line-color); border-radius: 8px;" />
+                  style="flex: 1; min-height: 0; width: 100%; object-fit: cover; border-radius: 4px;" />
                 <figcaption class="font-mono text-muted" style="font-size: 10pt; margin-top: 10px; text-align: center;">
                   Project Glasswing · Anthropic Mythos Preview
                 </figcaption>
@@ -779,14 +853,14 @@
                   Anthropic Glasswing
                 </p>
                 <p style="margin: 0; font-size: 16pt; line-height: 1.4;">
-                  Mythos Preview found <strong>10k+</strong> high/critical bugs (Mozilla: 271, Cloudflare: 400).
+                  Mythos Preview found <strong>10k+</strong> high/critical bugs.
                   Open-source scan: <strong>90.6%</strong> true positive rate (on track for <strong>3,900</strong>
                   validated).
                 </p>
               </div>
 
-              <div class="panel"
-                style="margin: 0; padding: 14px 18px; border-top: 3px solid var(--primary-color); flex: 1; display: flex; flex-direction: column; justify-content: center;">
+              <div class="panel primary"
+                style="margin: 0; padding: 14px 18px; flex: 1; display: flex; flex-direction: column; justify-content: center;">
                 <p class="text-mono"
                   style="margin: 0 0 4px 0; color: var(--primary-color); text-transform: uppercase; letter-spacing: 0.1em; font-size: 12pt; font-weight: 600;">
                   Threat Acceleration
@@ -872,7 +946,7 @@
       </section>
 
       <section id="framework">
-        <h2>A four-step framework</h2>
+        <h2>What could I do?</h2>
         <div class="content">
           <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
             <div class="step">
@@ -883,13 +957,14 @@
             <div class="step">
               <span class="step-number">02 · Assess</span>
               <h3>Assess</h3>
-              <p>For each critical dependency: how many maintainers? Who funds it? Is there a bus factor of one?</p>
+              <p>For each critical dependency: how many maintainers? Who funds it? Is there a <strong>lottery
+                  factor</strong> of one?</p>
             </div>
             <div class="step">
               <span class="step-number">03 · Fund</span>
               <h3>Fund</h3>
-              <p>Direct sponsorship, GitHub Sponsors, Open Collective, foundation dues, Tidelift — pick at least one per
-                critical dep.</p>
+              <p>Direct sponsorship, GitHub Sponsors, Open Collective, foundation dues, LF Foundations, Whatever works.
+              </p>
             </div>
             <div class="step">
               <span class="step-number">04 · Contribute</span>
@@ -898,10 +973,6 @@
                 attention.</p>
             </div>
           </div>
-          <p class="text-center"
-            style="margin-top: 36px; font-size: 15pt; color: var(--primary-color); letter-spacing: 0.03em; font-weight: 600;">
-            <em>Run this loop quarterly: Discover → Assess → Fund → Contribute</em>
-          </p>
         </div>
         <aside class="notes">
           This is the talk's deliverable. Everything before this is setup.
@@ -947,10 +1018,18 @@
                 </div>
               </div>
 
-              <p style="font-size: 13pt; color: var(--muted-color); margin: 0; font-style: italic;">
-                Source: <a href="https://www.youtube.com/watch?v=Z-ZnXPlrZME" target="_blank" rel="noopener">"Build vs.
-                  Buy Is Dead" (YouTube)</a>
-              </p>
+              <div style="border-top: 1px solid var(--line-color); margin-top: 14px; padding-top: 14px; display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center;">
+                <div style="display: flex; flex-direction: column; gap: 4px; text-align: left;">
+                  <span class="font-mono text-xs text-muted" style="font-size: 8pt; text-transform: uppercase; letter-spacing: 0.05em; display: inline-block;">Scan to watch talk</span>
+                  <p style="font-size: 11.5pt; color: var(--muted-color); margin: 0; font-style: italic; line-height: 1.3;">
+                    Source: <a href="https://www.youtube.com/watch?v=Z-ZnXPlrZME" target="_blank" rel="noopener" style="text-decoration: underline; color: var(--primary-color);">"Build vs. Buy Is Dead" (YouTube)</a>
+                  </p>
+                </div>
+                <div style="display: flex; align-items: center; gap: 10px; border-left: 3px solid var(--primary-color); padding-left: 16px;">
+                  <img class="ref-qr qr-dark-theme" src="assets/youtube-build-vs-buy-qr-dark.png" alt="YouTube Build vs Buy QR Code" style="width: 70px; height: 70px;" />
+                  <img class="ref-qr qr-light-theme" src="assets/youtube-build-vs-buy-qr-light.png" alt="YouTube Build vs Buy QR Code" style="width: 70px; height: 70px;" />
+                </div>
+              </div>
             </div>
 
             <!-- Right column: Upstream contribution -->
@@ -965,19 +1044,32 @@
                 </p>
               </div>
 
-              <div class="panel" style="border-top: 4px solid var(--primary-color); padding: 24px 28px; margin: 0;">
+              <div class="panel" style="border-top: 4px solid var(--primary-color); padding: 24px 28px; margin: 0; display: flex; flex-direction: column; gap: 10px;">
                 <p class="font-mono"
-                  style="font-size: 10pt; color: var(--primary-color); text-transform: uppercase; letter-spacing: 0.16em; margin: 0 0 8px 0; font-weight: 600;">
+                  style="margin: 0; font-size: 10pt; color: var(--primary-color); text-transform: uppercase; letter-spacing: 0.16em; font-weight: 600;">
                   Game Plan Tech · case study
                 </p>
-                <p style="margin: 0; font-size: 15pt; line-height: 1.4;">
-                  Added GCS Workload Identity support to Percona MongoDB Operator (<a
-                    href="https://github.com/percona/percona-server-mongodb-operator/pull/2315" target="_blank"
-                    rel="noopener">#2315</a>) for a federal compliance workload.
+                <p style="margin: 0; font-size: 14pt; line-height: 1.45;">
+                  Added GCS Workload Identity support to Percona MongoDB Operator for a federal compliance workload.
                 </p>
-                <p style="margin: 10px 0 0 0; font-size: 13pt; line-height: 1.4; color: var(--muted-color);">
+                <p style="margin: 0; font-size: 12.5pt; line-height: 1.45; color: var(--muted-color);">
                   Rather than maintaining a private fork, contributing upstream solved it for us and the community.
                 </p>
+                
+                <div style="border-top: 1px solid var(--line-color); margin-top: 6px; padding-top: 14px; display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center;">
+                  <div style="display: flex; flex-direction: column; gap: 4px;">
+                    <span class="font-mono text-xs text-muted" style="font-size: 8pt; text-transform: uppercase; letter-spacing: 0.05em; display: inline-block;">Upstream Pull Request</span>
+                    <a href="https://github.com/percona/percona-server-mongodb-operator/pull/2315" target="_blank" rel="noopener"
+                      class="font-mono" style="color: var(--primary-color); font-size: 10pt; font-weight: 600; text-decoration: underline;">
+                      percona-operator#2315
+                    </a>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 10px; border-left: 3px solid var(--primary-color); padding-left: 16px;">
+                    <img class="ref-qr qr-dark-theme" src="assets/percona-pr-qr-dark.png" alt="Percona Pull Request QR Code" style="width: 68px; height: 68px;" />
+                    <img class="ref-qr qr-light-theme" src="assets/percona-pr-qr-light.png" alt="Percona Pull Request QR Code" style="width: 68px; height: 68px;" />
+                    <span class="font-mono text-xs text-muted" style="font-size: 7.5pt; line-height: 1.25; max-width: 55px; display: inline-block;">Scan to view PR</span>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -1021,55 +1113,57 @@
 
       <section id="actions">
         <h2>What you do on Monday</h2>
-        <div class="content">
-          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 16px;">
-            <div class="panel">
-              <p class="text-lg"
-                style="margin: 0 0 8px 0; font-family: var(--mono-font); color: var(--primary-color); text-transform: uppercase; letter-spacing: 0.1em;">
-                <i class="fa-solid fa-user-tie"></i> If you lead engineers
+        <div class="content"
+          style="justify-content: center; align-items: center; padding-top: 0; width: 100%; max-width: 1150px;">
+          <div
+            style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: stretch; width: 100%; margin: 0 auto;">
+
+            <!-- Column 1: Leaders & Platform Teams -->
+            <div class="panel primary"
+              style="margin: 0; padding: 32px; display: flex; flex-direction: column; justify-content: center; text-align: left;">
+              <p class="text-mono"
+                style="margin: 0 0 16px 0; color: var(--primary-color); text-transform: uppercase; letter-spacing: 0.12em; font-size: 12.5pt; font-weight: 600;">
+                <i class="fa-solid fa-users-gear"></i> Leaders & SRE Teams
               </p>
-              <ul style="margin-top: 8px; font-size: 16pt;">
-                <li>Add OSS sustainability to your budget conversation.</li>
-                <li>Fund at least one maintainer or foundation this quarter.</li>
-                <li>Recognize internal OSS contribution as real work in performance reviews.</li>
-              </ul>
-            </div>
-            <div class="panel">
-              <p class="text-lg"
-                style="margin: 0 0 8px 0; font-family: var(--mono-font); color: var(--primary-color); text-transform: uppercase; letter-spacing: 0.1em;">
-                <i class="fa-solid fa-gears"></i> If you're on a platform / SRE team
+              <p class="text-muted" style="margin: 0 0 16px 0; font-size: 15.5pt; line-height: 1.5;">
+                Before adding a new dependency to your tech stack:
               </p>
-              <ul style="margin-top: 8px; font-size: 16pt;">
-                <li>Keep track of your SBOMs</li>
-                <li>Tag your top transitive dependencies and keep track of the lottery factor.</li>
-                <li>Open issues upstream before you open them internally.</li>
-              </ul>
-            </div>
-            <div class="panel">
-              <p class="text-lg"
-                style="margin: 0 0 8px 0; font-family: var(--mono-font); color: var(--primary-color); text-transform: uppercase; letter-spacing: 0.1em;">
-                <i class="fa-solid fa-laptop-code"></i> If you're an individual contributor
+              <p
+                style="margin: 0; font-size: 19pt; line-height: 1.5; font-style: italic; font-weight: 500; border-left: 3px solid var(--primary-color); padding-left: 16px; color: var(--text-color);">
+                "If the core maintainer for this project won the lottery, what's the worst thing that could happen to
+                your project?"
               </p>
-              <ul style="margin-top: 8px; font-size: 16pt;">
-                <li>Pick one dependency you use every day. Read the issues. Star the repo.</li>
-                <li>Submit one PR this month — docs count.</li>
-                <li>Pay for the maintainer's work if they accept money.</li>
-              </ul>
             </div>
+
+            <!-- Column 2: Individual Contributors -->
+            <div class="panel success"
+              style="margin: 0; padding: 32px; display: flex; flex-direction: column; justify-content: center; text-align: left;">
+              <p class="text-mono"
+                style="margin: 0 0 16px 0; color: var(--success-color); text-transform: uppercase; letter-spacing: 0.12em; font-size: 12.5pt; font-weight: 600;">
+                <i class="fa-solid fa-laptop-code"></i> Individual Contributors
+              </p>
+              <p class="text-muted" style="margin: 0 0 16px 0; font-size: 15.5pt; line-height: 1.5;">
+                Have you ever thought, <em>"Ugh, this project is great but if it had this X feature it would fit my
+                  needs
+                  perfectly"</em>?
+              </p>
+              <p
+                style="margin: 0; font-size: 19pt; line-height: 1.5; font-weight: 600; border-left: 3px solid var(--success-color); padding-left: 16px; color: var(--success-color);">
+                Open a Github Issue and contribute back!
+              </p>
+            </div>
+
           </div>
         </div>
         <aside class="notes">
-          Three columns, three audiences. The segmentation matters because
-          the right next step depends on your role. Don't say "everybody
-          should fund maintainers" — leaders fund, ICs contribute time, SREs
-          assess and route.
+          Two columns, two audiences, each with a single question to ask
+          before they import or deploy open source software.
 
-          The "if you're an individual contributor" column is the most
-          underestimated. ICs are the largest audience in the room and the
-          most likely to act. Make their action feel small and concrete.
+          Leaders & SREs/Platform teams need to evaluate the operational risk (lottery factor).
+          Individual contributors need to think about active engagement and giving back.
 
-          [TIMING: 2 minutes. Don't read the bullets. Tell a one-line story
-          for each column instead.]
+          [TIMING: 2 minutes. Focus on shifting their mental model: ask the question
+          before you run 'npm install' or 'helm install'.]
         </aside>
       </section>
 
@@ -1081,10 +1175,10 @@
             <!-- GitHub CLI -->
             <div>
               <p class="text-mono"
-                style="margin: 0 0 8px 0; color: var(--primary-color); font-size: 14pt; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">
+                style="margin: 0 0 6px 0; color: var(--primary-color); font-size: 13pt; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">
                 <i class="fa-brands fa-github"></i> GitHub CLI (gh)
               </p>
-              <div class="terminal" style="margin: 0; padding: 18px 22px; font-size: 11pt; line-height: 1.5;">
+              <div class="terminal" style="margin: 0; padding: 12px 18px; font-size: 9.5pt; line-height: 1.35;">
                 <span class="text-muted"># Loop all repos & fetch transitives (Free)</span><br />
                 <span class="prompt">$</span> for repo in $(gh repo list --limit 100 \<br />
                 &nbsp;&nbsp;&nbsp;&nbsp;--json nameWithOwner -q '.[].nameWithOwner'); do<br />
@@ -1111,10 +1205,10 @@
             <!-- GitLab CLI -->
             <div>
               <p class="text-mono"
-                style="margin: 0 0 8px 0; color: var(--secondary-color); font-size: 14pt; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">
+                style="margin: 0 0 6px 0; color: var(--secondary-color); font-size: 13pt; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">
                 <i class="fa-brands fa-gitlab"></i> GitLab CLI (glab)
               </p>
-              <div class="terminal" style="margin: 0; padding: 18px 22px; font-size: 11pt; line-height: 1.5;">
+              <div class="terminal" style="margin: 0; padding: 12px 18px; font-size: 9.5pt; line-height: 1.35;">
                 <span class="text-muted"># Loop all projects & fetch transitives (Free)</span><br />
                 <span class="prompt">$</span> for repo in $(glab repo list -F json | \<br />
                 &nbsp;&nbsp;&nbsp;&nbsp;jq -r '.[].path_with_namespace'); do<br />
@@ -1142,8 +1236,8 @@
           </div>
         </div>
         <aside class="notes">
-          Lottery factor (or bus factor) is defined as the number of key developers
-          who must be run over by a bus (or win the lottery) before the project halts.
+          Lottery factor is defined as the number of key developers
+          who must win the lottery (or be run over by a bus) before the project halts.
 
           You can automate this via CLI scripts querying the API. Active contributors
           can be estimated by filtering for users with >10 contributions/commits in the
@@ -1159,7 +1253,8 @@
             <div style="display: flex; flex-direction: column; gap: 16px;">
               <!-- GitHub Actions -->
               <div>
-                <p class="text-mono" style="margin: 0 0 6px 0; color: var(--primary-color); font-size: 13pt; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">
+                <p class="text-mono"
+                  style="margin: 0 0 6px 0; color: var(--primary-color); font-size: 13pt; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">
                   <i class="fa-brands fa-github"></i> GitHub Action
                 </p>
                 <div class="terminal" style="margin: 0; padding: 14px 18px; font-size: 9.5pt; line-height: 1.3;">
@@ -1173,7 +1268,8 @@
 
               <!-- GitLab CI -->
               <div>
-                <p class="text-mono" style="margin: 0 0 6px 0; color: var(--secondary-color); font-size: 13pt; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">
+                <p class="text-mono"
+                  style="margin: 0 0 6px 0; color: var(--secondary-color); font-size: 13pt; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">
                   <i class="fa-brands fa-gitlab"></i> GitLab CI/CD
                 </p>
                 <div class="terminal" style="margin: 0; padding: 14px 18px; font-size: 9.5pt; line-height: 1.3;">
@@ -1185,18 +1281,24 @@
               </div>
 
               <!-- Alternative Links -->
-              <p style="font-size: 11pt; color: var(--text-color); margin: 8px 0 0 0; line-height: 1.4; text-align: left;">
-                <i class="fa-solid fa-link" style="color: var(--primary-color);"></i> &nbsp;Explore compliance tools: 
-                <a href="https://oss-review-toolkit.org" target="_blank" style="color: var(--primary-color); text-decoration: underline;">ORT</a> · 
-                <a href="https://snyk.io" target="_blank" style="color: var(--primary-color); text-decoration: underline;">Snyk</a> · 
-                <a href="https://github.com/features/security" target="_blank" style="color: var(--primary-color); text-decoration: underline;">GitHub Dependency Graph</a>
+              <p
+                style="font-size: 11pt; color: var(--text-color); margin: 8px 0 0 0; line-height: 1.4; text-align: left;">
+                <i class="fa-solid fa-link" style="color: var(--primary-color);"></i> &nbsp;Explore compliance tools:
+                <a href="https://oss-review-toolkit.org" target="_blank"
+                  style="color: var(--primary-color); text-decoration: underline;">ORT</a> ·
+                <a href="https://snyk.io" target="_blank"
+                  style="color: var(--primary-color); text-decoration: underline;">Snyk</a> ·
+                <a href="https://github.com/features/security" target="_blank"
+                  style="color: var(--primary-color); text-decoration: underline;">GitHub Dependency Graph</a>
               </p>
             </div>
 
             <!-- Report Image -->
             <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
-              <img src="assets/ort_report_tineoc.png" alt="ORT Analyzer Report github.com/tineoc" style="border: 2px solid var(--primary-color); border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.5); max-height: 380px; width: auto;" />
-              <p class="text-mono" style="font-size: 10pt; color: var(--muted-color); margin-top: 8px; text-transform: uppercase; letter-spacing: 0.1em;">
+              <img src="assets/ort_report_tineoc.png" alt="ORT Analyzer Report github.com/tineoc"
+                style="border: 2px solid var(--primary-color); border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.5); max-height: 380px; width: auto;" />
+              <p class="text-mono"
+                style="font-size: 10pt; color: var(--muted-color); margin-top: 8px; text-transform: uppercase; letter-spacing: 0.1em;">
                 Report: github.com/tineoc
               </p>
             </div>
@@ -1238,42 +1340,81 @@
         </aside>
       </section>
 
+      <section id="k8s-12th-anniversary">
+        <h2>Happy 12th Anniversary, Kubernetes!</h2>
+        <div class="content" style="justify-content: center; align-items: center; padding-top: 0; width: 100%;">
+          <div class="panel primary"
+            style="max-width: 900px; padding: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(94, 168, 167, 0.04); border-color: var(--primary-color); margin: 0 auto;">
+            <img src="assets/kubernetes-12-anniversary.jpeg" alt="Kubernetes 12th Anniversary Celebration"
+              style="max-height: 420px; width: auto; border-radius: 8px; box-shadow: 0 12px 32px rgba(0,0,0,0.45); border: 2px solid var(--primary-color);" />
+            <p class="text-mono"
+              style="margin-top: 20px; color: var(--primary-color); font-size: 15pt; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0;">
+              12 Years of Cloud-Native Innovation (2014 – 2026)
+            </p>
+          </div>
+        </div>
+        <aside class="notes">
+          We are celebrating 12 years of Kubernetes! A community of builders, SREs, and maintainers.
+          To celebrate, we are giving away a free ticket to KCD New York 2026 on the next slide.
+          [TIMING: 30s. Transition to the giveaway.]
+        </aside>
+      </section>
+
       <section id="kcd-gift" class="section-divider" data-state="is-section-divider">
         <span class="section-number"><i class="fa-solid fa-gift"></i>&nbsp; One more thing</span>
-        <h1 style="font-size: 46pt; line-height: 1.1; max-width: 1050px; margin-bottom: 24px;">
-          A free ticket to KCD New York 2026
+        <h1 style="font-size: 36pt; line-height: 1.15; max-width: 1050px; margin-bottom: 20px; padding-bottom: 8px;">
+          Celebrating 12 years of Kubernetes:<br />
+          <span style="color: var(--primary-color);">Your free ticket to KCD New York 2026</span>
         </h1>
-        <div class="content" style="justify-content: center; align-items: center; padding-top: 8px;">
+        <div class="content"
+          style="justify-content: center; align-items: center; padding-top: 0; width: 100%; max-width: 1100px;">
           <div
-            style="display: grid; grid-template-columns: 330px 1fr; gap: 56px; align-items: center; max-width: 1050px; width: 100%;">
-            <figure style="margin: 0; text-align: center;">
+            style="display: grid; grid-template-columns: 380px 1fr; gap: 40px; align-items: stretch; width: 100%; margin: 0 auto;">
+
+            <!-- Column 1: Ticket QR Code -->
+            <div class="panel primary"
+              style="margin: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 24px; gap: 14px; background: rgba(94, 168, 167, 0.05); border-color: var(--primary-color);">
               <img src="assets/kcd-qr.png" alt="QR code linking to KCD New York ticket redemption"
-                style="width: 290px; height: 290px; border: 1px solid var(--line-color); background: #ffffff; padding: 12px; box-sizing: border-box;" />
-              <figcaption class="font-mono text-muted"
-                style="font-size: 11pt; margin-top: 10px; font-style: normal; word-break: break-all;">
+                style="width: 100%; height: auto; aspect-ratio: 1/1; border-radius: 8px; border: 8px solid #ffffff; box-sizing: border-box; box-shadow: 0 12px 32px rgba(0,0,0,0.35);" />
+              <span class="font-mono"
+                style="font-size: 11pt; color: var(--primary-color); word-break: break-all; font-weight: 600; margin-top: 8px;">
                 tickets.kcdnewyork.com/redeem
-              </figcaption>
-            </figure>
-            <div style="text-align: left; min-width: 0;">
-              <img src="assets/kcd-logo.png" alt="KCD New York 2026 logo"
-                style="max-width: 420px; width: 100%; height: auto; margin-bottom: 20px; border: none;" />
-              <p style="margin: 0 0 6px 0; font-weight: 600; font-size: 18pt;">
-                <i class="fa-regular fa-calendar"></i>&nbsp; June 10, 2026
-              </p>
-              <p class="font-mono"
-                style="font-size: 14pt; margin: 12px 0 0 0; word-break: break-all; line-height: 1.4;">
-                Voucher: <strong style="color: var(--primary-color);">KCDNY26-CHRIS-ORGANIZER-FREE</strong>
-              </p>
-              <p class="text-muted" style="font-size: 13pt; margin-top: 12px; line-height: 1.4;">
-                Scan the QR code or enter the voucher at checkout. One ticket per attendee.
-              </p>
+              </span>
             </div>
+
+            <!-- Column 2: Event & Voucher Details -->
+            <div class="panel"
+              style="margin: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 32px; gap: 20px; background: var(--panel-bg); border: 1px solid var(--panel-border); text-align: left;">
+              <div style="display: flex; flex-direction: column; gap: 18px;">
+                <img src="assets/kcd-logo.png" alt="KCD New York 2026 logo"
+                  style="max-width: 380px; width: 100%; height: auto; border: none; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.25)); margin-bottom: 6px;" />
+
+                <div
+                  style="font-weight: 600; font-size: 18pt; display: flex; align-items: center; gap: 12px; color: var(--text-color);">
+                  <i class="fa-regular fa-calendar" style="color: var(--primary-color);"></i>
+                  <span>June 10, 2026</span>
+                </div>
+
+                <div class="font-mono"
+                  style="font-size: 12pt; line-height: 1.4; padding: 14px 16px; background: rgba(255, 255, 255, 0.04); border-radius: 6px; border-left: 4px solid var(--primary-color);">
+                  Voucher: <strong
+                    style="color: var(--primary-color); font-size: 13.5pt; letter-spacing: 0.02em;">KCDNY26-CHRIS-ORGANIZER-FREE</strong>
+                </div>
+              </div>
+
+              <div class="text-muted font-mono"
+                style="font-size: 10pt; line-height: 1.4; border-top: 1px solid var(--line-color); padding-top: 18px;">
+                <i class="fa-solid fa-circle-info" style="color: var(--primary-color); margin-right: 4px;"></i>
+                Scan the QR code or enter the voucher at checkout. One ticket per attendee.
+              </div>
+            </div>
+
           </div>
         </div>
         <aside class="notes">
           The gift. Scan the QR code (or use the voucher manually if scanning
           fails) to redeem a free ticket to KCD New York 2026 on June 10th.
-          
+
           [TIMING: 30s. Don't dwell. The room is already thinking about
           their June calendars. Let them.]
         </aside>

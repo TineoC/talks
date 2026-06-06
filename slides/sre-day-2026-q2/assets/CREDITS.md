@@ -47,6 +47,15 @@ Image and media attributions for the SRE Day NYC 2026 Q2 talk *"Free Software Is
 
 ---
 
+## Slide 23 — Kubernetes 12th Anniversary art (kcd-gift slide)
+
+**File:** `kubernetes-12-anniversary.jpeg` (1024×1024, 183 KB)
+**Source:** Kubernetes community / official (kubernetes.io / CNCF)
+**Subject:** "12 Years of Kubernetes" — anniversary art featuring the Kubernetes ship and celebratory fireworks
+**License:** Community / official Kubernetes project artwork. Used on the kcd-gift slide to frame the KCD New York ticket giveaway as a celebration of the project's 12th anniversary.
+
+---
+
 ## Slide 24 — Contact (QR codes)
 
 **Files:** `linkedin-qr.png` (500×500, 649 B) and `slides-qr.png` (500×500, 788 B)

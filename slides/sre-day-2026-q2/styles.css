@@ -427,23 +427,7 @@
 }
 
 .panel.critical {
-  border-left: 4px solid var(--critical-color);
-}
-
-.panel.warn {
-  border-left: 4px solid var(--secondary-color);
-}
-
-.panel.success {
-  border-left: 4px solid var(--success-color);
-}
-
-.panel.primary {
-  border-left: 4px solid var(--primary-color);
-}
-
-.panel.critical {
-  border-left: 4px solid var(--critical-color);
+  border-left: 6px solid var(--critical-color);
 }
 
 .panel.warn {
@@ -766,20 +750,32 @@
 .cert-badge {
   width: 120px;
   height: 120px;
-  border: 1px solid var(--line-color);
-  border-radius: 50%;
-  background: #ffffff;
-  padding: 8px;
+  background: transparent;
   box-sizing: border-box;
-  transition: transform 0.25s ease-out, border-color 0.25s ease-out, box-shadow 0.25s ease-out;
+  transition: transform 0.25s ease-out, filter 0.25s ease-out;
   object-fit: contain;
   cursor: pointer;
 }
 
 .cert-badge:hover {
   transform: scale(1.1) translateY(-4px);
-  border-color: var(--primary-color);
-  box-shadow: 0 8px 24px rgba(94, 168, 167, 0.3);
+  filter: drop-shadow(0 8px 16px rgba(94, 168, 167, 0.45));
+}
+
+/* Default Theme (Dark Mode) Badge Toggle */
+.cert-gcp-light {
+  display: none !important;
+}
+.cert-gcp-dark {
+  display: block !important;
+}
+
+/* Light Theme Active Badge Toggle */
+:root[data-theme="light"] .cert-gcp-light {
+  display: block !important;
+}
+:root[data-theme="light"] .cert-gcp-dark {
+  display: none !important;
 }
 
 .cert-label {
@@ -1027,4 +1023,29 @@
 .reveal a:hover {
   color: var(--primary-deep);
   border-bottom-color: var(--primary-deep);
+}
+
+/* Reference QR Codes - floating transparently on slide backgrounds */
+.ref-qr {
+  background: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  border: none !important;
+  box-sizing: border-box !important;
+}
+
+/* Hide light theme QR codes by default (dark mode is active) */
+.ref-qr.qr-light-theme {
+  display: none !important;
+}
+.ref-qr.qr-dark-theme {
+  display: inline-block !important;
+}
+
+/* Toggle displays when light theme is active */
+:root[data-theme="light"] .ref-qr.qr-light-theme {
+  display: inline-block !important;
+}
+:root[data-theme="light"] .ref-qr.qr-dark-theme {
+  display: none !important;
 }
