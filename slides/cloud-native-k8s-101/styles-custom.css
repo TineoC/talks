@@ -1,0 +1,62 @@
+/* Cloud Native & Kubernetes 101 — GalaxyGate Workshop Custom Styles
+ *
+ * Overrides and additions to the base terminal-flavored dark theme.
+ * GalaxyGate brand palette: deep space purple + bright cyan accent.
+ */
+
+:root {
+  /* GalaxyGate brand */
+  --galaxygate-purple: #7B2FBE;
+  --galaxygate-purple-deep: #5B1E94;
+  --galaxygate-cyan: #00D4FF;
+  --galaxygate-cyan-deep: #0099CC;
+
+  /* Workshop-specific sizing tweaks */
+  --code-yaml-size: 9pt;
+}
+
+/* Sponsor panel — GalaxyGate brand treatment */
+.reveal .slides section#sponsor .panel.primary {
+  border-left-color: var(--galaxygate-purple);
+  border-top: 3px solid var(--galaxygate-purple);
+}
+
+.reveal .slides section#sponsor .panel.primary .text-3xl {
+  background: linear-gradient(135deg, var(--galaxygate-purple), var(--galaxygate-cyan));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* GalaxyGate stat numbers in sponsor slide */
+.reveal .slides section#sponsor .stat .number {
+  color: var(--galaxygate-cyan);
+}
+
+/* Title slide event/sponsor line — GalaxyGate purple star */
+.reveal .slides section#title .event .fa-star {
+  color: var(--galaxygate-purple) !important;
+}
+
+/* Closing slide GalaxyGate thank you */
+.reveal .slides section#closing h1 {
+  color: var(--galaxygate-cyan);
+}
+
+/* Sections with code-terminal content need tighter spacing */
+.reveal .slides section .terminal code,
+.reveal .slides section .terminal pre {
+  font-size: var(--code-yaml-size);
+}
+
+/* Demo flow terminal accent */
+.reveal .slides section#demo-flow .terminal {
+  border-left: 3px solid var(--galaxygate-purple);
+}
+
+/* Resource links keep primary teal from base theme — consistent and readable */
+
+/* Light theme overrides */
+:root[data-theme="light"] .reveal .slides section#sponsor .panel.primary {
+  border-left-color: var(--galaxygate-purple-deep);
+}
