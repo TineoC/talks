@@ -1,0 +1,18 @@
+{
+  "name": "cloud-native-k8s-101",
+  "version": "1.0.0",
+  "description": "Cloud Native & Kubernetes 101 — Coffee & Code Philly slides",
+  "private": true,
+  "scripts": {
+    "dev": "slidev --open",
+    "build": "slidev build",
+    "export": "slidev export"
+  },
+  "keywords": ["kubernetes", "cloud-native", "slidev", "workshop"],
+  "author": "Christopher Tineo",
+  "license": "ISC",
+  "devDependencies": {
+    "@slidev/cli": "^52.18.0",
+    "@slidev/theme-default": "^0.25.0"
+  }
+}

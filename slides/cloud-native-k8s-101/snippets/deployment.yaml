@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloud-native-101
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cloud-native-101
+  template:
+    metadata:
+      labels:
+        app: cloud-native-101
+    spec:
+      containers:
+        - name: app
+          image: cloud-native-101-app:local
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 128Mi
