@@ -1,6 +1,0 @@
-resources:
-  - deployment.yaml
-  - service.yaml
-  - gateway-api.yaml
-  - configmap.yaml
-  - secret.yaml

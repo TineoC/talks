@@ -1,0 +1,62 @@
+name: Deploy Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'slides/cloud-native-k8s-101/**'
+      - 'slides/sre-day-2026-q2/**'
+      - '.github/workflows/deploy-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: slides/cloud-native-k8s-101/package-lock.json
+
+      - name: Build Cloud Native K8s 101 (Slidev)
+        working-directory: slides/cloud-native-k8s-101
+        run: |
+          npm ci
+          npx slidev build --base /talks/cloud-native-k8s-101/
+
+      - name: Stage all decks under the site
+        run: |
+          mkdir -p "$GITHUB_WORKSPACE/_site/cloud-native-k8s-101"
+          cp -a slides/cloud-native-k8s-101/dist/. "$GITHUB_WORKSPACE/_site/cloud-native-k8s-101/"
+
+          mkdir -p "$GITHUB_WORKSPACE/_site/sre-day-2026-q2"
+          cp -a slides/sre-day-2026-q2/index.html slides/sre-day-2026-q2/styles.css slides/sre-day-2026-q2/assets "$GITHUB_WORKSPACE/_site/sre-day-2026-q2/"
+
+          # Site-root 404.html so GitHub Pages falls back to the SPA shell for
+          # deep-linked Slidev slide URLs (e.g. /cloud-native-k8s-101/1).
+          cp slides/cloud-native-k8s-101/dist/404.html "$GITHUB_WORKSPACE/_site/404.html"
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

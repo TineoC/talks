@@ -1,0 +1,28 @@
+[
+  {
+    "event": "Coffee & Code Philly",
+    "title": "Cloud Native & Kubernetes 101",
+    "date": "July 2026",
+    "pages": "cloud-native-k8s-101",
+    "lab": "https://killercoda.com/tineoc/scenario/cloud-native-k8s-101"
+  },
+  {
+    "event": "SRE Day 2026 Q2",
+    "title": "This is fine: The Real Cost of \"Free\" Software",
+    "date": "Summer 2026",
+    "pages": "sre-day-2026-q2",
+    "pdf": "slides/sre-day-2026-q2/sre-day-2026-q2.pdf"
+  },
+  {
+    "event": "Private Class at INTEC University",
+    "title": "Masterclass Cloud Native & Open Source",
+    "date": "January 2026",
+    "external": "https://docs.google.com/presentation/d/11xAC6LqOMyUr9ii3dzjZQA94KfVtkNqQM2LYf67qJOw/edit?usp=sharing"
+  },
+  {
+    "event": "KCD NY 2025",
+    "title": "Empowering Cloud Native Development",
+    "date": "Summer 2025",
+    "pdf": "slides/ChristopherTineo_Empowering_Cloud_Native_Development_KCDNY2025.pdf"
+  }
+]

@@ -1,5 +1,0 @@
-cosign.key
-cosign.pub
-sbom.spdx.json
-__pycache__/
-*.pyc

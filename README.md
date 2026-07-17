@@ -17,11 +17,19 @@ But I'm always open to join new communities.
 
 ## Talks
 
+To add a new session, add an entry to [`talks.json`](talks.json) and push to `main` — this table
+regenerates automatically (see [`.github/workflows/update-readme.yml`](.github/workflows/update-readme.yml)).
+
+<!-- TALKS:START -->
 | Event | Title | Slides | Date |
 | :--- | :--- | :--- | :--- |
-| SRE Day 2026 Q2 | This is fine: The Real Cost of "Free" Software | [HTML](slides/sre-day-2026-q2/index.html) · [PDF](slides/sre-day-2026-q2/sre-day-2026-q2.pdf) | Summer 2026 |
+| Coffee & Code Philly | Cloud Native & Kubernetes 101 | [HTML](https://tineoc.github.io/talks/cloud-native-k8s-101/) · [Lab](https://killercoda.com/tineoc/scenario/cloud-native-k8s-101) | July 2026 |
+| SRE Day 2026 Q2 | This is fine: The Real Cost of "Free" Software | [HTML](https://tineoc.github.io/talks/sre-day-2026-q2/) · [PDF](slides/sre-day-2026-q2/sre-day-2026-q2.pdf) | Summer 2026 |
 | Private Class at INTEC University | Masterclass Cloud Native & Open Source | [Slides](https://docs.google.com/presentation/d/11xAC6LqOMyUr9ii3dzjZQA94KfVtkNqQM2LYf67qJOw/edit?usp=sharing) | January 2026 |
-| KCD NY 2025 | Empowering Cloud Native Development | [Slides](slides/ChristopherTineo_Empowering_Cloud_Native_Development_KCDNY2025.pdf) | Summer 2025 |
+| KCD NY 2025 | Empowering Cloud Native Development | [PDF](slides/ChristopherTineo_Empowering_Cloud_Native_Development_KCDNY2025.pdf) | Summer 2025 |
+<!-- TALKS:END -->
+
+Companion hands-on lab for Cloud Native & Kubernetes 101: [cloud-native-k8s-101-lab](https://github.com/TineoC/cloud-native-k8s-101-lab).
 
 ---
 
