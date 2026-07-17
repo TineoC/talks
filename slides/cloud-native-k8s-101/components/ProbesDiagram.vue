@@ -239,11 +239,14 @@ export default {
 
 <style scoped>
 .probes-yaml-card {
-  height: 360px;
+  height: 100%;
+  min-height: 0;
 }
 
 .probes-visual-panel {
-  height: 360px;
+  height: 100%;
+  min-height: 0;
+  overflow: auto;
 }
 
 .probes-dashboard {

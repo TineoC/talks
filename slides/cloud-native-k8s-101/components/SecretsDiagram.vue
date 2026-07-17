@@ -159,15 +159,18 @@ export default {
 
 <style scoped>
 .secrets-diagram {
-  height: 380px;
+  height: 100%;
+  min-height: 0;
 }
 
 .secrets-yaml-card {
-  height: 360px;
+  height: 100%;
+  min-height: 0;
 }
 
 .secrets-visual {
-  height: 360px;
+  height: 100%;
+  min-height: 0;
   display: flex;
   align-items: center;
 }
@@ -212,7 +215,7 @@ export default {
 
 .sec-card code {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px;
+  font-size: 13px;
   color: #CF5A5A;
 }
 
@@ -238,7 +241,7 @@ export default {
   background: #0F1C2A;
   color: #A6E22E;
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 9px;
+  font-size: 13px;
   padding: 5px 8px;
   border-radius: 4px;
   line-height: 1.45;

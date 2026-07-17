@@ -230,15 +230,18 @@ export default {
 
 <style scoped>
 .compose-diagram {
-  height: 380px;
+  height: 100%;
+  min-height: 0;
 }
 
 .compose-yaml-card {
-  height: 360px;
+  height: 100%;
+  min-height: 0;
 }
 
 .compose-visual {
-  height: 360px;
+  height: 100%;
+  min-height: 0;
   display: flex;
   align-items: center;
 }
@@ -292,7 +295,7 @@ export default {
 
 .cmp-card code {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 9.5px;
+  font-size: 13px;
   color: #0088B8;
 }
 
@@ -313,7 +316,7 @@ export default {
   background: #0F1C2A;
   color: #A6E22E;
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 9px;
+  font-size: 13px;
   padding: 5px 8px;
   border-radius: 4px;
 }

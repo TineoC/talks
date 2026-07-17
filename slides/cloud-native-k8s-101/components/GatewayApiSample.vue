@@ -222,15 +222,18 @@ export default {
 
 <style scoped>
 .gateway-sample {
-  height: 380px;
+  height: 100%;
+  min-height: 0;
 }
 
 .gateway-yaml-card {
-  height: 360px;
+  height: 100%;
+  min-height: 0;
 }
 
 .gateway-visual {
-  height: 360px;
+  height: 100%;
+  min-height: 0;
   display: flex;
   align-items: center;
 }
@@ -319,7 +322,7 @@ export default {
   background: #0F1C2A;
   color: #A6E22E;
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 8.5px;
+  font-size: 13px;
   padding: 4px 7px;
   border-radius: 4px;
 }

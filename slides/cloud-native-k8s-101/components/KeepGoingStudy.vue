@@ -106,11 +106,11 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.85rem;
+  gap: 0.65rem;
   text-decoration: none;
   color: inherit;
   background: #fff;
-  padding: 1rem 1.1rem;
+  padding: 0.7rem 0.85rem;
   box-shadow: inset 4px 0 0 #0088B8;
   min-height: 0;
   height: 100%;
@@ -155,8 +155,8 @@ export default {
 }
 
 .study-qr {
-  width: 5.5rem;
-  height: 5.5rem;
+  width: 4.25rem;
+  height: 4.25rem;
   flex-shrink: 0;
   image-rendering: pixelated;
 }

@@ -49,6 +49,8 @@ notes: |
 
 <h1 class="whoami-name">Christopher Tineo</h1>
 
+<div class="visual-dominant whoami-wrap">
+
 <div class="grid-2">
 <div class="profile-card whoami-card">
   <div class="whoami-header">
@@ -77,32 +79,28 @@ notes: |
 </div>
 </div>
 
+</div>
+
 ---
+clicks: 4
 notes: |
-  Agenda: 3 min problem · ~7 min containers · ~8 min K8s objects · wrap with certs & community.
+  Agenda mirrors the deck:
+  01 problem (friction, distributed apps) →
+  02 Containers (VMs, Borg, analogy, kernel, Docker, Dockerfile, Compose, ladder) →
+  03 Kubernetes (adoption, AI, architecture, why, SDLC) →
+  04 Core objects (Pods → ownership) →
+  05 lab & keep going.
+  Advance one beat at a time; first item is on screen immediately.
 ---
 
 <p class="title-prompt">❯ agenda</p>
 
 # What we will cover today
 
-<div class="agenda-list">
-  <div class="agenda-item">
-    <span class="num">01</span>
-    <div><strong>Why Cloud Native</strong><span>The gap between laptop and production</span></div>
-  </div>
-  <div class="agenda-item" v-click>
-    <span class="num">02</span>
-    <div><strong>Containers</strong><span>How we package and ship software</span></div>
-  </div>
-  <div class="agenda-item" v-click>
-    <span class="num">03</span>
-    <div><strong>Kubernetes</strong><span>Why it won — market, AI, and core objects</span></div>
-  </div>
-  <div class="agenda-item" v-click>
-    <span class="num">04</span>
-    <div><strong>Where to go next</strong><span>Certs, courses, and communities</span></div>
-  </div>
+<div class="visual-dominant agenda-wrap">
+
+<AgendaWalkthrough :clicks="$clicks" />
+
 </div>
 
 ---
@@ -123,9 +121,10 @@ notes: |
 
 <FrictionDiagram />
 
+</div>
+
 <span class="takeaway">Cloud Native exists because production is a different problem.</span>
 
-</div>
 ---
 notes: |
   One product is rarely one process: APIs, workers, caches, databases.
@@ -171,7 +170,10 @@ How containers differ from traditional virtualization.
 
 ---
 notes: |
-  Google ran containers at scale for over a decade using Borg and Omega, then open-sourced the ideas as Kubernetes in 2014.
+  Google ran Borg at scale from 2003. In 2006 Google engineers invented cgroups
+  (process containers) for CPU/memory/I/O limits — later upstreamed into Linux.
+  Docker (2013) made containers easy for developers; Kubernetes (2014) open-sourced
+  Borg’s orchestration ideas; CNCF (2015) became their neutral home.
 ---
 
 <p class="title-prompt">❯ history</p>
@@ -235,13 +237,13 @@ notes: |
 ---
 clicks: 8
 notes: |
-  Walk Acme Shop Dockerfile instruction by instruction.
-  FROM slim → WORKDIR → COPY app.py only → USER non-root → ENV (no secrets) →
+  Walk a tiny web-app Dockerfile — same ideas as production recipes, fewer lines.
+  FROM slim → WORKDIR → COPY only the app → USER non-root → ENV (no secrets) →
   EXPOSE docs port → HEALTHCHECK local → CMD exec form.
   Click lines / tabs or advance with keyboard; layer rail lights as you go.
 ---
 
-<p class="title-prompt">❯ dockerfile · acme-shop</p>
+<p class="title-prompt">❯ dockerfile</p>
 
 # Each Dockerfile line, explained
 
@@ -274,9 +276,13 @@ notes: |
 <span class="takeaway">Compose ships the stack to every laptop. Production still needs an orchestrator.</span>
 
 ---
+clicks: 3
 notes: |
-  Ladder: VMs virtualize hardware. Containers package the app. Kubernetes schedules many containers.
-  Each step keeps the previous benefit and adds control.
+  Ladder, one rung at a time:
+  1) VMs virtualize hardware (full guest OS).
+  2) Containers virtualize the OS (share host kernel).
+  3) Kubernetes virtualizes the cluster (schedule, heal, balance).
+  Closing banner: each step keeps the previous benefit and adds control.
 ---
 
 <p class="title-prompt">❯ ladder</p>
@@ -285,7 +291,7 @@ notes: |
 
 <div class="visual-dominant">
 
-<PackagingLadder />
+<PackagingLadder :clicks="$clicks" />
 
 </div>
 
@@ -318,13 +324,15 @@ notes: |
 </div>
 
 ---
+clicks: 5
 notes: |
-  AI is the next wave on the same control plane. Point at QRs:
-  OpenAI eng post — 7,500-node K8s for GPT-3 / CLIP / DALL·E.
-  Anthropic — Claude inference on GKE (Google Cloud Next talk).
-  NVIDIA — GPU DRA driver donated to CNCF at KubeCon.
-  Google — Kapiche customer story: AI on GKE through 10× spikes.
-  Microsoft — AT&T Ask AT&T gen AI platform on AKS.
+  First beat: why AI lands on Kubernetes (scale GPUs, same API, burst, portable).
+  Then walk public stories one by one — point at QRs:
+  1) OpenAI — 7,500-node K8s for GPT-3 / CLIP / DALL·E.
+  2) Anthropic — Claude inference on GKE.
+  3) NVIDIA — GPU DRA driver donated to CNCF.
+  4) Google — Kapiche on GKE through 10× spikes.
+  5) Microsoft — AT&T Ask AT&T on AKS.
 ---
 
 <p class="title-prompt">❯ ai-workloads</p>
@@ -333,7 +341,7 @@ notes: |
 
 <div class="visual-dominant">
 
-<AiK8sExamples />
+<AiK8sExamples :clicks="$clicks" />
 
 </div>
 
@@ -353,9 +361,9 @@ notes: |
 
 <K8sArchitecture />
 
-<span class="takeaway">You talk to the API. Controllers do the rest.</span>
-
 </div>
+
+<span class="takeaway">You talk to the API. Controllers do the rest.</span>
 
 ---
 clicks: 3
@@ -375,8 +383,14 @@ notes: |
 </div>
 
 ---
+clicks: 4
 notes: |
-  Contrast: manual snowflake servers vs automated immutable infra with observability.
+  Walk pets vs cattle stage by stage:
+  1) Build — manual zip vs automated CI images
+  2) Deploy — SSH scripts vs declarative GitOps
+  3) Run — host OS vs orchestrated Pods
+  4) Operate — reactive firefighting vs self-healing probes
+  Closing: identical disposable cattle, not unique pets.
 ---
 
 <p class="title-prompt">❯ practice</p>
@@ -385,7 +399,7 @@ notes: |
 
 <div class="visual-dominant">
 
-<SdlcComparison />
+<SdlcComparison :clicks="$clicks" />
 
 </div>
 
@@ -645,16 +659,16 @@ notes: |
 
 # Hands-on: Killercoda lab
 
-<div class="visual-dominant" style="display: flex; align-items: center; justify-content: center; gap: 2.5rem;">
-  <div class="qr-wrap" style="gap: 0.75rem;">
-    <img src="/qr/cloud-native-k8s-101-lab.png" alt="QR: Killercoda Acme Shop lab" width="260" height="260" style="width: 260px; height: 260px;" />
-    <span style="font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem;">Scan to open the lab</span>
+<div class="visual-dominant lab-cta">
+  <div class="qr-wrap lab-cta-qr">
+    <img src="/qr/cloud-native-k8s-101-lab.png" alt="QR: Killercoda Acme Shop lab" width="200" height="200" />
+    <span class="lab-cta-scan">Scan to open the lab</span>
   </div>
-  <div style="max-width: 28rem;">
-    <p style="margin: 0 0 0.75rem; font-size: 1.15rem; line-height: 1.45;">
+  <div class="lab-cta-copy">
+    <p class="lab-cta-lead">
       Acme Shop companion — containers through Deployments, probes, Services, ConfigMaps/Secrets, and NodePort.
     </p>
-    <p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 0.95rem; color: var(--slidev-theme-primary, #0088B8); word-break: break-all;">
+    <p class="lab-cta-url">
       killercoda.com/tineoc/scenario/cloud-native-k8s-101
     </p>
   </div>
@@ -664,27 +678,26 @@ notes: |
 layout: cover
 ---
 
-# Thank you
-
-<p class="hero-sub">Questions? Scan for the slides or LinkedIn.</p>
-
-<div class="grid-2" style="margin-top: 1.25rem; max-width: 48rem; align-items: center;">
-<div>
-  <p class="speaker">Christopher Tineo</p>
-  <p style="margin: 0.35rem 0; font-family: 'IBM Plex Mono', monospace; font-size: 0.92rem;">linkedin.com/in/christopher-tineo</p>
-  <p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 0.92rem;">github.com/TineoC</p>
-  <p style="margin: 0.5rem 0 0; font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; color: var(--slidev-theme-primary, #0088B8); word-break: break-all;">
-    tineoc.github.io/talks/cloud-native-k8s-101/
-  </p>
-</div>
-<div style="display: flex; gap: 1.5rem; justify-content: flex-end; align-items: flex-start;">
-  <div class="qr-wrap">
-    <img src="/qr/slides-gh-pages.png" alt="QR: slides on GitHub Pages" width="150" height="150" />
-    <span style="font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--slidev-theme-primary, #0088B8);">Slides</span>
+<div class="thank-you-grid">
+  <div class="thank-you-copy">
+    <p class="title-prompt">❯ eof</p>
+    <h1 class="thank-you-title">Thank you</h1>
+    <p class="thank-you-sub">Questions? Scan for the slides or LinkedIn.</p>
+    <div class="thank-you-speaker">
+      <p class="speaker">Christopher Tineo</p>
+      <p class="thank-you-link">linkedin.com/in/christopher-tineo</p>
+      <p class="thank-you-link">github.com/TineoC</p>
+      <p class="thank-you-slides-url">tineoc.github.io/talks/cloud-native-k8s-101/</p>
+    </div>
   </div>
-  <div class="qr-wrap">
-    <img src="/qr/linkedin.png" alt="QR: LinkedIn" width="150" height="150" />
-    <span style="font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem;">LinkedIn</span>
+  <div class="thank-you-qrs">
+    <div class="qr-wrap">
+      <img src="/qr/slides-gh-pages.png" alt="QR: slides on GitHub Pages" width="150" height="150" />
+      <span class="thank-you-qr-label">Slides</span>
+    </div>
+    <div class="qr-wrap">
+      <img src="/qr/linkedin.png" alt="QR: LinkedIn" width="150" height="150" />
+      <span class="thank-you-qr-label">LinkedIn</span>
+    </div>
   </div>
-</div>
 </div>

@@ -136,7 +136,7 @@ const KEYWORDS = new Set([
 ]);
 
 const VALUES = new Set([
-  'python:3.12-slim', 'appuser', 'app.py', '10001', '8080', 'nologin', 'healthz'
+  'python:3.12-slim', 'appuser', 'app.py', '10001', '8080', 'healthz'
 ]);
 
 export default {
@@ -156,7 +156,7 @@ export default {
           color: '#0088B8',
           layer: 'layer · base image',
           title: 'Pick the base image',
-          desc: 'Every image starts FROM something. Acme Shop uses Python 3.12 slim — enough runtime, not the fat full image.',
+          desc: 'Every image starts FROM something. Prefer a slim runtime over a full OS image.',
           example: 'FROM python:3.12-slim',
           why: 'Smaller pulls, fewer CVEs, faster CI.'
         },
@@ -167,9 +167,9 @@ export default {
           color: '#E2A03F',
           layer: 'layer · metadata',
           title: 'Set the working directory',
-          desc: 'Later COPY, RUN, and CMD paths are relative to /app — home of the checkout process.',
+          desc: 'Later COPY / RUN / CMD paths are relative to /app.',
           example: 'WORKDIR /app',
-          why: 'Predictable layout; no scattered absolute paths.'
+          why: 'One home for the app — no scattered absolute paths.'
         },
         {
           id: 'copy',
@@ -178,9 +178,9 @@ export default {
           color: '#158A4E',
           layer: 'layer · files',
           title: 'Copy only what you need',
-          desc: 'Ship app.py into the image. Pair with .dockerignore — never COPY . . blindly.',
-          example: 'COPY app.py ./',
-          why: 'Narrow context = smaller image, no leaked .git or secrets.'
+          desc: 'Ship the app file. Pair with .dockerignore — avoid COPY . .',
+          example: 'COPY app.py .',
+          why: 'Narrower context = smaller image, no leaked secrets.'
         },
         {
           id: 'user',
@@ -189,12 +189,8 @@ export default {
           color: '#CF5A5A',
           layer: 'layer · security',
           title: 'Drop root privileges',
-          desc: 'Create appuser, chown the files, then USER so the process is not uid 0.',
-          example:
-            'RUN useradd --create-home --uid 10001 \\\n' +
-            '        --shell /usr/sbin/nologin appuser\n' +
-            'RUN chown appuser:appuser /app/app.py\n' +
-            'USER appuser',
+          desc: 'Create a non-root user, then switch to it so the process is not uid 0.',
+          example: 'RUN useradd -u 10001 appuser\nUSER appuser',
           why: 'Matches Pod Security and most enterprise policies.'
         },
         {
@@ -204,11 +200,8 @@ export default {
           color: '#334155',
           layer: 'config · not a secret',
           title: 'Runtime defaults',
-          desc: 'PORT and Python logging flags. Never bake API keys into ENV — inject those with Kubernetes Secrets.',
-          example:
-            'ENV PORT=8080 \\\n' +
-            '    PYTHONDONTWRITEBYTECODE=1 \\\n' +
-            '    PYTHONUNBUFFERED=1',
+          desc: 'Non-secret settings only. API keys belong in Kubernetes Secrets, not ENV in the image.',
+          example: 'ENV PORT=8080',
           why: 'Same image, different config per environment.'
         },
         {
@@ -218,7 +211,7 @@ export default {
           color: '#0088B8',
           layer: 'docs · port',
           title: 'Document the listen port',
-          desc: 'Signals that the process listens on 8080. Publishing still needs -p, a Service, or NodePort.',
+          desc: 'Documents that the process listens on 8080. Publishing still needs -p or a Service.',
           example: 'EXPOSE 8080',
           why: 'Matches containerPort in the Deployment YAML.'
         },
@@ -228,12 +221,9 @@ export default {
           instruction: 'HEALTHCHECK',
           color: '#158A4E',
           layer: 'local · Docker signal',
-          title: 'Probe /healthz',
-          desc: 'Docker can mark the container unhealthy if /healthz fails. In Kubernetes, readiness and liveness probes own traffic.',
-          example:
-            'HEALTHCHECK --interval=10s --timeout=3s \\\n' +
-            '  --start-period=5s --retries=3 \\\n' +
-            '  CMD python -c "urlopen(\'/healthz\')"',
+          title: 'Check that the app is alive',
+          desc: 'Docker marks the container unhealthy if this fails. In Kubernetes, probes own traffic.',
+          example: 'HEALTHCHECK CMD curl -f http://localhost:8080/healthz || exit 1',
           why: 'Handy on a laptop; cluster probes are the production control.'
         },
         {
@@ -242,35 +232,26 @@ export default {
           instruction: 'CMD',
           color: '#0F1C2A',
           layer: 'process · start',
-          title: 'Start the checkout server',
-          desc: 'Exec-form JSON array — python is PID 1 with correct Unix signals (no shell wrapper).',
+          title: 'Start the process',
+          desc: 'Exec-form JSON array — the app is PID 1 with correct Unix signals (no shell wrapper).',
           example: 'CMD ["python", "app.py"]',
-          why: 'Clean shutdowns and signal handling under orchestration.'
+          why: 'Clean shutdowns under orchestration.'
         }
       ],
       dockerfileLines: [
-        { text: '# Acme Shop — checkout microservice', section: null },
+        { text: '# Tiny web app', section: null },
         { text: 'FROM python:3.12-slim', section: 'from' },
         { text: '', section: null },
         { text: 'WORKDIR /app', section: 'workdir' },
+        { text: 'COPY app.py .', section: 'copy' },
         { text: '', section: null },
-        { text: 'COPY app.py ./', section: 'copy' },
-        { text: '', section: null },
-        { text: 'RUN useradd --create-home --uid 10001 \\', section: 'user' },
-        { text: '        --shell /usr/sbin/nologin appuser', section: 'user' },
-        { text: 'RUN chown appuser:appuser /app/app.py', section: 'user' },
+        { text: 'RUN useradd -u 10001 appuser', section: 'user' },
         { text: 'USER appuser', section: 'user' },
         { text: '', section: null },
-        { text: 'ENV PORT=8080 \\', section: 'env' },
-        { text: '    PYTHONDONTWRITEBYTECODE=1 \\', section: 'env' },
-        { text: '    PYTHONUNBUFFERED=1', section: 'env' },
-        { text: '', section: null },
+        { text: 'ENV PORT=8080', section: 'env' },
         { text: 'EXPOSE 8080', section: 'expose' },
         { text: '', section: null },
-        { text: 'HEALTHCHECK --interval=10s --timeout=3s \\', section: 'health' },
-        { text: '  --start-period=5s --retries=3 \\', section: 'health' },
-        { text: '  CMD python -c "urlopen(\'/healthz\')"', section: 'health' },
-        { text: '', section: null },
+        { text: 'HEALTHCHECK CMD curl -f http://localhost:8080/healthz || exit 1', section: 'health' },
         { text: 'CMD ["python", "app.py"]', section: 'cmd' }
       ]
     };
@@ -405,7 +386,7 @@ export default {
   --cyan: #0088B8;
 
   display: grid;
-  grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.9fr);
   gap: 0.85rem;
   width: 100%;
   height: 100%;
@@ -489,18 +470,18 @@ export default {
   flex: 1;
   min-height: 0;
   overflow: auto;
-  padding: 0.35rem 0 0.2rem;
+  padding: 0.55rem 0 0.35rem;
   font-family: 'IBM Plex Mono', ui-monospace, monospace;
-  font-size: 0.68rem;
-  line-height: 1.48;
+  font-size: 1.15rem;
+  line-height: 1.65;
 }
 
 .code-line {
   display: flex;
-  gap: 0.45rem;
+  gap: 0.55rem;
   width: 100%;
   margin: 0;
-  padding: 0.06rem 0.55rem 0.06rem 0.35rem;
+  padding: 0.12rem 0.75rem 0.12rem 0.45rem;
   border: 0;
   border-left: 3px solid transparent;
   background: transparent;
@@ -540,22 +521,23 @@ export default {
 }
 
 .gutter {
-  flex: 0 0 1.85rem;
+  flex: 0 0 2.1rem;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 0.25rem;
+  gap: 0.3rem;
   user-select: none;
 }
 
 .line-num {
   color: #475569;
   font-variant-numeric: tabular-nums;
+  font-size: 0.9em;
 }
 
 .tick {
-  width: 0.35rem;
-  height: 0.35rem;
+  width: 0.4rem;
+  height: 0.4rem;
   border-radius: 50%;
   background: #334155;
   transition: background 0.18s ease, box-shadow 0.18s ease;
@@ -567,6 +549,9 @@ export default {
 }
 
 .line-content {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
   white-space: pre;
   color: #F8F8F2;
 }
@@ -756,30 +741,36 @@ export default {
   background: var(--term);
   border: 1px solid var(--term-edge);
   overflow: hidden;
+  width: 100%;
 }
 
 .snippet-label {
   font-family: 'IBM Plex Mono', ui-monospace, monospace;
-  font-size: 0.55rem;
+  font-size: 0.6rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #64748B;
-  padding: 0.28rem 0.65rem 0;
+  padding: 0.4rem 0.85rem 0;
 }
 
 .snippet pre {
   margin: 0;
-  padding: 0.35rem 0.65rem 0.55rem;
+  padding: 0.45rem 0.85rem 0.7rem;
   overflow-x: auto;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .snippet code {
   font-family: 'IBM Plex Mono', ui-monospace, monospace;
-  font-size: 0.74rem;
-  line-height: 1.45;
+  font-size: 1.15rem;
+  line-height: 1.55;
   color: #5EEAD4;
   white-space: pre;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .explain-why {

@@ -1,7 +1,10 @@
 <template>
   <div class="ai-k8s">
     <div class="ai-grid">
-      <div class="ai-why">
+      <div
+        class="ai-why"
+        :class="{ focus: focusWhy, dim: !focusWhy && clicks >= 1 }"
+      >
         <div class="why-kicker">Why AI runs on Kubernetes</div>
         <ul>
           <li><strong>Scale GPUs / nodes</strong> — pack training &amp; inference without rewriting apps</li>
@@ -13,17 +16,32 @@
       </div>
 
       <div class="ai-examples">
-        <div class="examples-kicker">Public stories — scan for the post / talk</div>
+        <div class="examples-head">
+          <span class="examples-kicker">Public stories — scan for the post / talk</span>
+          <span class="examples-step">{{ progressLabel }}</span>
+        </div>
+        <div v-if="clicks === 0" class="examples-idle">
+          Advance to walk real AI-on-Kubernetes stories →
+        </div>
         <a
-          v-for="ex in examples"
+          v-for="(ex, i) in examples"
           :key="ex.name"
           class="ex-card"
+          :class="{
+            visible: isVisible(i),
+            active: activeIndex === i,
+            dim: isVisible(i) && activeIndex !== null && activeIndex !== i
+          }"
           :href="ex.href"
           target="_blank"
           rel="noopener"
+          :style="{ '--delay': `${i * 40}ms` }"
+          @mouseenter="hovered = i"
+          @mouseleave="hovered = null"
         >
           <div class="ex-body">
             <div class="ex-top">
+              <span class="ex-num">{{ String(i + 1).padStart(2, '0') }}</span>
               <div class="ex-logos">
                 <img
                   v-for="logo in ex.logos"
@@ -47,8 +65,12 @@
 <script>
 export default {
   name: 'AiK8sExamples',
+  props: {
+    clicks: { type: Number, default: 0 }
+  },
   data() {
     return {
+      hovered: null,
       examples: [
         {
           name: 'OpenAI',
@@ -87,6 +109,28 @@ export default {
         }
       ]
     };
+  },
+  computed: {
+    // clicks 0: why only. 1–5: reveal OpenAI → … → Microsoft.
+    focusWhy() {
+      return this.clicks === 0 && this.hovered === null;
+    },
+    activeIndex() {
+      if (this.hovered !== null && this.isVisible(this.hovered)) return this.hovered;
+      if (this.clicks >= 1 && this.clicks <= this.examples.length) return this.clicks - 1;
+      return null;
+    },
+    progressLabel() {
+      if (this.clicks === 0) return '00 / 05  ·  WHY K8S';
+      const n = Math.min(this.clicks, this.examples.length);
+      const name = this.examples[n - 1].name.toUpperCase();
+      return `${String(n).padStart(2, '0')} / 05  ·  ${name}`;
+    }
+  },
+  methods: {
+    isVisible(i) {
+      return this.clicks >= i + 1;
+    }
   }
 };
 </script>
@@ -122,6 +166,17 @@ export default {
   min-height: 0;
   height: 100%;
   box-sizing: border-box;
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+.ai-why.dim {
+  opacity: 0.55;
+  filter: grayscale(0.1);
+}
+
+.ai-why.focus {
+  opacity: 1;
+  filter: none;
 }
 
 .why-kicker,
@@ -169,33 +224,89 @@ export default {
 .ai-examples {
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
+  gap: 0.4rem;
   min-height: 0;
   height: 100%;
 }
 
-.examples-kicker {
+.examples-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
   flex: 0 0 auto;
+}
+
+.examples-step {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #0088B8;
+  white-space: nowrap;
+}
+
+.examples-idle {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  box-shadow: inset 3px 0 0 #0088B8;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #64748B;
+  padding: 1rem;
+  text-align: center;
 }
 
 .ex-card {
   background: #fff;
-  padding: 0.45rem 0.7rem;
+  padding: 0.4rem 0.65rem;
   text-decoration: none;
   color: inherit;
   box-shadow: inset 3px 0 0 #158A4E;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: space-between;
   gap: 0.55rem;
   flex: 1;
   min-height: 0;
   box-sizing: border-box;
-  transition: transform 0.2s ease;
 }
 
-.ex-card:hover {
+.ex-card.visible {
+  display: flex;
+  animation: ai-card-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--delay, 0ms);
+}
+
+.ex-card.dim {
+  opacity: 0.5;
+  filter: grayscale(0.12);
+}
+
+.ex-card.active {
+  opacity: 1;
+  filter: none;
+  box-shadow: inset 4px 0 0 #0088B8;
+}
+
+.ex-card.visible:hover {
   transform: translateY(-1px);
+}
+
+@keyframes ai-card-in {
+  from {
+    opacity: 0;
+    transform: translateX(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .ex-body {
@@ -204,13 +315,22 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 0.2rem;
+  gap: 0.15rem;
 }
 
 .ex-top {
   display: flex;
   align-items: center;
   gap: 0.4rem;
+}
+
+.ex-num {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: #0088B8;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
 }
 
 .ex-logos {
@@ -229,21 +349,21 @@ export default {
 .ex-name {
   font-family: 'Outfit', sans-serif;
   font-weight: 800;
-  font-size: 1.05rem;
+  font-size: 1.02rem;
   color: #0F1C2A;
   line-height: 1.1;
 }
 
 .ex-text {
   font-family: 'Outfit', sans-serif;
-  font-size: 0.84rem;
+  font-size: 0.82rem;
   color: #64748B;
   line-height: 1.25;
 }
 
 .ex-qr {
-  width: 3.6rem;
-  height: 3.6rem;
+  width: 3.4rem;
+  height: 3.4rem;
   flex-shrink: 0;
   image-rendering: pixelated;
 }

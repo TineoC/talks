@@ -233,16 +233,18 @@ export default {
 .k8s-highlights-container {
   display: grid;
   grid-template-columns: 1.25fr 1fr;
-  gap: 1.5rem;
+  gap: 1rem;
   width: 100%;
-  height: 410px;
-  align-items: center;
+  height: 100%;
+  min-height: 0;
+  align-items: stretch;
 }
 
 /* YAML EDITOR CARD WRAPPER & GLOW BACKDROP */
 .yaml-editor-wrapper {
   position: relative;
-  height: 380px;
+  height: 100%;
+  min-height: 0;
   width: 100%;
 }
 
@@ -317,7 +319,7 @@ export default {
 
 .tab-title {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px;
+  font-size: 12px;
   color: #94A3B8;
 }
 
@@ -325,18 +327,19 @@ export default {
   position: absolute;
   right: 12px;
   font-family: 'Outfit', sans-serif;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
   color: #E2A03F;
   background: rgba(226, 160, 63, 0.1);
-  padding: 1px 6px;
+  padding: 2px 7px;
   border-radius: 4px;
 }
 
 .code-body {
-  padding: 10px 0;
+  padding: 12px 0;
   overflow-y: auto;
   flex: 1;
+  font-size: 15px;
 }
 
 .code-line {
@@ -350,17 +353,18 @@ export default {
 
 .line-num {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 10.5px;
+  font-size: 13px;
   color: #475569;
-  width: 24px;
+  width: 28px;
   text-align: right;
-  margin-right: 12px;
+  margin-right: 14px;
   user-select: none;
 }
 
 .line-content {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 11px;
+  font-size: 15px;
+  line-height: 1.55;
   white-space: pre;
 }
 
@@ -394,7 +398,8 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  height: 380px;
+  height: 100%;
+  min-height: 0;
   justify-content: center;
 }
 

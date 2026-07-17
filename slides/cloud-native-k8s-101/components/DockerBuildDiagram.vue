@@ -42,34 +42,34 @@
     <text x="64" y="37" font-family="IBM Plex Mono, monospace" font-size="11px" fill="#94A3B8">Dockerfile</text>
 
     <!-- Line Numbers gutter -->
-    <text x="34" y="94" font-family="IBM Plex Mono, monospace" font-size="12px" fill="#475569" text-anchor="end">1</text>
-    <text x="34" y="174" font-family="IBM Plex Mono, monospace" font-size="12px" fill="#475569" text-anchor="end">2</text>
-    <text x="34" y="254" font-family="IBM Plex Mono, monospace" font-size="12px" fill="#475569" text-anchor="end">3</text>
-    <text x="34" y="334" font-family="IBM Plex Mono, monospace" font-size="12px" fill="#475569" text-anchor="end">4</text>
+    <text x="34" y="94" font-family="IBM Plex Mono, monospace" font-size="14px" fill="#475569" text-anchor="end">1</text>
+    <text x="34" y="174" font-family="IBM Plex Mono, monospace" font-size="14px" fill="#475569" text-anchor="end">2</text>
+    <text x="34" y="254" font-family="IBM Plex Mono, monospace" font-size="14px" fill="#475569" text-anchor="end">3</text>
+    <text x="34" y="334" font-family="IBM Plex Mono, monospace" font-size="14px" fill="#475569" text-anchor="end">4</text>
     <line x1="44" y1="50" x2="44" y2="375" stroke="#1E293B" stroke-width="1.5" />
 
     <!-- Code Editor Highlighted Lines -->
     <g transform="translate(10, 4)">
       <!-- Line 1: FROM -->
-      <text x="46" y="90" font-family="IBM Plex Mono, monospace" font-size="13px">
+      <text x="46" y="90" font-family="IBM Plex Mono, monospace" font-size="16px">
         <tspan fill="#F92672">FROM </tspan>
         <tspan fill="#A6E22E">python</tspan>
         <tspan fill="#F8F8F2">:</tspan>
         <tspan fill="#E6DB74">3.12-slim</tspan>
       </text>
       <!-- Line 2: WORKDIR -->
-      <text x="46" y="170" font-family="IBM Plex Mono, monospace" font-size="13px">
+      <text x="46" y="170" font-family="IBM Plex Mono, monospace" font-size="16px">
         <tspan fill="#F92672">WORKDIR </tspan>
         <tspan fill="#E6DB74">/app</tspan>
       </text>
       <!-- Line 3: COPY -->
-      <text x="46" y="250" font-family="IBM Plex Mono, monospace" font-size="13px">
+      <text x="46" y="250" font-family="IBM Plex Mono, monospace" font-size="16px">
         <tspan fill="#F92672">COPY </tspan>
-        <tspan fill="#F8F8F2">. </tspan>
-        <tspan fill="#E6DB74">/app</tspan>
+        <tspan fill="#A6E22E">app.py </tspan>
+        <tspan fill="#E6DB74">.</tspan>
       </text>
       <!-- Line 4: CMD -->
-      <text x="46" y="330" font-family="IBM Plex Mono, monospace" font-size="13px">
+      <text x="46" y="330" font-family="IBM Plex Mono, monospace" font-size="16px">
         <tspan fill="#F92672">CMD </tspan>
         <tspan fill="#F8F8F2">[</tspan>
         <tspan fill="#E6DB74">"python"</tspan>
@@ -121,29 +121,29 @@
     <circle cx="682" cy="33" r="3.5" fill="#CF5A5A" />
     <circle cx="692" cy="33" r="3.5" fill="#E2A03F" />
     <circle cx="702" cy="33" r="3.5" fill="#158A4E" />
-    <text x="714" y="37" font-family="IBM Plex Mono, monospace" font-size="11px" fill="#94A3B8">bash (host)</text>
+    <text x="714" y="37" font-family="IBM Plex Mono, monospace" font-size="12px" fill="#94A3B8">bash (host)</text>
 
     <!-- Build Output logs -->
     <g transform="translate(682, 0)">
-      <text x="0" y="70" font-family="IBM Plex Mono, monospace" font-size="11px" fill="#F8FAFC">
+      <text x="0" y="70" font-family="IBM Plex Mono, monospace" font-size="13px" fill="#F8FAFC">
         <tspan fill="#158A4E">❯ </tspan>docker build -t app:local .
       </text>
       
-      <text x="0" y="105" font-family="IBM Plex Mono, monospace" font-size="9.5px" fill="#94A3B8">Step 1/4 : FROM python:3.12-slim</text>
-      <text x="0" y="122" font-family="IBM Plex Mono, monospace" font-size="9.5px" fill="#158A4E"> ---> Using cache</text>
+      <text x="0" y="105" font-family="IBM Plex Mono, monospace" font-size="12px" fill="#94A3B8">Step 1/4 : FROM python:3.12-slim</text>
+      <text x="0" y="122" font-family="IBM Plex Mono, monospace" font-size="12px" fill="#158A4E"> ---> Using cache</text>
       
-      <text x="0" y="157" font-family="IBM Plex Mono, monospace" font-size="9.5px" fill="#94A3B8">Step 2/4 : WORKDIR /app</text>
-      <text x="0" y="174" font-family="IBM Plex Mono, monospace" font-size="9.5px" fill="#158A4E"> ---> Using cache</text>
+      <text x="0" y="157" font-family="IBM Plex Mono, monospace" font-size="12px" fill="#94A3B8">Step 2/4 : WORKDIR /app</text>
+      <text x="0" y="174" font-family="IBM Plex Mono, monospace" font-size="12px" fill="#158A4E"> ---> Using cache</text>
       
-      <text x="0" y="209" font-family="IBM Plex Mono, monospace" font-size="9.5px" fill="#94A3B8">Step 3/4 : COPY . /app</text>
-      <text x="0" y="226" font-family="IBM Plex Mono, monospace" font-size="9.5px" fill="#38BDF8"> ---> 7b43ac8b2ee9</text>
+      <text x="0" y="209" font-family="IBM Plex Mono, monospace" font-size="12px" fill="#94A3B8">Step 3/4 : COPY . /app</text>
+      <text x="0" y="226" font-family="IBM Plex Mono, monospace" font-size="12px" fill="#38BDF8"> ---> 7b43ac8b2ee9</text>
       
-      <text x="0" y="261" font-family="IBM Plex Mono, monospace" font-size="9.5px" fill="#94A3B8">Step 4/4 : CMD ["python", "app.py"]</text>
-      <text x="0" y="278" font-family="IBM Plex Mono, monospace" font-size="9.5px" fill="#38BDF8"> ---> Running in 8b06ad3e920d</text>
-      <text x="0" y="298" font-family="IBM Plex Mono, monospace" font-size="8.5px" fill="#64748B"> ---> Removing intermediate container</text>
+      <text x="0" y="261" font-family="IBM Plex Mono, monospace" font-size="12px" fill="#94A3B8">Step 4/4 : CMD ["python", "app.py"]</text>
+      <text x="0" y="278" font-family="IBM Plex Mono, monospace" font-size="12px" fill="#38BDF8"> ---> Running in 8b06ad3e920d</text>
+      <text x="0" y="298" font-family="IBM Plex Mono, monospace" font-size="11px" fill="#64748B"> ---> Removing intermediate container</text>
       
-      <text x="0" y="333" font-family="IBM Plex Mono, monospace" font-size="10px" fill="#158A4E">Successfully built 9a4dc8f92bd8</text>
-      <text x="0" y="353" font-family="IBM Plex Mono, monospace" font-size="10px" fill="#158A4E">Successfully tagged app:local</text>
+      <text x="0" y="333" font-family="IBM Plex Mono, monospace" font-size="12px" fill="#158A4E">Successfully built 9a4dc8f92bd8</text>
+      <text x="0" y="353" font-family="IBM Plex Mono, monospace" font-size="12px" fill="#158A4E">Successfully tagged app:local</text>
     </g>
   </svg>
 </template>
