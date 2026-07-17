@@ -37,6 +37,7 @@ jobs:
         run: |
           mkdir -p "$GITHUB_WORKSPACE/_site/cloud-native-k8s-101"
           cp -a dist/. "$GITHUB_WORKSPACE/_site/cloud-native-k8s-101/"
+          cp dist/404.html "$GITHUB_WORKSPACE/_site/404.html"
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
