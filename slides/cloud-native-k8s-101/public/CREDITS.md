@@ -23,6 +23,9 @@ Trademark and media attributions for workshop slides.
 | `logos/otel.svg` | OpenTelemetry | [CNCF Artwork](https://github.com/cncf/artwork) — projects/opentelemetry |
 | `logos/docker.png` | Docker / Moby | Docker brand asset (product identification) |
 | `logos/docker-mark.svg` | Docker (simple-icons) | [simple-icons](https://github.com/simple-icons/simple-icons) |
+| `logos/linux.svg` | Linux | [simple-icons](https://github.com/simple-icons/simple-icons) |
+| `logos/vmware.svg` | VMware | [simple-icons](https://github.com/simple-icons/simple-icons) |
+| `logos/containerd.svg` | containerd | [simple-icons](https://github.com/simple-icons/simple-icons) |
 | `logos/google.png` | Google “G” | Google brand asset via gstatic (product identification for Borg history) |
 | `logos/openai.svg` | OpenAI | [simple-icons](https://github.com/simple-icons/simple-icons) (brand identification) |
 | `logos/anthropic.svg` | Anthropic | [simple-icons](https://github.com/simple-icons/simple-icons) (brand identification) |

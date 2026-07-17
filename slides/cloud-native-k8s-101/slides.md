@@ -84,13 +84,12 @@ notes: |
 ---
 clicks: 4
 notes: |
-  Agenda mirrors the deck:
-  01 problem (friction, distributed apps) →
-  02 Containers (VMs, Borg, analogy, kernel, Docker, Dockerfile, Compose, ladder) →
-  03 Kubernetes (adoption, AI, architecture, why, SDLC) →
-  04 Core objects (Pods → ownership) →
-  05 lab & keep going.
-  Advance one beat at a time; first item is on screen immediately.
+  Agenda — all five boxes on screen. One click per box:
+  click 0 → 01 Why cloud native
+  click 1 → 02 Containers
+  click 2 → 03 Kubernetes
+  click 3 → 04 Core objects
+  click 4 → 05 Hands-on & keep going
 ---
 
 <p class="title-prompt">❯ agenda</p>
@@ -278,11 +277,11 @@ notes: |
 ---
 clicks: 3
 notes: |
-  Ladder, one rung at a time:
-  1) VMs virtualize hardware (full guest OS).
-  2) Containers virtualize the OS (share host kernel).
-  3) Kubernetes virtualizes the cluster (schedule, heal, balance).
-  Closing banner: each step keeps the previous benefit and adds control.
+  Ladder — all three columns stay on screen. Spotlight each beat:
+  1) VMs · VMware/Linux — virtualize hardware (full guest OS).
+  2) Containers · Docker/containerd — virtualize the OS (shared kernel).
+  3) Platform · Kubernetes — virtualize the cluster (schedule, heal, balance).
+  Closing banner: hardware → OS processes → cluster scheduling.
 ---
 
 <p class="title-prompt">❯ ladder</p>
@@ -326,13 +325,9 @@ notes: |
 ---
 clicks: 5
 notes: |
-  First beat: why AI lands on Kubernetes (scale GPUs, same API, burst, portable).
-  Then walk public stories one by one — point at QRs:
-  1) OpenAI — 7,500-node K8s for GPT-3 / CLIP / DALL·E.
-  2) Anthropic — Claude inference on GKE.
-  3) NVIDIA — GPU DRA driver donated to CNCF.
-  4) Google — Kapiche on GKE through 10× spikes.
-  5) Microsoft — AT&T Ask AT&T on AKS.
+  First paint shows all five company stories with scannable QRs.
+  Advance to spotlight each: OpenAI → Anthropic → NVIDIA → Google → Microsoft.
+  Point at the QR; short URL label is under each blurb.
 ---
 
 <p class="title-prompt">❯ ai-workloads</p>
@@ -385,12 +380,12 @@ notes: |
 ---
 clicks: 4
 notes: |
-  Walk pets vs cattle stage by stage:
+  Full pets vs cattle pipelines stay on screen. Spotlight each stage:
   1) Build — manual zip vs automated CI images
   2) Deploy — SSH scripts vs declarative GitOps
   3) Run — host OS vs orchestrated Pods
-  4) Operate — reactive firefighting vs self-healing probes
-  Closing: identical disposable cattle, not unique pets.
+  4) Operate — reactive firefighting vs self-healing
+  Closing banner: identical disposable cattle, not unique pets.
 ---
 
 <p class="title-prompt">❯ practice</p>

@@ -1,154 +1,200 @@
 <template>
-  <svg
-    class="diagram diagram-lg ladder"
-    viewBox="0 0 960 410"
-    xmlns="http://www.w3.org/2000/svg"
-    role="img"
-    aria-label="From virtual machines to containers to Kubernetes"
-  >
-    <defs>
-      <linearGradient id="vm-panel" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="#CF5A5A" stop-opacity="0.1" />
-        <stop offset="100%" stop-color="#B83D3D" stop-opacity="0.02" />
-      </linearGradient>
-      <linearGradient id="container-panel" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="#00A8D0" stop-opacity="0.1" />
-        <stop offset="100%" stop-color="#0088B8" stop-opacity="0.02" />
-      </linearGradient>
-      <linearGradient id="k8s-panel" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="#158A4E" stop-opacity="0.1" />
-        <stop offset="100%" stop-color="#0F1C2A" stop-opacity="0.03" />
-      </linearGradient>
-      <pattern id="ladder-grid" width="20" height="20" patternUnits="userSpaceOnUse">
-        <circle cx="2" cy="2" r="1.2" fill="#E2E8F0" />
-      </pattern>
-    </defs>
+  <div class="ladder" :data-step="clicks" role="img" :aria-label="ariaLabel">
+    <div class="ladder-progress">
+      <span class="progress-label">{{ progressLabel }}</span>
+      <div class="progress-dots" aria-hidden="true">
+        <span
+          v-for="n in 4"
+          :key="n"
+          class="dot"
+          :class="{ on: clicks >= n - 1, now: currentDot === n - 1 }"
+        />
+      </div>
+    </div>
 
-    <rect width="100%" height="100%" fill="url(#ladder-grid)" rx="8" />
+    <div class="ladder-cols">
+      <!-- 01 VM -->
+      <article class="rung" :class="rungClass(0, 'vm')">
+        <header class="rung-head">
+          <img class="rung-logo" :src="logo('logos/vmware.svg')" alt="VMware" />
+          <div class="rung-titles">
+            <span class="rung-num">01</span>
+            <span class="rung-name">Virtual Machine</span>
+          </div>
+        </header>
 
-    <!-- Step progress -->
-    <g class="step-rail" transform="translate(20, 8)">
-      <text
-        font-family="IBM Plex Mono, monospace"
-        font-size="10"
-        font-weight="700"
-        fill="#0088B8"
-        letter-spacing="0.08em"
-      >{{ progressLabel }}</text>
-    </g>
+        <div class="stack">
+          <div class="layer">
+            <span class="layer-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M8 7h8M8 12h8M8 17h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor" stroke-width="2"/></svg>
+            </span>
+            <div class="layer-copy">
+              <span>Application code</span>
+              <em>one app process</em>
+            </div>
+          </div>
+          <div class="layer tone">
+            <img class="layer-logo" :src="logo('logos/linux.svg')" alt="Linux" />
+            <div class="layer-copy">
+              <span>Guest OS + kernel</span>
+              <em>full OS per VM · gigabytes</em>
+            </div>
+          </div>
+          <div class="layer tone">
+            <img class="layer-logo" :src="logo('logos/vmware.svg')" alt="VMware" />
+            <div class="layer-copy">
+              <span>Hypervisor</span>
+              <em>ESXi · KVM · Hyper-V</em>
+            </div>
+          </div>
+          <div class="layer">
+            <span class="layer-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="10" rx="1.5" stroke="currentColor" stroke-width="2"/><circle cx="7" cy="12" r="1.2" fill="currentColor"/><path d="M11 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </span>
+            <div class="layer-copy">
+              <span>Physical hardware</span>
+              <em>CPU · RAM · disk · NIC</em>
+            </div>
+          </div>
+        </div>
 
-    <!-- 01 · VIRTUAL MACHINE -->
-    <g
-      class="rung"
-      :class="{ visible: showVm, focus: focus === 0, dim: showVm && focus !== null && focus !== 0 }"
-    >
-      <rect x="20" y="28" width="280" height="300" rx="4" fill="url(#vm-panel)" stroke="#CF5A5A" stroke-width="1.5" />
-      <text x="35" y="50" font-family="IBM Plex Mono, monospace" fill="#CF5A5A" font-size="10" font-weight="800" letter-spacing="0.06em">01 · VIRTUAL MACHINE</text>
+        <footer class="rung-foot">
+          <strong>Virtualize the hardware</strong>
+          <span>Heavy: a full guest OS for every app</span>
+        </footer>
+      </article>
 
-      <g transform="translate(40, 68)">
-        <rect width="240" height="36" rx="2" fill="#FFFFFF" stroke="#CF5A5A" stroke-width="1.2" />
-        <text x="120" y="22" text-anchor="middle" font-family="Outfit, sans-serif" font-weight="800" font-size="10" fill="#CF5A5A">App 1 (Application Code)</text>
+      <div class="rail" :class="{ lit: clicks >= 1 }" aria-hidden="true">
+        <span class="rail-line" />
+        <span class="rail-chevron">→</span>
+      </div>
 
-        <rect y="46" width="240" height="66" rx="2" fill="#FEF5F5" stroke="#E8B4B4" stroke-width="1.5" />
-        <text x="120" y="76" text-anchor="middle" font-family="Outfit, sans-serif" font-weight="800" font-size="10" fill="#CF5A5A">Guest OS (Heavy Kernel Space)</text>
-        <rect x="10" y="90" width="220" height="12" rx="2" fill="#CF5A5A" />
-        <text x="120" y="99" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="7" fill="#FFFFFF">Redundant OS footprint (GBs)</text>
+      <!-- 02 Container -->
+      <article class="rung" :class="rungClass(1, 'ctr')">
+        <header class="rung-head">
+          <img class="rung-logo" :src="logo('logos/docker-mark.svg')" alt="Docker" />
+          <div class="rung-titles">
+            <span class="rung-num">02</span>
+            <span class="rung-name">Container</span>
+          </div>
+        </header>
 
-        <rect y="122" width="240" height="36" rx="2" fill="#FFFBF5" stroke="#E2A03F" stroke-width="1.2" />
-        <text x="120" y="144" text-anchor="middle" font-family="Outfit, sans-serif" font-weight="700" font-size="9.5" fill="#E2A03F">Hypervisor (ESXi / KVM)</text>
+        <div class="stack">
+          <div class="layer tone">
+            <img class="layer-logo" :src="logo('logos/docker-mark.svg')" alt="Docker" />
+            <div class="layer-copy">
+              <span>App + binaries + libs</span>
+              <em>image package · megabytes</em>
+            </div>
+          </div>
+          <div class="layer tone">
+            <img class="layer-logo" :src="logo('logos/containerd.svg')" alt="containerd" />
+            <div class="layer-copy">
+              <span>Container runtime</span>
+              <em>Docker · containerd · CRI-O</em>
+            </div>
+          </div>
+          <div class="layer tone">
+            <img class="layer-logo" :src="logo('logos/linux.svg')" alt="Linux" />
+            <div class="layer-copy">
+              <span>Shared host kernel</span>
+              <em>namespaces + cgroups</em>
+            </div>
+          </div>
+          <div class="layer">
+            <span class="layer-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="10" rx="1.5" stroke="currentColor" stroke-width="2"/><circle cx="7" cy="12" r="1.2" fill="currentColor"/><path d="M11 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </span>
+            <div class="layer-copy">
+              <span>Physical hardware</span>
+              <em>same host · shared kernel</em>
+            </div>
+          </div>
+        </div>
 
-        <rect y="168" width="240" height="36" rx="2" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="1.2" />
-        <text x="120" y="190" text-anchor="middle" font-family="Outfit, sans-serif" font-weight="700" font-size="9.5" fill="#475569">Physical Server Hardware</text>
-      </g>
+        <footer class="rung-foot">
+          <strong>Virtualize the OS</strong>
+          <span>Light: processes share one kernel</span>
+        </footer>
+      </article>
 
-      <text x="160" y="292" text-anchor="middle" font-family="Outfit, sans-serif" font-weight="800" font-size="12" fill="#CF5A5A">Virtualize the Hardware</text>
-      <text x="160" y="310" text-anchor="middle" font-family="Outfit, sans-serif" font-size="9" fill="#64748B">Runs a full Guest OS per application</text>
-    </g>
+      <div class="rail" :class="{ lit: clicks >= 2 }" aria-hidden="true">
+        <span class="rail-line" />
+        <span class="rail-chevron">→</span>
+      </div>
 
-    <!-- Arrow 1 -->
-    <g class="arrow" :class="{ visible: showContainer }" transform="translate(308, 155)">
-      <path d="M 5 15 h 30 L 25 5 M 35 15 L 25 25" stroke="#0088B8" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
-    </g>
+      <!-- 03 Platform -->
+      <article class="rung" :class="rungClass(2, 'plat')">
+        <header class="rung-head">
+          <img class="rung-logo" :src="logo('logos/kubernetes.svg')" alt="Kubernetes" />
+          <div class="rung-titles">
+            <span class="rung-num">03</span>
+            <span class="rung-name">Platform · K8s</span>
+          </div>
+        </header>
 
-    <!-- 02 · CONTAINER -->
-    <g
-      class="rung"
-      :class="{ visible: showContainer, focus: focus === 1, dim: showContainer && focus !== null && focus !== 1 }"
-    >
-      <rect x="340" y="28" width="280" height="300" rx="4" fill="url(#container-panel)" stroke="#0088B8" stroke-width="1.5" />
-      <text x="355" y="50" font-family="IBM Plex Mono, monospace" fill="#0088B8" font-size="10" font-weight="800" letter-spacing="0.06em">02 · CONTAINER</text>
+        <div class="stack">
+          <div class="layer tone pods">
+            <div class="pod-row" aria-hidden="true">
+              <span class="pod">
+                <img :src="logo('logos/kubernetes.svg')" alt="" />
+                Pod
+              </span>
+              <span class="pod">
+                <img :src="logo('logos/kubernetes.svg')" alt="" />
+                Pod
+              </span>
+              <span class="pod cache">
+                <img :src="logo('logos/redis.svg')" alt="" />
+                Redis
+              </span>
+            </div>
+            <div class="layer-copy">
+              <span>Workloads · Pods</span>
+              <em>replicas · auto-heal · declarative</em>
+            </div>
+          </div>
+          <div class="layer tone">
+            <img class="layer-logo" :src="logo('logos/cncf.svg')" alt="CNCF" />
+            <div class="layer-copy">
+              <span>Control plane API</span>
+              <em>schedule · reconcile · observe</em>
+            </div>
+          </div>
+          <div class="layer tone">
+            <span class="layer-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><rect x="2" y="5" width="6" height="14" rx="1" stroke="currentColor" stroke-width="1.8"/><rect x="9" y="5" width="6" height="14" rx="1" stroke="currentColor" stroke-width="1.8"/><rect x="16" y="5" width="6" height="14" rx="1" stroke="currentColor" stroke-width="1.8"/></svg>
+            </span>
+            <div class="layer-copy">
+              <span>Worker nodes</span>
+              <em>Node A · Node B · Node C</em>
+            </div>
+          </div>
+          <div class="layer">
+            <span class="layer-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="10" rx="1.5" stroke="currentColor" stroke-width="2"/><circle cx="7" cy="12" r="1.2" fill="currentColor"/><path d="M11 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </span>
+            <div class="layer-copy">
+              <span>Cluster machines</span>
+              <em>containers on shared kernels</em>
+            </div>
+          </div>
+        </div>
 
-      <g transform="translate(360, 68)">
-        <rect width="240" height="66" rx="2" fill="#FFFFFF" stroke="#158A4E" stroke-width="1.5" />
-        <rect width="240" height="4" fill="#158A4E" />
-        <text x="120" y="24" text-anchor="middle" font-family="Outfit, sans-serif" font-weight="800" font-size="10" fill="#158A4E">App 1 + Binaries &amp; Libraries</text>
-        <rect x="10" y="36" width="220" height="18" rx="2" fill="#EDF8F2" stroke="#A8D5BE" />
-        <text x="120" y="48" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="7.5" fill="#158A4E">Self-contained footprint (MBs)</text>
+        <footer class="rung-foot">
+          <strong>Virtualize the cluster</strong>
+          <span>Schedule, heal, and balance at scale</span>
+        </footer>
+      </article>
+    </div>
 
-        <rect y="76" width="240" height="36" rx="2" fill="#EDF8F2" stroke="#A8D5BE" stroke-width="1.2" />
-        <text x="120" y="98" text-anchor="middle" font-family="Outfit, sans-serif" font-weight="700" font-size="9.5" fill="#158A4E">Container Engine / containerd</text>
-
-        <rect y="122" width="240" height="82" rx="2" fill="#E8F4FA" stroke="#0088B8" stroke-width="1.2" />
-        <text x="120" y="160" text-anchor="middle" font-family="Outfit, sans-serif" font-weight="800" font-size="10" fill="#0088B8">Shared Host OS Kernel</text>
-        <line x1="15" y1="172" x2="225" y2="172" stroke="#A8D0E0" stroke-width="1" />
-        <text x="120" y="188" text-anchor="middle" font-family="Outfit, sans-serif" font-size="8" fill="#0088B8">(Hardware Host)</text>
-      </g>
-
-      <text x="480" y="292" text-anchor="middle" font-family="Outfit, sans-serif" font-weight="800" font-size="12" fill="#0088B8">Virtualize the OS</text>
-      <text x="480" y="310" text-anchor="middle" font-family="Outfit, sans-serif" font-size="9" fill="#64748B">Isolates processes sharing host kernel</text>
-    </g>
-
-    <!-- Arrow 2 -->
-    <g class="arrow" :class="{ visible: showPlatform }" transform="translate(628, 155)">
-      <path d="M 5 15 h 30 L 25 5 M 35 15 L 25 25" stroke="#158A4E" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
-    </g>
-
-    <!-- 03 · PLATFORM (K8S) -->
-    <g
-      class="rung"
-      :class="{ visible: showPlatform, focus: focus === 2, dim: showPlatform && focus !== null && focus !== 2 }"
-    >
-      <rect x="660" y="28" width="280" height="300" rx="4" fill="url(#k8s-panel)" stroke="#158A4E" stroke-width="1.5" />
-      <text x="675" y="50" font-family="IBM Plex Mono, monospace" fill="#158A4E" font-size="10" font-weight="800" letter-spacing="0.06em">03 · PLATFORM (K8S)</text>
-
-      <g transform="translate(680, 68)">
-        <rect width="240" height="102" rx="2" fill="#FFFFFF" stroke="#158A4E" stroke-width="1.5" />
-        <rect width="240" height="4" fill="#158A4E" />
-        <text x="120" y="22" text-anchor="middle" font-family="Outfit, sans-serif" font-weight="800" font-size="10" fill="#158A4E">Orchestrated Replicas (Pods)</text>
-
-        <g transform="translate(10, 34)">
-          <rect x="5" y="5" width="60" height="24" rx="2" fill="#EDF8F2" stroke="#158A4E" />
-          <text x="35" y="20" text-anchor="middle" font-family="Outfit, sans-serif" font-size="8" fill="#158A4E">App Pod 1</text>
-          <rect x="75" y="5" width="60" height="24" rx="2" fill="#EDF8F2" stroke="#158A4E" />
-          <text x="105" y="20" text-anchor="middle" font-family="Outfit, sans-serif" font-size="8" fill="#158A4E">App Pod 2</text>
-          <rect x="145" y="5" width="65" height="24" rx="2" fill="#E8F4FA" stroke="#0088B8" />
-          <text x="177" y="20" text-anchor="middle" font-family="Outfit, sans-serif" font-size="8" fill="#0088B8">Redis Pod</text>
-          <rect x="5" y="38" width="205" height="15" rx="2" fill="#F1F5F9" stroke="#CBD5E1" />
-          <text x="107" y="48" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="7" fill="#0F1C2A">Auto-Healing / Declarative State</text>
-        </g>
-
-        <rect y="112" width="240" height="36" rx="2" fill="#EDF8F2" stroke="#A8D5BE" stroke-width="1.2" />
-        <text x="120" y="134" text-anchor="middle" font-family="Outfit, sans-serif" font-weight="700" font-size="9.5" fill="#158A4E">Declarative API Control Plane</text>
-
-        <rect y="158" width="240" height="46" rx="2" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="1.2" />
-        <text x="120" y="180" text-anchor="middle" font-family="Outfit, sans-serif" font-weight="700" font-size="9.5" fill="#475569">Cluster Worker Nodes</text>
-        <text x="120" y="194" text-anchor="middle" font-family="Outfit, sans-serif" font-size="8" fill="#94A3B8">(Node A + Node B + Node C)</text>
-      </g>
-
-      <text x="800" y="292" text-anchor="middle" font-family="Outfit, sans-serif" font-weight="800" font-size="12" fill="#158A4E">Virtualize the Cluster</text>
-      <text x="800" y="310" text-anchor="middle" font-family="Outfit, sans-serif" font-size="9" fill="#64748B">Heals &amp; balances apps across multiple nodes</text>
-    </g>
-
-    <!-- Bottom takeaway banner -->
-    <g class="banner" :class="{ visible: showBanner }" transform="translate(20, 348)">
-      <rect width="920" height="42" rx="2" fill="#FFFFFF" stroke="#0088B8" stroke-width="1.5" />
-      <path d="M 0 0 h 4 v 42 H 0 Z" fill="#0088B8" />
-      <text x="24" y="18" font-family="IBM Plex Mono, monospace" font-size="9" font-weight="700" fill="#0088B8" letter-spacing="0.08em">EVOLUTION</text>
-      <text x="24" y="34" font-family="Outfit, sans-serif" font-weight="700" font-size="12" fill="#0F1C2A">
-        Hardware (VMs) → OS processes (Containers) → Cluster scheduling (Kubernetes)
-      </text>
-    </g>
-  </svg>
+    <div class="ladder-banner" :class="{ visible: clicks >= 3 }">
+      <span class="banner-kicker">Evolution</span>
+      <p class="banner-copy">
+        Hardware (VMs) <span aria-hidden="true">→</span> OS processes (Containers) <span aria-hidden="true">→</span> Cluster scheduling (Kubernetes)
+      </p>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -158,83 +204,464 @@ export default {
     clicks: { type: Number, default: 0 }
   },
   computed: {
-    // Step 0: VM (first paint). 1: +Container. 2: +Platform. 3: +banner.
-    showVm() {
-      return true;
-    },
-    showContainer() {
-      return this.clicks >= 1;
-    },
-    showPlatform() {
-      return this.clicks >= 2;
-    },
-    showBanner() {
-      return this.clicks >= 3;
-    },
-    focus() {
+    focusStep() {
       if (this.clicks >= 3) return null;
-      if (this.clicks === 2) return 2;
-      if (this.clicks === 1) return 1;
-      return 0;
+      return Math.min(Math.max(this.clicks, 0), 2);
+    },
+    currentDot() {
+      return Math.min(this.clicks, 3);
     },
     progressLabel() {
-      const step = Math.min(this.clicks + 1, 4);
-      const labels = [
+      return [
         '01 / 04  ·  VIRTUAL MACHINE',
-        '02 / 04  ·  + CONTAINER',
-        '03 / 04  ·  + PLATFORM',
+        '02 / 04  ·  CONTAINER',
+        '03 / 04  ·  PLATFORM',
         '04 / 04  ·  FULL LADDER'
-      ];
-      return labels[step - 1];
+      ][Math.min(this.clicks, 3)];
+    },
+    ariaLabel() {
+      return `Packaging ladder step ${Math.min(this.clicks + 1, 4)} of 4: ${this.progressLabel}`;
+    }
+  },
+  methods: {
+    logo(path) {
+      const base = import.meta.env.BASE_URL || '/';
+      return `${base}${path.replace(/^\//, '')}`;
+    },
+    rungClass(index, tone) {
+      const focus = this.focusStep === index;
+      return {
+        [tone]: true,
+        focus,
+        dim: this.focusStep !== null && !focus,
+        lit: this.focusStep === null || focus
+      };
     }
   }
 };
 </script>
 
 <style scoped>
-.ladder .rung,
-.ladder .arrow,
-.ladder .banner {
-  opacity: 0;
-  transform: translateX(-12px);
+.ladder {
+  --ink: #0F1C2A;
+  --muted: #5A6A7A;
+  --line: #D5DEE7;
+  --paper: #FFFFFF;
+  --vm: #CF5A5A;
+  --ctr: #0088B8;
+  --plat: #158A4E;
+  --head-h: 3.15rem;
+  --foot-h: 3.15rem;
+  --layer-gap: 0.32rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.ladder-progress {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-shrink: 0;
+  height: 1.1rem;
+}
+
+.progress-label {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ctr);
+}
+
+.progress-dots {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.progress-dots .dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: #CBD5E1;
+  transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.progress-dots .dot.on {
+  background: color-mix(in srgb, var(--ctr) 55%, #CBD5E1);
+}
+
+.progress-dots .dot.now {
+  background: var(--ctr);
+  transform: scale(1.2);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ctr) 22%, transparent);
+}
+
+.ladder-cols {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 1.35rem minmax(0, 1fr) 1.35rem minmax(0, 1fr);
+  gap: 0.35rem;
+  align-items: stretch;
+}
+
+/* Shared column chrome: identical head / stack / foot tracks */
+.rung {
+  --accent: var(--ctr);
+  display: grid;
+  grid-template-rows: var(--head-h) minmax(0, 1fr) var(--foot-h);
+  gap: 0.4rem;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  padding: 0.65rem 0.7rem 0.6rem;
+  background: var(--paper);
+  border: 1.5px solid var(--line);
+  box-shadow: inset 4px 0 0 #CBD5E1;
+  box-sizing: border-box;
   transition:
     opacity 0.35s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
     transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
     filter 0.3s ease;
-  pointer-events: none;
+  animation: rung-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-.ladder .rung.visible,
-.ladder .arrow.visible,
-.ladder .banner.visible {
-  opacity: 1;
-  transform: translateX(0);
-  pointer-events: auto;
-}
+.rung.vm { --accent: var(--vm); box-shadow: inset 4px 0 0 #E8B4B4; }
+.rung.ctr { --accent: var(--ctr); box-shadow: inset 4px 0 0 #A8D4E8; }
+.rung.plat { --accent: var(--plat); box-shadow: inset 4px 0 0 #A8D5BE; background: #F4FBF7; }
 
-.ladder .rung.dim {
+.rung.dim {
   opacity: 0.42;
-  filter: grayscale(0.15);
+  filter: grayscale(0.18);
+  transform: none;
 }
 
-.ladder .rung.focus {
+.rung.focus {
+  opacity: 1;
+  filter: none;
+  border-color: var(--accent);
+  box-shadow: inset 4px 0 0 var(--accent);
+  transform: translateY(-2px);
+  animation: rung-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both, rung-focus 0.55s ease;
+}
+
+.rung.lit:not(.dim):not(.focus) {
   opacity: 1;
   filter: none;
 }
 
-.ladder .banner {
-  transform: translateY(8px);
+@keyframes rung-in {
+  from { opacity: 0.2; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.ladder .banner.visible {
+@keyframes rung-focus {
+  0% { transform: translateY(0); }
+  40% { transform: translateY(-3px) scale(1.01); }
+  100% { transform: translateY(-2px) scale(1); }
+}
+
+.rung-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.rung-logo {
+  width: 2.05rem;
+  height: 2.05rem;
+  flex-shrink: 0;
+  object-fit: contain;
+  display: block;
+}
+
+.rung-titles {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.08rem;
+}
+
+.rung-num {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.rung-name {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.18rem;
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Four equal layer tracks — aligns across all three columns */
+.stack {
+  display: grid;
+  grid-template-rows: repeat(4, minmax(0, 1fr));
+  gap: var(--layer-gap);
+  min-height: 0;
+  height: 100%;
+}
+
+.layer {
+  display: grid;
+  grid-template-columns: 1.65rem minmax(0, 1fr);
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 0;
+  height: 100%;
+  padding: 0 0.55rem;
+  background: #F8FAFC;
+  border: 1px solid var(--line);
+  box-sizing: border-box;
+}
+
+.rung.vm .layer.tone {
+  background: #FEF5F5;
+  border-color: #E8B4B4;
+}
+
+.rung.ctr .layer.tone {
+  background: #F0F9FC;
+  border-color: #A8D4E8;
+}
+
+.rung.plat .layer.tone {
+  background: #EDF8F2;
+  border-color: #A8D5BE;
+}
+
+.layer-logo,
+.layer-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  flex-shrink: 0;
+  object-fit: contain;
+  display: block;
+  justify-self: center;
+}
+
+.layer-icon {
+  color: var(--accent);
+}
+
+.layer-icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.layer-copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.06rem;
+}
+
+.layer-copy span {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.15;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.layer-copy em {
+  font-family: 'Outfit', sans-serif;
+  font-style: normal;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--muted);
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Pods row: still one equal track, denser left cluster + copy */
+.layer.pods {
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 0.4rem;
+  padding-right: 0.45rem;
+}
+
+.pod-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.pod {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1rem;
+  min-width: 0;
+  padding: 0.2rem 0.1rem;
+  background: #fff;
+  border: 1px solid #A8D5BE;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 0.58rem;
+  font-weight: 700;
+  color: var(--plat);
+  text-align: center;
+  line-height: 1;
+}
+
+.pod img {
+  width: 1.05rem;
+  height: 1.05rem;
+  object-fit: contain;
+  display: block;
+}
+
+.pod.cache {
+  border-color: #F5A89A;
+  color: #C23B2E;
+}
+
+.rung-foot {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.1rem;
+  min-height: 0;
+  padding-top: 0.2rem;
+  border-top: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.rung-foot strong {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.02rem;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rung-foot span {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: var(--muted);
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  opacity: 0.35;
+  transition: opacity 0.3s ease, color 0.3s ease;
+  color: #94A3B8;
+  align-self: stretch;
+}
+
+.rail.lit {
+  opacity: 1;
+  color: var(--ctr);
+}
+
+.rail-line {
+  width: 1.5px;
+  flex: 0 0 1.75rem;
+  background: currentColor;
+  opacity: 0.35;
+}
+
+.rail-chevron {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.ladder-banner {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.1rem;
+  background: var(--paper);
+  border: 1.5px solid color-mix(in srgb, var(--plat) 40%, var(--line));
+  box-shadow: inset 4px 0 0 var(--plat);
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  padding: 0 0.85rem;
+  border-width: 0;
+  transform: translateY(6px);
+  pointer-events: none;
+  transition:
+    opacity 0.35s ease,
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    max-height 0.35s ease,
+    padding 0.35s ease,
+    border-width 0.2s ease;
+}
+
+.ladder-banner.visible {
+  opacity: 1;
   transform: translateY(0);
+  max-height: 3.75rem;
+  padding: 0.45rem 0.85rem 0.45rem 0.95rem;
+  border-width: 1.5px;
+  pointer-events: auto;
 }
 
-.ladder .arrow {
-  transform: scale(0.85);
+.banner-kicker {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--plat);
 }
 
-.ladder .arrow.visible {
-  transform: scale(1);
+.banner-copy {
+  margin: 0;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.25;
 }
 </style>
