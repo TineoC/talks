@@ -4,10 +4,14 @@ Trademark and media attributions for workshop slides.
 
 ## Certification badges
 
-**Files:** `certs/cert-cka.png`, `certs/cert-cks.png`, `certs/cert-gcp-pca.png`, `certs/cert-kubestronaut.png`
+**Presenter credentials (whoami):** `certs/cert-cka.png`, `certs/cert-cks.png`, `certs/cert-gcp-pca.png`, `certs/cert-kubestronaut.png`
 
-- CKA / CKS / Kubestronaut marks: Linux Foundation / CNCF certification branding (educational use to identify credentials held by the presenter).
+**Keep-going cert ladder logos:** `certs/cert-kcna.png`, `certs/cert-kcsa.png`, `certs/cert-cka-logo.png`, `certs/cert-ckad.png`, `certs/cert-cks-logo.png`, `certs/cert-kubestronaut-logo.png`
+
+- CKA / CKAD / KCNA / KCSA / Kubestronaut marks: [CNCF Artwork](https://github.com/cncf/artwork) (educational use to identify CNCF/Linux Foundation Kubernetes certifications).
+- CKS logo: Linux Foundation Training certification branding (educational use).
 - Google Cloud Professional Cloud Architect badge: Google Cloud certification branding (educational / biographical use).
+- Presenter digital badges: Linux Foundation / CNCF certification branding (credentials held by the presenter).
 
 ## Tech logos
 
@@ -20,6 +24,10 @@ Trademark and media attributions for workshop slides.
 | `logos/docker.png` | Docker / Moby | Docker brand asset (product identification) |
 | `logos/docker-mark.svg` | Docker (simple-icons) | [simple-icons](https://github.com/simple-icons/simple-icons) |
 | `logos/google.png` | Google “G” | Google brand asset via gstatic (product identification for Borg history) |
+| `logos/openai.svg` | OpenAI | [simple-icons](https://github.com/simple-icons/simple-icons) (brand identification) |
+| `logos/anthropic.svg` | Anthropic | [simple-icons](https://github.com/simple-icons/simple-icons) (brand identification) |
+| `logos/nvidia.svg` | NVIDIA | [simple-icons](https://github.com/simple-icons/simple-icons) (brand identification) |
+| `logos/microsoft.svg` | Microsoft | Four-square mark (brand identification for AKS / hyperscaler AI) |
 | `logos/linkedin.svg` | LinkedIn | [simple-icons](https://github.com/simple-icons/simple-icons) (brand identification) |
 
 All marks remain trademarks of their respective owners. Used nominatively for educational commentary; no endorsement implied.

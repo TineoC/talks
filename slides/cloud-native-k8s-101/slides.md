@@ -20,25 +20,23 @@ layout: cover
 ---
 
 <div class="cover-grid">
-  <div class="cover-copy">
-    <h1>Cloud Native &amp; Kubernetes 101</h1>
-
-    <p class="hero-sub">How containers and Kubernetes turn “it works on my laptop” into reliable production systems.</p>
-
-    <div class="cover-speaker">
-      <p class="speaker">Christopher Tineo</p>
-      <p class="role">Senior DevOps Engineer · Game Plan Tech</p>
-      <img class="logo-mark cover-role-logo" src="/logos/gameplan.svg" alt="Game Plan Tech" />
-    </div>
-  </div>
-
-  <div class="cover-visual">
-    <img class="cover-hero-photo" src="/meetup-cover.webp" alt="Coffee &amp; Code Philly meetup" />
-  </div>
+<div class="cover-copy">
+<p class="cover-kicker">Workshop · Containers · Kubernetes · Community</p>
+<h1 class="cover-title">Cloud Native &amp;<br />Kubernetes&nbsp;101</h1>
+<p class="hero-sub">How containers and Kubernetes turn “it works on my laptop” into reliable production systems.</p>
+<div class="cover-speaker">
+<p class="speaker">Christopher Tineo</p>
+<p class="role">Senior DevOps Engineer · Game Plan Tech</p>
+<img class="logo-mark cover-role-logo" src="/logos/gameplan.svg" alt="Game Plan Tech" />
+</div>
+</div>
+<div class="cover-visual">
+<CoverTerminal />
+</div>
 </div>
 
 <!--
-Timebox: ~20 min talk + lab. Kick off with why we're here (Philly builders, mixed levels).
+Timebox: ~20 min talk. Kick off with why we're here (Philly builders, mixed levels).
 -->
 
 ---
@@ -81,7 +79,7 @@ notes: |
 
 ---
 notes: |
-  Agenda: 3 min problem · ~7 min containers · ~8 min K8s objects · 5 min lab kickoff.
+  Agenda: 3 min problem · ~7 min containers · ~8 min K8s objects · wrap with certs & community.
 ---
 
 <p class="title-prompt">❯ agenda</p>
@@ -89,7 +87,7 @@ notes: |
 # What we will cover today
 
 <div class="agenda-list">
-  <div class="agenda-item" v-click>
+  <div class="agenda-item">
     <span class="num">01</span>
     <div><strong>Why Cloud Native</strong><span>The gap between laptop and production</span></div>
   </div>
@@ -99,19 +97,22 @@ notes: |
   </div>
   <div class="agenda-item" v-click>
     <span class="num">03</span>
-    <div><strong>Kubernetes</strong><span>Architecture and core objects</span></div>
+    <div><strong>Kubernetes</strong><span>Why it won — market, AI, and core objects</span></div>
   </div>
   <div class="agenda-item" v-click>
     <span class="num">04</span>
-    <div><strong>Hands-on lab</strong><span>Build, deploy, and reach an app</span></div>
+    <div><strong>Where to go next</strong><span>Certs, courses, and communities</span></div>
   </div>
 </div>
 
 ---
 notes: |
   ~3 min. Ask: who has Docker? who has run kubectl? Calibrate depth.
-  Walk the gap: dependencies, secrets, networking, scaling, security, startup order —
-  each is “solved” differently on a laptop vs a cluster.
+  Walk production reality in order:
+  1) Security — TLS, OAuth2, RBAC, network policies, secrets
+  2) Supply chain — CVEs, image signing, multi-arch builds
+  3) Runtime — scalability, HA, observability, startup order
+  Punchline: laptop success is not production readiness.
 ---
 
 <p class="title-prompt">❯ problem</p>
@@ -122,28 +123,9 @@ notes: |
 
 <FrictionDiagram />
 
-<span class="takeaway" v-click>Cloud Native makes that complexity manageable.</span>
+<span class="takeaway">Cloud Native exists because production is a different problem.</span>
 
 </div>
-
----
-notes: |
-  Same app, three places it lives. Local is for you. Staging proves the path.
-  Production is where blast radius and policy matter — but the packaging stays familiar.
----
-
-<p class="title-prompt">❯ environments</p>
-
-# Same app. Three environments.
-
-<div class="visual-dominant">
-
-<EnvironmentsDiagram />
-
-<span class="takeaway" v-click>Promote the same image. Change config, not code.</span>
-
-</div>
-
 ---
 notes: |
   One product is rarely one process: APIs, workers, caches, databases.
@@ -159,8 +141,6 @@ notes: |
 
 <DistributedApp />
 
-<span class="takeaway" v-click>Many services. One product. The network is the glue.</span>
-
 </div>
 
 ---
@@ -174,7 +154,24 @@ Standard packaging so software can run the same way everywhere.
 
 ---
 notes: |
-  One beat: Google ran this at scale → open-sourced the ideas as Kubernetes. Skip deep Omega lore.
+  Virtual Machines package a full guest OS, making them heavy and slow. Containers share the host kernel and isolate processes, making them lightweight.
+---
+
+<p class="title-prompt">❯ virtualization</p>
+
+# Containers vs Virtual Machines
+
+How containers differ from traditional virtualization.
+
+<div class="visual-dominant">
+
+<ContainersVsVms />
+
+</div>
+
+---
+notes: |
+  Google ran containers at scale for over a decade using Borg and Omega, then open-sourced the ideas as Kubernetes in 2014.
 ---
 
 <p class="title-prompt">❯ history</p>
@@ -183,16 +180,7 @@ notes: |
 
 <div class="visual-dominant">
 
-<div class="logo-row">
-  <img class="logo-mark" src="/logos/google.png" alt="Google" />
-  <span class="muted" style="font-size: 1.25rem;">→</span>
-  <img class="logo-mark lg" src="/logos/kubernetes.svg" alt="Kubernetes" />
-  <img class="logo-mark sm" src="/logos/cncf.svg" alt="CNCF" />
-</div>
-
 <BorgTimeline />
-
-<span class="takeaway">Battle-tested scheduling — now for everyone.</span>
 
 </div>
 
@@ -222,20 +210,11 @@ notes: |
 
 # Two Linux features made containers possible
 
-<div class="grid-2">
-<div class="panel success">
-  <p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 1.5rem; font-weight: 700; color: var(--gg-success);">2002</p>
-  <h3 style="margin-top: 0.5rem;">Namespaces</h3>
-  <p class="muted" style="margin: 0.35rem 0 0;">Isolate what a process can see</p>
-</div>
-<div class="panel warn">
-  <p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 1.5rem; font-weight: 700; color: var(--gg-warn);">2006</p>
-  <h3 style="margin-top: 0.5rem;">cgroups</h3>
-  <p class="muted" style="margin: 0.35rem 0 0;">Limit what a process can use</p>
-</div>
-</div>
+<div class="visual-dominant">
 
-<span class="takeaway">Namespaces isolate. cgroups control. Together → containers.</span>
+<KernelIsolationDiagram />
+
+</div>
 
 ---
 notes: |
@@ -247,97 +226,52 @@ notes: |
 
 # Docker made containers usable
 
-<div class="logo-row" style="margin-bottom: 0.75rem;">
-  <img class="logo-mark lg" src="/logos/docker.png" alt="Docker" />
-</div>
+<div class="visual-dominant">
 
-<div class="grid-2">
-<div>
+<DockerBuildDiagram />
 
-<div class="layer-stack">
-  <div class="layer layer-4">CMD ["python", "app.py"]</div>
-  <div class="layer layer-3">COPY . /app</div>
-  <div class="layer layer-2">WORKDIR /app</div>
-  <div class="layer layer-1">FROM python:3.12-slim</div>
-</div>
-
-</div>
-<div class="terminal">
-  <p style="margin: 0 0 0.5rem;"><span class="prompt">❯</span> docker build -t cloud-native-101-app:local .</p>
-  <p class="output" style="margin: 0 0 0.75rem;">➜ Step 1/4 : FROM python:3.12-slim
-➜ Step 2/4 : WORKDIR /app
-➜ Step 3/4 : COPY . /app
-➜ Step 4/4 : CMD ["python", "app.py"]</p>
-  <p style="margin: 0;"><span class="prompt">❯</span> docker run --rm -p 8080:80 cloud-native-101-app:local</p>
-</div>
 </div>
 
 ---
+clicks: 8
 notes: |
-  Four pillars of the practice — not a product to buy.
-  Containers package; declarative APIs describe intent; automation ships;
-  observability tells you what actually happened.
+  Walk Acme Shop Dockerfile instruction by instruction.
+  FROM slim → WORKDIR → COPY app.py only → USER non-root → ENV (no secrets) →
+  EXPOSE docs port → HEALTHCHECK local → CMD exec form.
+  Click lines / tabs or advance with keyboard; layer rail lights as you go.
 ---
 
-<p class="title-prompt">❯ cloud-native</p>
+<p class="title-prompt">❯ dockerfile · acme-shop</p>
 
-# Cloud Native in one slide
-
-<div class="pillars">
-  <div class="pillar" v-click>
-    <p class="label">01</p>
-    <div class="pillar-head">
-      <img src="/logos/docker-mark.svg" alt="" />
-      <strong>Containers</strong>
-    </div>
-    <p>Package once, run anywhere</p>
-  </div>
-  <div class="pillar" v-click>
-    <p class="label">02</p>
-    <div class="pillar-head">
-      <img src="/logos/kubernetes.svg" alt="" />
-      <strong>Declarative APIs</strong>
-    </div>
-    <p>Desired state, not steps</p>
-  </div>
-  <div class="pillar" v-click>
-    <p class="label">03</p>
-    <div class="pillar-head">
-      <img src="/logos/cncf.svg" alt="" />
-      <strong>Automation</strong>
-    </div>
-    <p>CI/CD, GitOps, autoscaling</p>
-  </div>
-  <div class="pillar" v-click>
-    <p class="label">04</p>
-    <div class="pillar-head">
-      <img src="/logos/prometheus.svg" alt="" />
-      <img src="/logos/otel.svg" alt="" style="height: 24px; width: 24px;" />
-      <strong>Observability</strong>
-    </div>
-    <p>Metrics, logs, traces</p>
-  </div>
-</div>
-
-<span class="takeaway" v-click>A practice — not a single product.</span>
-
----
-notes: |
-  Containers share the host kernel → start in seconds, pack denser.
-  VMs carry a full guest OS → heavier, slower boot, stronger isolation boundary.
----
-
-<p class="title-prompt">❯ isolation</p>
-
-# Containers vs VMs
+# Each Dockerfile line, explained
 
 <div class="visual-dominant">
 
-<ContainersVsVms />
-
-<span class="takeaway">Lighter and faster — not a full OS per app.</span>
+<DockerfileWalkthrough :clicks="$clicks" />
 
 </div>
+
+<span class="takeaway">Click a line or tab — one instruction, one layer / config choice.</span>
+
+---
+clicks: 3
+notes: |
+  Compose = multi-container app as one file. Great for company laptop parity.
+  Pros: declarative, shared networks, one command onboarding.
+  Limits in prod: single host, weak healing/rollouts, secrets in env, no real HA → why Kubernetes.
+---
+
+<p class="title-prompt">❯ compose</p>
+
+# Compose: a company stack on one machine
+
+<div class="visual-dominant">
+
+<DockerComposeDiagram :clicks="$clicks" />
+
+</div>
+
+<span class="takeaway">Compose ships the stack to every laptop. Production still needs an orchestrator.</span>
 
 ---
 notes: |
@@ -353,8 +287,6 @@ notes: |
 
 <PackagingLadder />
 
-<span class="takeaway">VM packages a machine. Container packages an app. Kubernetes runs many apps.</span>
-
 </div>
 
 ---
@@ -365,6 +297,47 @@ act: Act 02
 # Kubernetes
 
 The control plane that runs containers at scale.
+
+---
+clicks: 3
+notes: |
+  CNCF Annual Cloud Native Survey 2025:
+  98% cloud native adoption · 82% of container users run K8s in prod ·
+  66% of GenAI hosts use Kubernetes for inference / ops.
+  Punchline: this is no longer niche — it’s the default substrate.
+---
+
+<p class="title-prompt">❯ why-it-matters</p>
+
+# Cloud native is the default
+
+<div class="visual-dominant">
+
+<CncfAdoptionStats :clicks="$clicks" />
+
+</div>
+
+---
+notes: |
+  AI is the next wave on the same control plane. Point at QRs:
+  OpenAI eng post — 7,500-node K8s for GPT-3 / CLIP / DALL·E.
+  Anthropic — Claude inference on GKE (Google Cloud Next talk).
+  NVIDIA — GPU DRA driver donated to CNCF at KubeCon.
+  Google — Kapiche customer story: AI on GKE through 10× spikes.
+  Microsoft — AT&T Ask AT&T gen AI platform on AKS.
+---
+
+<p class="title-prompt">❯ ai-workloads</p>
+
+# Kubernetes is the OS for AI workloads
+
+<div class="visual-dominant">
+
+<AiK8sExamples />
+
+</div>
+
+<span class="takeaway">Train, serve, and scale AI on the same API that runs your apps.</span>
 
 ---
 notes: |
@@ -385,40 +358,20 @@ notes: |
 </div>
 
 ---
+clicks: 3
 notes: |
   Self-healing restarts failed Pods. Declarative = say what you want.
-  Scale up/down. Rolling updates. Stable DNS via Services. Same YAML laptop → cloud.
+  Also: scaling, rolling updates, stable DNS via Services, same YAML laptop → cloud.
 ---
 
 <p class="title-prompt">❯ why-k8s</p>
 
 # Why teams use Kubernetes
 
-<div class="benefit-grid">
-  <div class="benefit" v-click>
-    <strong>Self-healing</strong>
-    <p>Failed Pods restart</p>
-  </div>
-  <div class="benefit" v-click>
-    <strong>Declarative</strong>
-    <p>Say it; K8s reconciles</p>
-  </div>
-  <div class="benefit" v-click>
-    <strong>Scaling</strong>
-    <p>Grow on demand</p>
-  </div>
-  <div class="benefit" v-click>
-    <strong>Rollouts</strong>
-    <p>No-downtime updates</p>
-  </div>
-  <div class="benefit" v-click>
-    <strong>Discovery</strong>
-    <p>Stable DNS for Pods</p>
-  </div>
-  <div class="benefit" v-click>
-    <strong>Portability</strong>
-    <p>Same YAML everywhere</p>
-  </div>
+<div class="visual-dominant">
+
+<K8sDeploymentHighlights :clicks="$clicks" />
+
 </div>
 
 ---
@@ -430,25 +383,10 @@ notes: |
 
 # Traditional vs Cloud Native
 
-<div class="compare">
-  <div class="compare-col bad">
-    <h3>Traditional</h3>
-    <ul>
-      <li v-click>Manual deploys</li>
-      <li v-click>Snowflake servers</li>
-      <li v-click>Firefighting</li>
-      <li v-click>Slow releases</li>
-    </ul>
-  </div>
-  <div class="compare-col good">
-    <h3>Cloud Native</h3>
-    <ul>
-      <li v-click>Automated CI/CD</li>
-      <li v-click>Immutable infra</li>
-      <li v-click>Observability first</li>
-      <li v-click>Safe, frequent releases</li>
-    </ul>
-  </div>
+<div class="visual-dominant">
+
+<SdlcComparison />
+
 </div>
 
 ---
@@ -461,6 +399,7 @@ act: Act 03
 The building blocks every Kubernetes app uses.
 
 ---
+clicks: 3
 notes: |
   Pod = one or more containers sharing network and storage.
   Shared IP and localhost. Often app + sidecar. Ephemeral — replaced anytime.
@@ -473,13 +412,12 @@ notes: |
 
 <div class="visual-dominant">
 
-<PodDiagram />
-
-<span class="takeaway">Deployments manage Pods — you rarely create them by hand.</span>
+<PodDiagram :clicks="$clicks" />
 
 </div>
 
 ---
+clicks: 2
 notes: |
   Critical aha: Deployment owns desired replica count; ReplicaSet keeps Pods alive.
   replicas = how many copies. Rolling updates when you change the image.
@@ -492,208 +430,235 @@ notes: |
 
 <div class="visual-dominant">
 
-<DeploymentDiagram />
-
-<span class="takeaway">Delete a Pod. The Deployment makes another.</span>
+<DeploymentDiagram :clicks="$clicks" />
 
 </div>
 
 ---
+clicks: 3
 notes: |
-  YAML is the common language. You describe what you want; controllers reconcile how.
-  Labels identify Pods so selectors can find them.
----
-
-<p class="title-prompt">❯ yaml</p>
-
-# Declare desired state
-
-<div class="grid-2" style="align-items: start;">
-<div>
-
-<p class="lead">Describe <em>what</em>. Kubernetes figures out <em>how</em>.</p>
-
-<span class="takeaway" style="margin-top: 1rem;">Controllers reconcile continuously.</span>
-
-</div>
-<div>
-
-<<< @/snippets/deployment.yaml{yaml}
-
-</div>
-</div>
-
----
-notes: |
-  Pods wear labels. Deployments and Services select by those labels.
-  No match → Service has nowhere to send traffic.
----
-
-<p class="title-prompt">❯ labels</p>
-
-# Labels connect objects
-
-<div class="visual-dominant">
-
-<LabelSelectorDiagram />
-
-<span class="takeaway">No labels match → nowhere to send traffic.</span>
-
-</div>
-
----
-notes: |
-  Liveness: dead? restart. Readiness: not ready? no traffic. Startup: give slow apps time.
-  Kubelet runs the checks — no human pager for simple restarts.
+  Startup Probe: slow booting app? delays initial probes. Kubelet runs the checks.
+  Liveness Probe: process hung? restart.
+  Readiness Probe: not ready? temporarily stop traffic.
 ---
 
 <p class="title-prompt">❯ probes</p>
 
 # Self-healing with probes
 
-<div class="probe-row">
-  <div class="probe live" v-click>
-    <p class="q">Liveness</p>
-    <strong>Alive?</strong>
-    <p>If not → restart</p>
-  </div>
-  <div class="probe ready" v-click>
-    <p class="q">Readiness</p>
-    <strong>Ready?</strong>
-    <p>If not → no traffic</p>
-  </div>
-  <div class="probe start" v-click>
-    <p class="q">Startup</p>
-    <strong>Booted?</strong>
-    <p>Gives slow apps time</p>
-  </div>
+<div class="visual-dominant">
+
+<ProbesDiagram :clicks="$clicks" />
+
 </div>
 
-<span class="takeaway" v-click>Kubelet runs the checks. No pager for restarts.</span>
-
 ---
+clicks: 2
 notes: |
-  Pods come and go; Service stays. ClusterIP internal, NodePort on every node,
-  LoadBalancer for cloud LB. Selector must match Pod labels.
+  Pods come and go; Service stays. Using label selectors, a Service finds target pods.
+  Maps external port (80) to pod targetPort (8080).
 ---
 
 <p class="title-prompt">❯ services</p>
 
-# Services give Pods a stable address
+# Service: Stable network routing & selectors
 
 <div class="visual-dominant">
 
-<ServiceDiagram />
-
-<span class="takeaway">Selector must match Pod labels.</span>
+<ServiceDiagram :clicks="$clicks" />
 
 </div>
 
 ---
+clicks: 3
 notes: |
-  ConfigMap = non-secret settings. Secret = passwords/tokens/keys.
+  ClusterIP (default): cluster-internal only — backends, DBs, caches.
+  NodePort: opens a static high port (30000–32767) on every node IP.
+  LoadBalancer: Kubernetes asks a cloud or infra provider to provision
+  an external LB (AWS ELB, GCP LB, Cloudflare, MetalLB on-prem).
+---
+
+<p class="title-prompt">❯ service-types</p>
+
+# Service types: Scoping traffic ingress
+
+<div class="visual-dominant">
+
+<ServiceTypesDiagram :clicks="$clicks" />
+
+</div>
+
+---
+clicks: 3
+notes: |
+  Gateway API replaces classic Ingress with role-oriented objects.
+  Platform owns GatewayClass + Gateway (entry, TLS, controller).
+  App owns HTTPRoute (hosts/paths → Services). Controllers implement it.
+---
+
+<p class="title-prompt">❯ gateway-api</p>
+
+# Gateway API: role-oriented ingress
+
+<div class="visual-dominant">
+
+<GatewayApiDiagram :clicks="$clicks" />
+
+</div>
+
+---
+clicks: 4
+notes: |
+  Walk one sample app end-to-end:
+  GatewayClass picks the controller → Gateway is the shared HTTPS door →
+  HTTPRoute attaches /checkout → Service load-balances to checkout Pods.
+  Platform owns class + gateway; app owns route + service.
+---
+
+<p class="title-prompt">❯ gateway-api · sample</p>
+
+# Gateway API in a sample shop app
+
+<div class="visual-dominant">
+
+<GatewayApiSample :clicks="$clicks" />
+
+</div>
+
+<span class="takeaway">shop.example.com/checkout → Gateway → HTTPRoute → Service → Pods</span>
+
+---
+clicks: 3
+notes: |
+  ConfigMap = non-secret settings (flags, URLs, log levels).
   Inject as env vars or files. Same image, different config per environment.
 ---
 
-<p class="title-prompt">❯ config</p>
+<p class="title-prompt">❯ configmaps</p>
 
-# Config without rebuilding images
+# ConfigMaps: config without rebuilding
 
 <div class="visual-dominant">
 
-<ConfigDiagram />
+<ConfigDiagram :clicks="$clicks" />
+
+</div>
 
 <span class="takeaway">Same image. Different config per environment.</span>
 
+---
+clicks: 3
+notes: |
+  Critical aha: Secret data is base64-encoded, NOT encrypted.
+  echo VALUE | base64 -d recovers the plaintext instantly.
+  Real protection = RBAC + etcd encryption at rest + external secret stores.
+---
+
+<p class="title-prompt">❯ secrets</p>
+
+# Secrets: encoded, not encrypted
+
+<div class="visual-dominant">
+
+<SecretsDiagram :clicks="$clicks" />
+
+</div>
+
+<span class="takeaway">base64 ≠ encryption. Treat Secrets as sensitive plaintext with access control.</span>
+
+---
+clicks: 3
+notes: |
+  Recap ownership before wrap-up:
+  Platform = GatewayClass/Gateway, LB plumbing, RBAC, encryption.
+  App = Deployments, probes, Routes, ConfigMaps, Secret data.
+  Shared = Secrets (create vs protect), Gateway+HTTPRoute handoff.
+---
+
+<p class="title-prompt">❯ ownership</p>
+
+# Who owns each resource?
+
+<div class="visual-dominant">
+
+<RolesOwnershipDiagram :clicks="$clicks" />
+
 </div>
 
 ---
 notes: |
-  Request = minimum guaranteed. Limit = hard max.
-  CPU throttles; memory OOM-kills.
-  Guaranteed (req=limit), Burstable (req<limit), BestEffort (neither — risky).
+  Map the official Kubernetes cert ladder: associates → professional → Kubestronaut.
+  Don’t pitch buying exams tonight — show the path exists and is doable.
 ---
 
-<p class="title-prompt">❯ resources</p>
+<p class="title-prompt">❯ next · certs</p>
 
-# Tell the scheduler what you need
+# Keep going: Kubernetes certifications
 
-<div class="stack" style="max-width: 36rem; margin: 0.5rem auto 0;">
-  <div class="panel success" v-click><strong>Guaranteed</strong> — request = limit</div>
-  <div class="panel warn" v-click><strong>Burstable</strong> — request &lt; limit</div>
-  <div class="panel critical" v-click><strong>BestEffort</strong> — neither set (risky)</div>
+<div class="visual-dominant resources-full">
+
+<KeepGoingCerts />
+
 </div>
-
-<span class="takeaway">Always set requests. Guessing creates noisy neighbors.</span>
 
 ---
 notes: |
-  Bridge to lab: these four commands are 90% of day-one kubectl.
-  Apply → get → logs → port-forward.
+  Practical study stack: docs + hands-on sandboxes + exam simulators.
+  Killercoda companion lab: https://killercoda.com/tineoc/scenario/cloud-native-k8s-101
+  (source: github.com/TineoC/cloud-native-k8s-101-lab);
+  Killercoda / killer.sh for muscle memory; KodeKloud / LF for structured courses.
 ---
 
-<p class="title-prompt">❯ kubectl</p>
+<p class="title-prompt">❯ next · study</p>
 
-# Your day-one toolkit
+# Keep going: courses & platforms
 
-<div class="terminal" style="max-width: 42rem;">
-  <p style="margin: 0 0 0.65rem;"><span class="prompt">❯</span> kubectl apply -f manifests/deployment.yaml</p>
-  <p style="margin: 0 0 0.65rem;"><span class="prompt">❯</span> kubectl get pods -n cloud-native-101</p>
-  <p style="margin: 0 0 0.65rem;"><span class="prompt">❯</span> kubectl logs -l app=cloud-native-101 -n cloud-native-101</p>
-  <p style="margin: 0;"><span class="prompt">❯</span> kubectl port-forward svc/cloud-native-101 8080:80 -n cloud-native-101</p>
+<div class="visual-dominant resources-full">
+
+<KeepGoingStudy />
+
 </div>
-
-<span class="takeaway" style="margin-top: 1rem;">Apply → get → logs → port-forward. That’s the lab loop.</span>
 
 ---
 notes: |
-  ~5 min kickoff then walk the room. Stretch in stretch/ for early finishers.
+  Zoom out: cloud native is a worldwide community, not just a cert grind.
+  CNCF Slack + Kubernetes Slack, CNCF meetups, KubeCon, KCDs.
 ---
 
-<p class="title-prompt">❯ lab</p>
+<p class="title-prompt">❯ next · community</p>
+
+# Keep going: Cloud Native communities
+
+<div class="visual-dominant resources-full">
+
+<KeepGoingCommunities />
+
+</div>
+
+---
+notes: |
+  Leave this up while people open phones. Live companion lab for the talk:
+  https://killercoda.com/tineoc/scenario/cloud-native-k8s-101
+---
+
+<p class="title-prompt">❯ next · lab</p>
 
 # Hands-on: Killercoda lab
 
-<div class="grid-2">
-<div class="step-list">
-  <div class="step-row"><span class="step-num">1</span>Build the container image</div>
-  <div class="step-row"><span class="step-num">2</span>Deploy with <code>kubectl apply</code></div>
-  <div class="step-row"><span class="step-num">3</span>Inspect pods and logs</div>
-  <div class="step-row"><span class="step-num">4</span>Port-forward and hit the app</div>
-  <div class="step-row"><span class="step-num">5</span>Inject ConfigMap and Secret</div>
-</div>
-<div class="qr-wrap">
-  <img src="/qr/lab.png" alt="QR: Killercoda lab on GitHub" width="160" height="160" />
-  <span class="muted" style="font-size: 0.85rem; text-align: center;">github.com/TineoC/talks<br/>…/killercoda/cloud-native-k8s-101</span>
-</div>
-</div>
-
----
-
-<p class="title-prompt">❯ next</p>
-
-# Keep going
-
-<div class="grid-2">
-  <div class="panel primary">
-    <p style="margin: 0 0 0.65rem; font-weight: 700;">Docs & lab</p>
-    <ul class="tight" style="margin: 0;">
-      <li><a href="https://kubernetes.io/docs/tutorials/" target="_blank">kubernetes.io tutorials</a></li>
-      <li><a href="https://github.com/TineoC/talks/tree/main/killercoda/cloud-native-k8s-101" target="_blank">Tonight’s lab (GitHub)</a></li>
-      <li><a href="https://www.cncf.io/projects/" target="_blank">CNCF projects</a></li>
-    </ul>
+<div class="visual-dominant" style="display: flex; align-items: center; justify-content: center; gap: 2.5rem;">
+  <div class="qr-wrap" style="gap: 0.75rem;">
+    <img src="/qr/cloud-native-k8s-101-lab.png" alt="QR: Killercoda Acme Shop lab" width="260" height="260" style="width: 260px; height: 260px;" />
+    <span style="font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem;">Scan to open the lab</span>
   </div>
-  <div class="panel success">
-    <p style="margin: 0 0 0.65rem; font-weight: 700;">Community</p>
-    <ul class="tight" style="margin: 0;">
-      <li><a href="https://www.meetup.com/code-coffee-philly/" target="_blank">Coffee & Code Philly</a></li>
-      <li><a href="https://www.meetup.com/Kubernetes-Philly/" target="_blank">Kubernetes Philly</a></li>
-      <li>CNCF Slack · KubeCon / KCD</li>
-    </ul>
+  <div style="max-width: 28rem;">
+    <p style="margin: 0 0 0.75rem; font-size: 1.15rem; line-height: 1.45;">
+      Acme Shop companion — containers through Deployments, probes, Services, ConfigMaps/Secrets, and NodePort.
+    </p>
+    <p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 0.95rem; color: var(--slidev-theme-primary, #0088B8); word-break: break-all;">
+      killercoda.com/tineoc/scenario/cloud-native-k8s-101
+    </p>
   </div>
 </div>
-
-<p class="muted" style="margin-top: 1rem; font-size: 0.9rem;">Next when ready: namespaces, Ingress/Gateway API, storage, RBAC, GitOps.</p>
 
 ---
 layout: cover
@@ -701,15 +666,25 @@ layout: cover
 
 # Thank you
 
-<p class="hero-sub">Questions? Let’s build — grab coffee and open the lab.</p>
+<p class="hero-sub">Questions? Scan for the slides or LinkedIn.</p>
 
-<div class="grid-2" style="margin-top: 1.25rem; max-width: 38rem; align-items: center;">
+<div class="grid-2" style="margin-top: 1.25rem; max-width: 48rem; align-items: center;">
 <div>
   <p class="speaker">Christopher Tineo</p>
   <p style="margin: 0.35rem 0; font-family: 'IBM Plex Mono', monospace; font-size: 0.92rem;">linkedin.com/in/christopher-tineo</p>
   <p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 0.92rem;">github.com/TineoC</p>
+  <p style="margin: 0.5rem 0 0; font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; color: var(--slidev-theme-primary, #0088B8); word-break: break-all;">
+    tineoc.github.io/talks/cloud-native-k8s-101/
+  </p>
 </div>
-<div class="qr-wrap">
-  <img src="/qr/linkedin.png" alt="QR: LinkedIn" width="150" height="150" />
+<div style="display: flex; gap: 1.5rem; justify-content: flex-end; align-items: flex-start;">
+  <div class="qr-wrap">
+    <img src="/qr/slides-gh-pages.png" alt="QR: slides on GitHub Pages" width="150" height="150" />
+    <span style="font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--slidev-theme-primary, #0088B8);">Slides</span>
+  </div>
+  <div class="qr-wrap">
+    <img src="/qr/linkedin.png" alt="QR: LinkedIn" width="150" height="150" />
+    <span style="font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem;">LinkedIn</span>
+  </div>
 </div>
 </div>
