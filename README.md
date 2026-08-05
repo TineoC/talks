@@ -26,7 +26,7 @@ it to `talks.json` up front to skip the placeholders.
 <!-- TALKS:START -->
 | Event | Title | Slides | Date |
 | :--- | :--- | :--- | :--- |
-| containers.day | How I 10xed My Career Through Open Source | [HTML](https://tineoc.github.io/talks/containers-day-10x-open-source/) | TBD 2026 |
+| containers.day | How I 10xed My Career Through Open Source | [HTML](https://tineoc.github.io/talks/containers-day-10x-open-source/) | August 2026 |
 | Coffee & Code Philly | Cloud Native & Kubernetes 101 | [HTML](https://tineoc.github.io/talks/cloud-native-k8s-101/) · [Lab](https://killercoda.com/tineoc/scenario/cloud-native-k8s-101) | July 2026 |
 | SRE Day 2026 Q2 | This is fine: The Real Cost of "Free" Software | [HTML](https://tineoc.github.io/talks/sre-day-2026-q2/) · [PDF](slides/sre-day-2026-q2/sre-day-2026-q2.pdf) | Summer 2026 |
 | Private Class at INTEC University | Masterclass Cloud Native & Open Source | [Slides](https://docs.google.com/presentation/d/11xAC6LqOMyUr9ii3dzjZQA94KfVtkNqQM2LYf67qJOw/edit?usp=sharing) | January 2026 |
