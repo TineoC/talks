@@ -17,8 +17,11 @@ But I'm always open to join new communities.
 
 ## Talks
 
-To add a new session, add an entry to [`talks.json`](talks.json) and push to `main` — this table
-regenerates automatically (see [`.github/workflows/update-readme.yml`](.github/workflows/update-readme.yml)).
+This table regenerates automatically on every push to `main`
+(see [`.github/workflows/update-readme.yml`](.github/workflows/update-readme.yml)). Any deck directory
+added under `slides/` is picked up on its own — it gets an entry in [`talks.json`](talks.json) with a
+title read from the deck and `TBD` for event and date. Edit that entry to fill in the details, or add
+it to `talks.json` up front to skip the placeholders.
 
 <!-- TALKS:START -->
 | Event | Title | Slides | Date |
