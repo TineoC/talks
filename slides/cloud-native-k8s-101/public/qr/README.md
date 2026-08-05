@@ -4,7 +4,6 @@ Self-hosted PNGs so the deck works offline (no api.qrserver.com).
 
 | File | Target |
 |------|--------|
-| `lab.png` | GitHub lab folder |
 | `slides-gh-pages.png` | https://tineoc.github.io/talks/cloud-native-k8s-101/ |
 | `linkedin.png` | Speaker LinkedIn |
 | `meetup.png` | Coffee & Code Philly Meetup |
