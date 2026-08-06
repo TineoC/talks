@@ -53,6 +53,10 @@ Click any of the **HTML** links in the table above to open the slide deck direct
 - **`F` key**: View the presentation in fullscreen mode.
 - **`Esc` key**: Toggle the grid-based slide overview map for fast jumping.
 
+The **containers.day** deck (a different framework) uses arrow keys or its on-screen controls to navigate, and also
+answers the **`T` key** to switch between dark and light. Append `?theme=light` to its URL to open straight into light
+mode — useful on a projector that washes the dark theme out. The choice is remembered in the browser.
+
 #### Running HTML Slides Locally
 To run and view the HTML slides locally with all assets and interactive plugins functioning correctly:
 1. Clone this repository:

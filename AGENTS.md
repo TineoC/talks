@@ -63,6 +63,8 @@ When adding a new talk/session to this repo, touch these files:
 4. **A companion hands-on lab (if any)** belongs in its own dedicated repo (see [cloud-native-k8s-101-lab](https://github.com/TineoC/cloud-native-k8s-101-lab) as the pattern), linked via `talks.json`'s `lab` field — not copied into this monorepo.
 5. **Validate before wiring into CI:** run the deck's `build` script locally and confirm it compiles cleanly with the final `--base /talks/<session-slug>/` path before adding the `deploy-pages.yml` step.
 
+**Deck add-ons (`slides/<slug>/addons/`).** For decks whose `index.html` is generated output that must not be hand-edited (the Claude Design export), anything this repo adds on top lives in `slides/<slug>/addons/`. If `addons/head.html` exists, `scripts/inject-deck-addons.mjs` (run by `make site`) inserts its contents before `</head>` in the **staged** copy under `_site/`, and `addons/` is staged alongside so relative `src`/`href` resolve. The committed bundle stays byte-identical to the export, so a re-export never silently drops the add-on. `containers-day-10x-open-source/addons/` uses this for the light/dark toggle (`t` key, `?theme=light`, persisted in `localStorage`) — note the bundle replaces `documentElement` when it mounts and renders slides lazily, so the add-on re-applies on a `MutationObserver`, and its key handler captures on `window` because the deck runtime advances a slide on any keypress.
+
 ## Every Session: Required Opening & Closing
 Every deck, regardless of framework, opens and closes with the same beats:
 

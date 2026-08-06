@@ -72,6 +72,9 @@ site: build ## Build everything and stage the combined GitHub Pages site into _s
 		mkdir -p "$(SITE_DIR)/$$deck"; \
 		rsync -a $(STAGE_EXCLUDES) "$(SLIDES_DIR)/$$deck/" "$(SITE_DIR)/$$deck/"; \
 	done
+	@# Per-deck add-ons (slides/<slug>/addons/head.html) are injected into the
+	@# staged copy, so tool-exported bundles stay byte-identical in git.
+	@node scripts/inject-deck-addons.mjs
 	@# Site-root 404.html so Pages falls back to the SPA shell for deep-linked
 	@# Slidev slide URLs (e.g. /cloud-native-k8s-101/1). Any Slidev dist will do.
 	@for deck in $(SLIDEV_DECKS); do \
