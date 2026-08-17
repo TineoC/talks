@@ -15,6 +15,7 @@
   // Exact source text -> replacement. Matched against a trimmed text node.
   var REWRITES = [
     ['Release Communications Shadow · Kubernetes 1.37', 'Contributor Communications - SIG Contribex'],
+    ['Kubernetes v1.37 Sneak Peek', 'K8s v1.37 Release Communications Shadow'],
   ];
 
   // Lines the deck styles with --text-muted that should read at full strength.
