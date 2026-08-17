@@ -24,6 +24,11 @@
     'Necesitaba verlo con mis propios ojos.',
   ];
 
+  // Whole lines to drop. Matched against an element's trimmed textContent, so
+  // it also covers a line broken up by inline spans; only the innermost match
+  // goes, never an ancestor that happens to hold the same text.
+  var REMOVE = ['co-author · kubernetes.io/blog'];
+
   // These rules can't live in addons/head.html: the bundle replaces
   // documentElement when it mounts, dropping any <style> injected into the
   // original head. Re-appending from the observer below outlives the swap.
@@ -58,10 +63,24 @@
     }
   }
 
+  function drop() {
+    REMOVE.forEach(function (line) {
+      var matches = Array.prototype.filter.call(document.body.querySelectorAll('*'), function (el) {
+        return el.textContent.trim() === line;
+      });
+      matches
+        .filter(function (el) {
+          return !matches.some(function (other) { return other !== el && el.contains(other); });
+        })
+        .forEach(function (el) { el.remove(); });
+    });
+  }
+
   function run() {
     if (!document.body) return;
     ensureStyle();
     rewrite();
+    drop();
   }
 
   run();
