@@ -1393,36 +1393,36 @@
         <div class="content" style="padding-top: 20px;">
           <div class="ladder" style="align-items: stretch;">
             <div class="step" style="display: flex; flex-direction: column;">
-              <span class="step-number">01 · Know</span>
+              <span class="step-number"><i class="fa-solid fa-magnifying-glass" style="margin-right: 8px;" aria-hidden="true"></i>01 · Know</span>
               <h3>Know what you run</h3>
               <p class="rung-cost" style="margin: 0 0 6px 0; font-family: var(--mono-font); font-size: 14pt; font-weight: 600; color: var(--primary-color);">Cost: $0, a few hours</p>
               <p>An SBOM for every service, plus the forks and patches you carry.</p>
-              <p class="rung-proof" style="margin-top: auto;"><strong>45%</strong> of organizations keep private forks (LF, 2026).</p>
+              <p class="rung-proof" style="margin-top: auto;"><span class="logo" style="--logo: var(--logo-linuxfoundation); width: 22px; height: 22px; vertical-align: -4px; margin-right: 6px; background: var(--muted-color);" role="img" aria-label="Linux Foundation"></span><strong>45%</strong> of organizations keep private forks (LF, 2026).</p>
             </div>
             <div class="step" style="display: flex; flex-direction: column;">
-              <span class="step-number">02 · Upstream</span>
+              <span class="step-number"><i class="fa-solid fa-code-pull-request" style="margin-right: 8px;" aria-hidden="true"></i>02 · Upstream</span>
               <h3>Upstream your fixes</h3>
               <p class="rung-cost" style="margin: 0 0 6px 0; font-family: var(--mono-font); font-size: 14pt; font-weight: 600; color: var(--primary-color);">Cost: $0, your time</p>
               <p><span class="hl">Send the patch instead of carrying it.</span></p>
-              <p class="rung-proof" style="margin-top: auto;"><strong>66%</strong> say maintainers respond faster to contributors.</p>
+              <p class="rung-proof" style="margin-top: auto;"><span class="logo" style="--logo: var(--logo-linuxfoundation); width: 22px; height: 22px; vertical-align: -4px; margin-right: 6px; background: var(--muted-color);" role="img" aria-label="Linux Foundation"></span><strong>66%</strong> say maintainers respond faster to contributors.</p>
             </div>
             <div class="step" style="display: flex; flex-direction: column;">
-              <span class="step-number">03 · Fund</span>
+              <span class="step-number"><i class="fa-solid fa-hand-holding-dollar" style="margin-right: 8px;" aria-hidden="true"></i>03 · Fund</span>
               <h3>Fund what you use</h3>
               <p class="rung-cost" style="margin: 0 0 6px 0; font-family: var(--mono-font); font-size: 14pt; font-weight: 600; color: var(--primary-color);">Cost: any amount</p>
-              <p>Let the engineers who contribute pick the projects. Small grants count.</p>
-              <p class="rung-proof" style="margin-top: auto;">Microsoft FOSS Fund: up to $12.5K a quarter, chosen by its engineers.</p>
+              <p>Small, regular grants to the projects you rely on.</p>
+              <p class="rung-proof" style="margin-top: auto;"><span class="logo" style="--logo: var(--logo-letsencrypt); width: 22px; height: 22px; vertical-align: -4px; margin-right: 6px; background: var(--muted-color);" role="img" aria-label="Let's Encrypt"></span>Bloomberg FOSS Fund: $10K grants, ~$320K paid out, e.g. to Let's Encrypt.</p>
             </div>
             <div class="step" style="display: flex; flex-direction: column;">
-              <span class="step-number">04 · Join</span>
+              <span class="step-number"><i class="fa-solid fa-people-group" style="margin-right: 8px;" aria-hidden="true"></i>04 · Join</span>
               <h3>Join the foundation</h3>
               <p class="rung-cost" style="margin: 0 0 6px 0; font-family: var(--mono-font); font-size: 14pt; font-weight: 600; color: var(--primary-color);">Cost: from $2K a year</p>
               <p>A seat where the roadmap is decided.</p>
-              <p class="rung-proof" style="margin-top: auto;">CNCF Silver from $2K a year. Membership returns <strong>4.8×</strong>.</p>
+              <p class="rung-proof" style="margin-top: auto;"><span class="logo" style="--logo: var(--logo-cncf); width: 22px; height: 22px; vertical-align: -4px; margin-right: 6px; background: var(--muted-color);" role="img" aria-label="CNCF"></span>CNCF Silver from $2K a year. Membership returns <strong>4.8×</strong>.</p>
             </div>
           </div>
         </div>
-        <p class="footnote">Sources: <a href="https://www.linuxfoundation.org/research/contribution-roi" target="_blank" rel="noopener">Linux Foundation, "ROI for Open Source Software Contribution", Feb 2026</a> · <a href="https://github.com/microsoft/foss-fund" target="_blank" rel="noopener">Microsoft FOSS Fund</a> · <a href="https://www.cncf.io/about/join/" target="_blank" rel="noopener">CNCF membership</a></p>
+        <p class="footnote">Sources: <a href="https://www.linuxfoundation.org/research/contribution-roi" target="_blank" rel="noopener">Linux Foundation, "ROI for Open Source Software Contribution", Feb 2026</a> · <a href="https://opencollective.com/bloomberg-foss-fund" target="_blank" rel="noopener">Bloomberg FOSS Contributor Fund, Open Collective, Sep 30 2026</a> · <a href="https://www.cncf.io/about/join/" target="_blank" rel="noopener">CNCF membership</a></p>
         <aside class="notes">
           Reframed Sep 30 2026 as advice, not a sales pitch: cards are equal
           height and each carries its cost. Not every company has a budget,
@@ -1444,7 +1444,12 @@
             rates by 24% on average".
           - Rung 02: the Percona story (PR #2315) is told once, on
             #one-less-fork. Optional aside here: "you'll see mine at the end."
-          - Microsoft FOSS Fund (github.com/microsoft/foss-fund): "Every quarter
+          - Card 03 example: Bloomberg FOSS Contributor Fund on Open
+            Collective (opencollective.com/bloomberg-foss-fund, Sep 30 2026):
+            "$319,902.13" disbursed, $360,021.98 raised; recent grants of
+            $10,000 to Let's Encrypt and pURL. Bloomberg's own page blocks
+            fetches, so the Open Collective ledger is the public source.
+          - Alternative example, Microsoft FOSS Fund (github.com/microsoft/foss-fund): "Every quarter
             a new fund and selection process will distribute up to $12,500 USD
             across one or more open source project(s)." Only employees who
             contributed to open source get a vote. Running since 2020. Indeed
