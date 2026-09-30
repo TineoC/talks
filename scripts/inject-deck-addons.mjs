@@ -11,7 +11,7 @@
 // inserted immediately before </head> in the staged copy of that deck. The
 // addons/ directory itself is staged alongside, so relative src/href work.
 //
-// Run by `make site` after the decks are staged.
+// Run by `just site` after the decks are staged.
 
 import { readFileSync, writeFileSync, existsSync, readdirSync, statSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
@@ -22,7 +22,7 @@ const slidesDir = path.join(rootDir, 'slides')
 const siteDir = path.join(rootDir, '_site')
 
 if (!existsSync(siteDir)) {
-  console.error('_site/ does not exist — run `make site` (this script runs as part of it).')
+  console.error('_site/ does not exist — run `just site` (this script runs as part of it).')
   process.exit(1)
 }
 

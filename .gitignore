@@ -14,3 +14,6 @@ skills-lock.json
 
 # Build output
 _site/
+
+# Playwright MCP screenshots and logs
+.playwright-mcp/

@@ -5,7 +5,7 @@ on:
     branches: [main]
     paths:
       - 'slides/**'
-      - 'Makefile'
+      - 'Justfile'
       - '.github/workflows/deploy-pages.yml'
   workflow_dispatch:
 
@@ -23,20 +23,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: extractions/setup-just@v2
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
           cache: npm
           cache-dependency-path: slides/*/package-lock.json
 
-      # Decks are auto-discovered by the Makefile: any slides/<slug>/ with a
+      # Decks are auto-discovered by the Justfile: any slides/<slug>/ with a
       # package.json builds as Slidev, any with a top-level index.html is copied
       # as a static deck. Adding a talk needs no change to this workflow.
       - name: List discovered decks
-        run: make list
+        run: just list
 
       - name: Build and stage every deck into _site/
-        run: make site
+        run: just site
 
       - uses: actions/upload-pages-artifact@v3
         with:
