@@ -446,6 +446,7 @@
               </p>
               <p class="text-xl text-muted" style="margin: 0; line-height: 1.45;">
                 Routes external traffic into your services.<br />
+                Not built in: Kubernetes ships no default Ingress controller. You pick one.<br />
                 Maintained by a handful of unpaid SIG Network volunteers.
               </p>
             </div>
@@ -462,7 +463,7 @@
               class="text-muted">Steward</span> Kubernetes SIG Network
           </p>
         </div>
-        <p class="footnote">Sources: <a href="https://www.cncf.io/blog/2026/04/02/ingress-nginx-retirement-experience-from-end-users/" target="_blank" rel="noopener">CNCF End User TAB, "Ingress NGINX retirement: Experience from end users", Apr 2 2026</a> (CERN: "As of the end of 2025 ~60% of deployments rely on ingress-nginx")</p>
+        <p class="footnote">Sources: <a href="https://www.cncf.io/blog/2026/04/02/ingress-nginx-retirement-experience-from-end-users/" target="_blank" rel="noopener">CNCF End User TAB, "Ingress NGINX retirement: Experience from end users", Apr 2 2026</a> (CERN: "As of the end of 2025 ~60% of deployments rely on ingress-nginx") · <a href="https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/" target="_blank" rel="noopener">kubernetes.io, "Ingress Controllers", checked Sep 30 2026</a></p>
         <aside class="notes">
           Set the stage. Ingress NGINX is not an obscure project — it's the
           default ingress controller most people reach for. By the end of
@@ -481,6 +482,17 @@
           number. The industry-wide number is on the Cost slide: the
           Kubernetes Steering Committee's "about half of cloud native
           environments."
+
+          "Not built in": ingress-nginx was never the official Ingress
+          controller, because there isn't one. kubernetes.io (checked Sep 30
+          2026): "Kubernetes as a project supports and maintains AWS, and GCE
+          ingress controllers." Everything else, 30+ controllers, is listed
+          as third party. People reached for ingress-nginx because of what it
+          could do: dynamic backend config via OpenResty/Lua (which stock
+          NGINX can't do without a reload), extra modules, several balancing
+          algorithms. My opinion, say it as one: "probably the most
+          feature-rich Ingress controller out there." No source for that, so
+          it stays off the slide.
 
           [TIMING: 60s. Less is more on this slide. The ~60% at CERN is the
           takeaway. Let the room absorb it before you advance.]
@@ -582,66 +594,59 @@
       </section>
 
       <section id="case-ingress-demand">
-        <h2 style="margin-bottom: 6px;">10 years of demand on a handful of volunteers</h2>
+        <h2 style="margin-bottom: 6px;">Every feature became someone's upkeep</h2>
         <p class="text-lg text-muted" style="margin: 0 0 14px 0;">Issues and pull requests opened per year on
           <code>kubernetes/ingress-nginx</code></p>
         <div class="content" style="padding-top: 0;">
           <div style="width: 100%;">
-            <svg viewBox="0 0 1120 330" width="100%" role="img" aria-label="Issues and pull requests opened per year on kubernetes/ingress-nginx, 2016 to 2026" style="display:block; overflow: visible;">
-              <line x1="56" x2="1100" y1="290.0" y2="290.0" stroke="var(--line-color)" stroke-width="1" />
-              <text x="48" y="294.0" text-anchor="end" font-size="14" fill="var(--muted-color)" font-family="var(--mono-font)">0</text>
-              <line x1="56" x2="1100" y1="223.5" y2="223.5" stroke="var(--line-color)" stroke-width="1" />
-              <text x="48" y="227.5" text-anchor="end" font-size="14" fill="var(--muted-color)" font-family="var(--mono-font)">500</text>
-              <line x1="56" x2="1100" y1="157.0" y2="157.0" stroke="var(--line-color)" stroke-width="1" />
-              <text x="48" y="161.0" text-anchor="end" font-size="14" fill="var(--muted-color)" font-family="var(--mono-font)">1,000</text>
-              <line x1="56" x2="1100" y1="90.5" y2="90.5" stroke="var(--line-color)" stroke-width="1" />
-              <text x="48" y="94.5" text-anchor="end" font-size="14" fill="var(--muted-color)" font-family="var(--mono-font)">1,500</text>
-              <line x1="56" x2="1100" y1="24.0" y2="24.0" stroke="var(--line-color)" stroke-width="1" />
-              <text x="48" y="28.0" text-anchor="end" font-size="14" fill="var(--muted-color)" font-family="var(--mono-font)">2,000</text>
-              <rect x="76.9" y="283.1" width="53.1" height="6.9" fill="var(--primary-color)" />
-              <rect x="76.9" y="276.7" width="53.1" height="6.4" fill="var(--chart-2)" />
-              <text x="103.5" y="270.7" text-anchor="middle" font-size="14" font-weight="700" fill="var(--text-color)" font-family="var(--mono-font)">100</text>
-              <text x="103.5" y="308" text-anchor="middle" font-size="14" fill="var(--muted-color)" font-family="var(--mono-font)">2016*</text>
-              <rect x="171.8" y="191.4" width="53.1" height="98.6" fill="var(--primary-color)" />
-              <rect x="171.8" y="55.7" width="53.1" height="135.8" fill="var(--chart-2)" />
-              <text x="198.4" y="49.7" text-anchor="middle" font-size="14" font-weight="700" fill="var(--text-color)" font-family="var(--mono-font)">1,762</text>
-              <text x="198.4" y="308" text-anchor="middle" font-size="14" fill="var(--muted-color)" font-family="var(--mono-font)">2017</text>
-              <rect x="266.7" y="181.3" width="53.1" height="108.7" fill="var(--primary-color)" />
-              <rect x="266.7" y="58.0" width="53.1" height="123.3" fill="var(--chart-2)" />
-              <text x="293.3" y="52.0" text-anchor="middle" font-size="14" font-weight="700" fill="var(--text-color)" font-family="var(--mono-font)">1,744</text>
-              <text x="293.3" y="308" text-anchor="middle" font-size="14" fill="var(--muted-color)" font-family="var(--mono-font)">2018</text>
-              <rect x="361.6" y="196.9" width="53.1" height="93.1" fill="var(--primary-color)" />
-              <rect x="361.6" y="122.7" width="53.1" height="74.2" fill="var(--chart-2)" />
-              <text x="388.2" y="116.7" text-anchor="middle" font-size="14" font-weight="700" fill="var(--text-color)" font-family="var(--mono-font)">1,258</text>
-              <text x="388.2" y="308" text-anchor="middle" font-size="14" fill="var(--muted-color)" font-family="var(--mono-font)">2019</text>
-              <rect x="456.5" y="162.7" width="53.1" height="127.3" fill="var(--primary-color)" />
-              <rect x="456.5" y="47.0" width="53.1" height="115.7" fill="var(--chart-2)" />
-              <text x="483.1" y="41.0" text-anchor="middle" font-size="14" font-weight="700" fill="var(--text-color)" font-family="var(--mono-font)">1,827</text>
-              <text x="483.1" y="308" text-anchor="middle" font-size="14" fill="var(--muted-color)" font-family="var(--mono-font)">2020</text>
-              <rect x="551.4" y="189.2" width="53.1" height="100.8" fill="var(--primary-color)" />
-              <rect x="551.4" y="106.2" width="53.1" height="83.0" fill="var(--chart-2)" />
-              <text x="578.0" y="100.2" text-anchor="middle" font-size="14" font-weight="700" fill="var(--text-color)" font-family="var(--mono-font)">1,382</text>
-              <text x="578.0" y="308" text-anchor="middle" font-size="14" fill="var(--muted-color)" font-family="var(--mono-font)">2021</text>
-              <rect x="646.3" y="203.3" width="53.1" height="86.7" fill="var(--primary-color)" />
-              <rect x="646.3" y="107.4" width="53.1" height="95.9" fill="var(--chart-2)" />
-              <text x="672.9" y="101.4" text-anchor="middle" font-size="14" font-weight="700" fill="var(--text-color)" font-family="var(--mono-font)">1,373</text>
-              <text x="672.9" y="308" text-anchor="middle" font-size="14" fill="var(--muted-color)" font-family="var(--mono-font)">2022</text>
-              <rect x="741.2" y="210.9" width="53.1" height="79.1" fill="var(--primary-color)" />
-              <rect x="741.2" y="113.6" width="53.1" height="97.2" fill="var(--chart-2)" />
-              <text x="767.8" y="107.6" text-anchor="middle" font-size="14" font-weight="700" fill="var(--text-color)" font-family="var(--mono-font)">1,326</text>
-              <text x="767.8" y="308" text-anchor="middle" font-size="14" fill="var(--muted-color)" font-family="var(--mono-font)">2023</text>
-              <rect x="836.2" y="229.5" width="53.1" height="60.5" fill="var(--primary-color)" />
-              <rect x="836.2" y="51.0" width="53.1" height="178.5" fill="var(--chart-2)" />
-              <text x="862.7" y="45.0" text-anchor="middle" font-size="14" font-weight="700" fill="var(--text-color)" font-family="var(--mono-font)">1,797</text>
-              <text x="862.7" y="308" text-anchor="middle" font-size="14" fill="var(--muted-color)" font-family="var(--mono-font)">2024</text>
-              <rect x="931.1" y="247.6" width="53.1" height="42.4" fill="var(--primary-color)" />
-              <rect x="931.1" y="59.5" width="53.1" height="188.1" fill="var(--chart-2)" />
-              <text x="957.6" y="53.5" text-anchor="middle" font-size="14" font-weight="700" fill="var(--text-color)" font-family="var(--mono-font)">1,733</text>
-              <text x="957.6" y="308" text-anchor="middle" font-size="14" fill="var(--muted-color)" font-family="var(--mono-font)">2025</text>
-              <rect x="1026.0" y="287.9" width="53.1" height="2.1" fill="var(--primary-color)" />
-              <rect x="1026.0" y="239.2" width="53.1" height="48.7" fill="var(--chart-2)" />
-              <text x="1052.5" y="233.2" text-anchor="middle" font-size="14" font-weight="700" fill="var(--text-color)" font-family="var(--mono-font)">382</text>
-              <text x="1052.5" y="308" text-anchor="middle" font-size="14" fill="var(--muted-color)" font-family="var(--mono-font)">2026*</text>
+            <svg viewBox="0 -64 1120 400" width="100%" height="328" role="img" aria-label="Issues and pull requests opened per year on kubernetes/ingress-nginx, 2016 to 2026, side by side. Markers: Jul 2018 Lua dynamic config on by default; Jun 2022 feature pause; Mar 2025 no new features from maintainers. PRs pass 1,300 a year in 2024 and 2025 while issues fall." style="display:block; overflow: visible;">
+                  <line x1="56" x2="1100" y1="290.0" y2="290.0" stroke="var(--line-color)" stroke-width="1" />
+                  <text x="48" y="298.0" text-anchor="end" font-size="23" fill="var(--muted-color)" font-family="var(--mono-font)">0</text>
+                  <line x1="56" x2="1100" y1="201.3" y2="201.3" stroke="var(--line-color)" stroke-width="1" />
+                  <text x="48" y="209.3" text-anchor="end" font-size="23" fill="var(--muted-color)" font-family="var(--mono-font)">500</text>
+                  <line x1="56" x2="1100" y1="112.7" y2="112.7" stroke="var(--line-color)" stroke-width="1" />
+                  <text x="48" y="120.7" text-anchor="end" font-size="23" fill="var(--muted-color)" font-family="var(--mono-font)">1,000</text>
+                  <line x1="56" x2="1100" y1="24.0" y2="24.0" stroke="var(--line-color)" stroke-width="1" />
+                  <text x="48" y="32.0" text-anchor="end" font-size="23" fill="var(--muted-color)" font-family="var(--mono-font)">1,500</text>
+                  <rect x="67.5" y="280.8" width="34" height="9.2" fill="var(--primary-color)" />
+                  <rect x="105.5" y="281.5" width="34" height="8.5" fill="var(--chart-2)" />
+                  <text x="103.5" y="322" text-anchor="middle" font-size="23" fill="var(--muted-color)" font-family="var(--mono-font)">2016*</text>
+                  <rect x="162.4" y="158.6" width="34" height="131.4" fill="var(--primary-color)" />
+                  <rect x="200.4" y="108.9" width="34" height="181.1" fill="var(--chart-2)" />
+                  <text x="198.4" y="322" text-anchor="middle" font-size="23" fill="var(--muted-color)" font-family="var(--mono-font)">2017</text>
+                  <rect x="257.3" y="145.1" width="34" height="144.9" fill="var(--primary-color)" />
+                  <rect x="295.3" y="125.6" width="34" height="164.4" fill="var(--chart-2)" />
+                  <text x="293.3" y="322" text-anchor="middle" font-size="23" fill="var(--muted-color)" font-family="var(--mono-font)">2018</text>
+                  <rect x="352.2" y="165.9" width="34" height="124.1" fill="var(--primary-color)" />
+                  <rect x="390.2" y="191.0" width="34" height="99.0" fill="var(--chart-2)" />
+                  <text x="388.2" y="322" text-anchor="middle" font-size="23" fill="var(--muted-color)" font-family="var(--mono-font)">2019</text>
+                  <rect x="447.1" y="120.3" width="34" height="169.7" fill="var(--primary-color)" />
+                  <rect x="485.1" y="135.7" width="34" height="154.3" fill="var(--chart-2)" />
+                  <text x="483.1" y="322" text-anchor="middle" font-size="23" fill="var(--muted-color)" font-family="var(--mono-font)">2020</text>
+                  <rect x="542.0" y="155.6" width="34" height="134.4" fill="var(--primary-color)" />
+                  <rect x="580.0" y="179.3" width="34" height="110.7" fill="var(--chart-2)" />
+                  <text x="578.0" y="322" text-anchor="middle" font-size="23" fill="var(--muted-color)" font-family="var(--mono-font)">2021</text>
+                  <rect x="636.9" y="174.4" width="34" height="115.6" fill="var(--primary-color)" />
+                  <rect x="674.9" y="162.1" width="34" height="127.9" fill="var(--chart-2)" />
+                  <text x="672.9" y="322" text-anchor="middle" font-size="23" fill="var(--muted-color)" font-family="var(--mono-font)">2022</text>
+                  <rect x="731.8" y="184.5" width="34" height="105.5" fill="var(--primary-color)" />
+                  <rect x="769.8" y="160.4" width="34" height="129.6" fill="var(--chart-2)" />
+                  <text x="767.8" y="322" text-anchor="middle" font-size="23" fill="var(--muted-color)" font-family="var(--mono-font)">2023</text>
+                  <rect x="826.7" y="209.3" width="34" height="80.7" fill="var(--primary-color)" />
+                  <rect x="864.7" y="52.0" width="34" height="238.0" fill="var(--chart-2)" />
+                  <text x="862.7" y="322" text-anchor="middle" font-size="23" fill="var(--muted-color)" font-family="var(--mono-font)">2024</text>
+                  <rect x="921.6" y="233.4" width="34" height="56.6" fill="var(--primary-color)" />
+                  <rect x="959.6" y="39.3" width="34" height="250.7" fill="var(--chart-2)" />
+                  <text x="957.6" y="322" text-anchor="middle" font-size="23" fill="var(--muted-color)" font-family="var(--mono-font)">2025</text>
+                  <rect x="1016.5" y="287.2" width="34" height="2.8" fill="var(--primary-color)" />
+                  <rect x="1054.5" y="225.1" width="34" height="64.9" fill="var(--chart-2)" />
+                  <text x="1052.5" y="322" text-anchor="middle" font-size="23" fill="var(--muted-color)" font-family="var(--mono-font)">2026*</text>
+                  <line x1="293.3" x2="293.3" y1="-34" y2="290" stroke="var(--text-color)" stroke-width="1.5" stroke-dasharray="4 4" />
+                  <text x="299.3" y="-40" text-anchor="start" font-size="23" font-weight="600" fill="var(--text-color)" font-family="var(--mono-font)">Lua dynamic config</text>
+                  <line x1="665.0" x2="665.0" y1="-34" y2="290" stroke="var(--text-color)" stroke-width="1.5" stroke-dasharray="4 4" />
+                  <text x="671.0" y="-40" text-anchor="start" font-size="23" font-weight="600" fill="var(--text-color)" font-family="var(--mono-font)">feature pause</text>
+                  <line x1="926.0" x2="926.0" y1="-6" y2="290" stroke="var(--text-color)" stroke-width="1.5" stroke-dasharray="4 4" />
+                  <text x="920.0" y="-12" text-anchor="end" font-size="23" font-weight="600" fill="var(--text-color)" font-family="var(--mono-font)">no new features</text>
             </svg>
           </div>
           <div style="display: flex; gap: 28px; align-items: center; margin-top: 10px; width: 100%;">
@@ -651,10 +656,10 @@
                 style="width: 12px; height: 12px; background: var(--chart-2); display: inline-block;"></span> pull requests</span>
             <span class="receipt" style="margin: 0;">* 2016 starts Nov 4 (repo created) · 2026 ends at the March archive</span>
           </div>
-          <p class="text-xl" style="margin: 18px 0 0 0; font-weight: 500;"><span class="hl">~14.7k issues and pull
-              requests</span> in nine years, on a handful of unpaid volunteers.</p>
+          <p class="text-xl" style="margin: 10px 0 0 0; font-weight: 500;">Features came in as PRs; the upkeep stayed. <span class="hl">9 of 10 PRs in 2025</span>
+            came from one maintainer or a bot.</p>
         </div>
-        <p class="footnote">Sources: GitHub search API, repo:kubernetes/ingress-nginx created:&lt;year&gt;, queried Sep 26 2026</p>
+        <p class="footnote">Sources: GitHub search API, repo:kubernetes/ingress-nginx created:&lt;year&gt;, queried Sep 26 2026 (2025 authors: first 1,000 of 1,414 PRs, queried Sep 30 2026) · <a href="https://github.com/kubernetes/ingress-nginx/pull/2794" target="_blank" rel="noopener">PR #2794, Jul 27 2018</a> · <a href="https://groups.google.com/a/kubernetes.io/g/dev/c/rxtrKvT_Q8E/m/6_ej0c1ZBAAJ" target="_blank" rel="noopener">kubernetes dev list, Jun 23 2022</a> · <a href="https://github.com/kubernetes/ingress-nginx/issues/13002" target="_blank" rel="noopener">issue #13002, Mar 20 2025</a></p>
         <aside class="notes">
           New in revision 2. There is no public dataset of how many production
           clusters ran ingress-nginx year by year, so don't claim one. This
@@ -668,8 +673,27 @@
 
           Read it as: steady ~1,300–1,800 items a year, for a decade, landing
           on a team that peaked at six maintainers and spent years at two.
-          Caveat if asked: part of the PR growth in 2024–25 is automated
-          (dependency bumps, cherry-picks), which is still review work.
+
+          Updated Sep 30 2026. Bars are side by side now (the stacked version
+          got misread). The story is features turning into upkeep:
+          - Jul 2018: PR #2794 "enable dynamic backend configuration by
+            default" (release 0.18.0). Backends update through OpenResty/Lua
+            without an NGINX reload, which stock NGINX can't do. First shipped
+            behind --enable-dynamic-configuration in 0.12.0 (Changelog.md);
+            PR #3198 (Oct 2018) made it the only mode.
+          - Jun 23 2022, dev list: "it's time to temporarily pause accepting
+            new features and focus on fixing and stabilizing Ingress NGINX."
+          - Mar 20 2025, pinned issue #13002: "No new features from
+            maintainers".
+          - 2025 PR authors, from the first 1,000 of 1,414 PRs (GitHub search
+            caps results at 1,000): Gacko (maintainer) 565,
+            k8s-infra-cherrypick-robot 245, Dependabot 104 = 914, so "9 of 10".
+            Gacko's titles are mostly chores: "Images: Trigger NGINX build."
+            219, "Go: Update dependencies." 128, CI 70, Tests 51. Next human
+            author: 11 PRs. 2024 looks the same: cherry-pick robot 529, Gacko
+            184, Dependabot 115 of 1,000.
+          - So PRs outnumber issues because maintainers and bots opened them
+            to keep the thing patched, not because users sent fixes.
 
           The adoption numbers (Wiz 41%+, Steering ~50%) are on the previous
           slide; this one is only about demand.
@@ -680,38 +704,38 @@
 
       <section id="case-ingress-people">
         <h2>The humans behind the controller</h2>
-        <div class="content">
-          <div class="terminal" style="padding: 16px 20px; margin: 0 0 24px 0; width: 100%;">
-            <p class="text-mono" style="margin: 0 0 6px 0; color: var(--muted-color); font-size: 14pt;">❯ what they
-              actually do ($0 budget · after hours · on weekends)</p>
-            <p style="margin: 0; font-size: 18pt; line-height: 1.4;">Triage & Review · CVE Patching · Release Management
-              · End-User Support</p>
-            <p class="text-mono" style="margin: 14px 0 0 0; color: var(--muted-color); font-size: 14pt;">❯ Jun 2022</p>
-            <p style="margin: 0; font-size: 18pt; line-height: 1.4;"><strong>"we're drowning"</strong>: the maintainers' call for
-              help on the Kubernetes dev list</p>
-          </div>
-
+        <div class="content" style="justify-content: center;">
           <div class="quote-card critical" style="width: 100%;">
-            <p class="quote" style="font-size: 30pt; line-height: 1.3;">"I need some time for myself, and I am not really
-              being able to take care of the project and my personal life together :)"</p>
-            <p class="who">@rikatz · ingress-nginx maintainer, stepping down · Dec 15, 2024 · kubernetes/org#5305</p>
+            <p class="quote" style="font-size: 30pt; line-height: 1.3;">"We do this in our spare time, and it's becoming hard
+              for us to keep this pace. … we now have to split our time between issues, bug fixing, new feature reviews,
+              and <span class="hl">the bugs that may arise from this feature</span>."</p>
+            <p class="who">James Strong (@strongjz) · ingress-nginx maintainer · kubernetes dev list · Jun 23, 2022</p>
           </div>
         </div>
-        <p class="footnote">Sources: <a href="https://groups.google.com/a/kubernetes.io/g/dev/c/rxtrKvT_Q8E/m/6_ej0c1ZBAAJ" target="_blank" rel="noopener">kubernetes dev list, Jun 23 2022</a> · <a href="https://github.com/kubernetes/org/pull/5305" target="_blank" rel="noopener">kubernetes/org#5305</a></p>
+        <p class="footnote">Sources: <a href="https://groups.google.com/a/kubernetes.io/g/dev/c/rxtrKvT_Q8E/m/6_ej0c1ZBAAJ" target="_blank" rel="noopener">James Strong, kubernetes dev list, Jun 23 2022</a> · <a href="https://github.com/kubernetes/org/pull/5305" target="_blank" rel="noopener">kubernetes/org#5305, Dec 15 2024</a></p>
         <aside class="notes">
-          This is the human slide. The four stat cards (14.7k issues + PRs,
-          8 CVEs in 2 years, 50+ frozen issues, $0) were removed on Sep 27
-          2026: the demand chart and the CVE chart already carry the numbers.
-          Now it's one terminal line and one quote.
+          This is the human slide. Rewritten Sep 30 2026: the terminal box is
+          gone (its "we're drowning" was a paraphrase in quote marks, not the
+          maintainers' words), and one verbatim maintainer quote explains what
+          was happening.
 
-          The rikatz quote at the bottom is verbatim from the kubernetes/org
-          step-down PR. It's the most human line in the entire github
-          record. Read it slowly. "I am not really being able to take care
-          of the project and my personal life together." The smiley face
-          is what makes it worse.
+          The quote: James Strong's email to the kubernetes dev list, Jun 23
+          2022, checked against the Google Groups page on Sep 30 2026. The
+          "…" skips one sentence: "This lack of support becomes a burden to
+          Ingress NGINX maintainers:". The same email goes on: "it's time to
+          temporarily pause accepting new features and focus on fixing and
+          stabilizing Ingress NGINX" (the feature-pause marker on the chart).
+          The highlighted phrase is the previous slide said by a maintainer:
+          every feature becomes upkeep.
 
-          Jun 2022 line: @strongjz's "we're drowning" post on the kubernetes
-          dev list (Jun 23 2022), the maintainers' own call for help.
+          Say it after the quote (the personal cost, in your voice): two years
+          later, Ricardo Katz (@rikatz) stepped down. kubernetes/org#5305, Dec
+          15 2024: "I need some time for myself, and I am not really being
+          able to take care of the project and my personal life together :)"
+          The smiley face is what makes it worse.
+
+          What they actually did, for $0, after hours: triage and review, CVE
+          patching, release management, end-user support.
 
           Moved from the removed "Why it collapsed" slide (Sep 27 2026). Four
           reasons it collapsed, to say out loud if there's time:
@@ -823,36 +847,83 @@
 
       <section id="ai-maintainer-flood">
         <h2 style="margin-bottom: 10px;">AI didn't shrink the work. It multiplied the inbox.</h2>
-        <div class="content" style="padding-top: 8px; width: 100%;">
-          <div style="display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: 48px; align-items: center; width: 100%;">
-            <div style="display: flex; flex-direction: column; gap: 18px;">
-              <figure class="evidence" style="--evidence-h: 200px;">
-                <img src="assets/evidence/curl-summer-of-bliss.png" alt="Screenshot of the curl Summer of Bliss blog post" />
-                <figcaption>daniel.haxx.se · "curl summer of bliss" · Jun 15, 2026</figcaption>
-              </figure>
-              <div class="comment-card critical">
-                <p class="who"><span class="logo sm critical" style="--logo: var(--logo-curl);"></span> Daniel Stenberg · curl</p>
-                <blockquote>"We have been under a huge pressure for the last four months or so. Now we need some rest.
-                  We do not expect this deluge to be over."</blockquote>
-                <span class="src" style="font-size: 14pt; line-height: 1.55; color: var(--text-color);">No vulnerability reports accepted Jul 1 – Aug 3, 2026 ·
-                  <span class="hl">paid support contracts still served</span></span>
-              </div>
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 30px;">
-              <div class="stat-row primary" style="gap: 8px; padding-top: 16px;">
-                <span class="number" style="font-size: 54pt; letter-spacing: -0.03em;">25M → 90M+</span>
-                <span class="label" style="font-size: 18pt;">merged pull requests per month on GitHub, Jan 2023 → Jun 2026 (~3.6×)</span>
-              </div>
-              <div class="stat-row warn" style="gap: 8px; padding-top: 16px;">
-                <span class="number" style="font-size: 54pt; letter-spacing: -0.03em;">2×</span>
-                <span class="label" style="font-size: 18pt;">curl's security-report rate vs. 2025, "which already was more than double from
-                  previous years"</span>
-              </div>
-            </div>
-          </div>
+        <p class="text-lg text-muted" style="margin: 0 0 10px 0;">GitHub activity per month, as reported by GitHub (each panel has its own scale)</p>
+        <div class="content" style="padding-top: 0; width: 100%;">
+          <svg viewBox="0 -10 1120 400" width="100%" height="385" role="img" aria-label="GitHub activity per month. Commits pushed: 65 million (2024 average), 82 million (2025 average), about 1.2 billion (April 2026 run rate). Pull requests opened: 39.5 million (2024 average), 47.5 million (2025 average). Pull requests merged: 25 million (January 2023), 35 million (2024 average), 43.2 million (2025 average), more than 90 million (mid-2026)." style="display: block; overflow: visible;">
+            <text x="0" y="22" font-size="24" font-weight="700" fill="var(--text-color)" font-family="var(--mono-font)">Commits pushed</text>
+            <line x1="0" x2="340" y1="330" y2="330" stroke="var(--line-color)" stroke-width="2" />
+            <rect x="55.2" y="316.9" width="59.5" height="13.1" fill="var(--primary-color)" />
+            <text x="85.0" y="306.9" text-anchor="middle" font-size="22" font-weight="700" fill="var(--text-color)" font-family="var(--mono-font)">65M</text>
+            <text x="85.0" y="358" text-anchor="middle" font-size="20" fill="var(--muted-color)" font-family="var(--mono-font)">2024</text>
+            <text x="85.0" y="382" text-anchor="middle" font-size="20" fill="var(--muted-color)" font-family="var(--mono-font)">avg</text>
+            <rect x="140.2" y="313.4" width="59.5" height="16.6" fill="var(--primary-color)" />
+            <text x="170.0" y="303.4" text-anchor="middle" font-size="22" font-weight="700" fill="var(--text-color)" font-family="var(--mono-font)">82M</text>
+            <text x="170.0" y="358" text-anchor="middle" font-size="20" fill="var(--muted-color)" font-family="var(--mono-font)">2025</text>
+            <text x="170.0" y="382" text-anchor="middle" font-size="20" fill="var(--muted-color)" font-family="var(--mono-font)">avg</text>
+            <rect x="225.2" y="90.0" width="59.5" height="240.0" fill="var(--primary-color)" />
+            <text x="255.0" y="80.0" text-anchor="middle" font-size="22" font-weight="700" fill="var(--text-color)" font-family="var(--mono-font)">~1.2B</text>
+            <text x="255.0" y="358" text-anchor="middle" font-size="20" fill="var(--muted-color)" font-family="var(--mono-font)">Apr</text>
+            <text x="255.0" y="382" text-anchor="middle" font-size="20" fill="var(--muted-color)" font-family="var(--mono-font)">2026*</text>
+            <text x="390" y="22" font-size="24" font-weight="700" fill="var(--text-color)" font-family="var(--mono-font)">PRs opened</text>
+            <line x1="390" x2="730" y1="330" y2="330" stroke="var(--line-color)" stroke-width="2" />
+            <rect x="487.8" y="130.4" width="59.5" height="199.6" fill="var(--chart-2)" />
+            <text x="517.5" y="120.4" text-anchor="middle" font-size="22" font-weight="700" fill="var(--text-color)" font-family="var(--mono-font)">39.5M</text>
+            <text x="517.5" y="358" text-anchor="middle" font-size="20" fill="var(--muted-color)" font-family="var(--mono-font)">2024</text>
+            <text x="517.5" y="382" text-anchor="middle" font-size="20" fill="var(--muted-color)" font-family="var(--mono-font)">avg</text>
+            <rect x="572.8" y="90.0" width="59.5" height="240.0" fill="var(--chart-2)" />
+            <text x="602.5" y="80.0" text-anchor="middle" font-size="22" font-weight="700" fill="var(--text-color)" font-family="var(--mono-font)">47.5M</text>
+            <text x="602.5" y="358" text-anchor="middle" font-size="20" fill="var(--muted-color)" font-family="var(--mono-font)">2025</text>
+            <text x="602.5" y="382" text-anchor="middle" font-size="20" fill="var(--muted-color)" font-family="var(--mono-font)">avg</text>
+            <text x="780" y="22" font-size="24" font-weight="700" fill="var(--text-color)" font-family="var(--mono-font)">PRs merged</text>
+            <line x1="780" x2="1120" y1="330" y2="330" stroke="var(--line-color)" stroke-width="2" />
+            <rect x="792.8" y="263.3" width="59.5" height="66.7" fill="var(--secondary-color)" />
+            <text x="822.5" y="253.3" text-anchor="middle" font-size="22" font-weight="700" fill="var(--text-color)" font-family="var(--mono-font)">25M</text>
+            <text x="822.5" y="358" text-anchor="middle" font-size="20" fill="var(--muted-color)" font-family="var(--mono-font)">Jan</text>
+            <text x="822.5" y="382" text-anchor="middle" font-size="20" fill="var(--muted-color)" font-family="var(--mono-font)">2023</text>
+            <rect x="877.8" y="236.7" width="59.5" height="93.3" fill="var(--secondary-color)" />
+            <text x="907.5" y="226.7" text-anchor="middle" font-size="22" font-weight="700" fill="var(--text-color)" font-family="var(--mono-font)">35M</text>
+            <text x="907.5" y="358" text-anchor="middle" font-size="20" fill="var(--muted-color)" font-family="var(--mono-font)">2024</text>
+            <text x="907.5" y="382" text-anchor="middle" font-size="20" fill="var(--muted-color)" font-family="var(--mono-font)">avg</text>
+            <rect x="962.8" y="214.8" width="59.5" height="115.2" fill="var(--secondary-color)" />
+            <text x="992.5" y="204.8" text-anchor="middle" font-size="22" font-weight="700" fill="var(--text-color)" font-family="var(--mono-font)">43.2M</text>
+            <text x="992.5" y="358" text-anchor="middle" font-size="20" fill="var(--muted-color)" font-family="var(--mono-font)">2025</text>
+            <text x="992.5" y="382" text-anchor="middle" font-size="20" fill="var(--muted-color)" font-family="var(--mono-font)">avg</text>
+            <rect x="1047.8" y="90.0" width="59.5" height="240.0" fill="var(--secondary-color)" />
+            <text x="1077.5" y="80.0" text-anchor="middle" font-size="22" font-weight="700" fill="var(--text-color)" font-family="var(--mono-font)">90M+</text>
+            <text x="1077.5" y="358" text-anchor="middle" font-size="20" fill="var(--muted-color)" font-family="var(--mono-font)">mid-2026</text>
+            <text x="1077.5" y="382" text-anchor="middle" font-size="20" fill="var(--muted-color)" font-family="var(--mono-font)"></text>
+          </svg>
+          <p class="text-xl" style="margin: 8px 0 0 0; font-weight: 500;">Merged PRs: <span class="hl">25M → 90M+ a month</span> since Jan 2023, about 3.6×.</p>
         </div>
-        <p class="footnote">Sources: <a href="https://daniel.haxx.se/blog/2026/06/15/curl-summer-of-bliss/" target="_blank" rel="noopener">curl, "curl summer of bliss", Jun 15 2026</a> · <a href="https://github.blog/open-source/maintainers/how-pull-request-limits-are-cutting-down-the-noise/" target="_blank" rel="noopener">GitHub Blog, Jun 18 2026</a> · <a href="https://daniel.haxx.se/blog/2026/04/22/high-quality-chaos/" target="_blank" rel="noopener">curl, "High-Quality Chaos", Apr 22 2026</a></p>
+        <p class="footnote">Sources: <a href="https://github.blog/news-insights/octoverse/octoverse-a-new-developer-joins-github-every-second-as-ai-leads-typescript-to-1/" target="_blank" rel="noopener">GitHub Octoverse 2025, Oct 28 2025 (2024/2025 monthly averages, public repos)</a> · <a href="https://github.blog/open-source/maintainers/how-pull-request-limits-are-cutting-down-the-noise/" target="_blank" rel="noopener">GitHub Blog, Jun 18 2026 (merged PRs, Jan 2023 and 2026)</a> · <a href="https://www.latent.space/p/github" target="_blank" rel="noopener">* Kyle Daigle (GitHub COO), quoted in Latent Space, Jun 2 2026: 275M commits/week in Apr 2026</a></p>
         <aside class="notes">
+          Three-panel chart (Sep 30 2026, second version). Every number is
+          GitHub's own, all per month:
+          - Octoverse 2025 (Oct 28 2025), table "2024 monthly average / 2025
+            monthly average": "Code pushes 65M 82.19M", "Pull requests merged
+            35M 43.2M", and "Pull requests created: +20.4% (47.5M vs 39.5M)".
+            Octoverse says its numbers are public activity unless noted.
+            Also: "pushed nearly 1 billion commits in 2025 (+25.1% YoY)".
+          - GitHub Blog, Jun 18 2026: "In January 2023, developers merged
+            about 25 million pull requests a month across GitHub. Today that
+            number tops 90 million—a roughly 3.6x increase." Note the scope
+            says "across GitHub" (Octoverse says public); GitHub's own labels
+            don't line up, so don't claim open source only.
+          - Kyle Daigle, GitHub COO, quoted on Latent Space (Jun 2 2026):
+            "There were 1 billion commits in 2025. Now, it's 275 million per
+            week, on pace for 14 billion this year if growth remains
+            linear". The ~1.2B/month bar is 275M × 52 / 12, a run rate, not
+            a measured month. Say "run rate" out loud.
+          - No official PRs-opened number for 2026 yet, so that panel stops
+            at 2025. Commits and PRs in the Octoverse table are pushes; the
+            text treats ~1B commits and 82M pushes a month as the same.
+          Each panel has its own scale: compare growth within a panel, not
+          heights across panels.
+
+          Earlier version of this chart (dropped): GitHub Innovation Graph,
+          human git pushes per quarter, bots excluded: 106.3M (Q2 2021) to
+          319.8M (Q1 2026), 3.0×, +80% year over year.
+
           New in revision 2. Since the June delivery, the AI story flipped from
           "AI finds bugs" to "AI buries maintainers."
 
@@ -890,46 +961,6 @@
           [TIMING: 2 minutes.]
         </aside>
       </section>
-
-      <section id="curl-apple">
-        <div class="content" style="justify-content: center; width: 100%;">
-          <div style="width: 100%; text-align: left;">
-            <div style="display: flex; align-items: center; gap: 22px;">
-              <span class="logo curl-brand" style="--logo: var(--logo-curl-logo); width: 220px; height: 66px;" role="img" aria-label="curl"></span>
-              <span class="font-mono text-muted" style="font-size: 24pt;">×</span>
-              <span class="logo lg" style="--logo: var(--logo-apple);" role="img" aria-label="Apple"></span>
-            </div>
-            <p class="font-mono text-muted" style="margin: 18px 0 26px 0; font-size: 16pt; letter-spacing: 0.08em; text-transform: uppercase;">curl runs in every
-              Apple OS since 2001</p>
-            <div class="quote-card">
-              <p class="quote" style="font-size: 32pt; line-height: 1.25;">"We have never worked with Apple, <span class="hl">never
-                received sponsorship by Apple</span>, not had them as customers…"</p>
-              <p class="who">Daniel Stenberg · curl · Sep 25, 2026</p>
-            </div>
-          </div>
-        </div>
-        <p class="footnote">Sources: <a href="https://daniel.haxx.se/blog/2026/09/25/25-years-on-apple-computers/" target="_blank" rel="noopener">Daniel Stenberg, "25 years on Apple computers", Sep 25 2026</a></p>
-        <aside class="notes">
-          New in revision 2. This is the ledger in one sentence, so read it
-          slowly and then stop talking.
-
-          Full sentence from the post (Sep 25, 2026): "We have never worked
-          with Apple, never received sponsorship by Apple, not had them as
-          customers and except a few rare and mostly failed attempts there have
-          never been any communication between us."
-
-          curl 7.7.2 shipped with Mac OS X 10.1 in 2001; the post: "present
-          in every version and every install of macOS done through the
-          decades", and "When Apple later created iOS, iPadOS, WatchOS etc they
-          also adopted libcurl into their operating systems." (So "since 2001"
-          is macOS; iOS came in 2007.) The $0 card was removed on Sep 27 2026:
-          the post doesn't give a dollar figure, and "most valuable company"
-          had no source.
-
-          [TIMING: 45s. Quote, pause, advance.]
-        </aside>
-      </section>
-
 
       <section id="ai-vulnerability-explosion">
         <h2 style="margin-bottom: 14px;">AI finds bugs faster than volunteers can fix them</h2>
@@ -1009,64 +1040,110 @@
 
       <section id="supply-chain-2026">
         <h2 style="margin-bottom: 10px;">One maintainer's token is your production</h2>
-        <p class="text-lg text-muted" style="margin: 0 0 18px 0;">2026's supply-chain attacks went through people, not code.</p>
+        <p class="text-lg text-muted" style="margin: 0 0 10px 0;">2026's biggest open-source attacks went through people, not code.</p>
         <div class="content" style="padding-top: 0;">
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%;">
-            <div class="stat-card critical" style="padding: 20px 24px; gap: 10px;">
-              <p class="font-mono" style="margin: 0; font-size: 14pt; font-weight: 600; color: var(--card-color); display: flex; align-items: center; gap: 10px;">
-                <span class="logo" style="--logo: var(--logo-trivy); width: 30px; height: 30px; background: var(--card-color);"></span>MAR 19, 2026</p>
-              <p style="margin: 0; font-size: 19pt; line-height: 1.35;"><strong>trivy-action:</strong> attackers force-push 76 of 77 version tags to credential-stealing malware. A security scanner, turned into the attack.</p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px; width: 100%;">
+            <div class="stat-card critical" style="padding: 14px 22px; gap: 4px;">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <span class="logo" style="--logo: var(--logo-axios); width: 34px; height: 34px; background: var(--card-color);" role="img" aria-label="axios"></span>
+                <span style="font-size: 24pt; font-weight: 700; color: var(--card-color);">axios</span>
+                <span class="font-mono text-muted" style="margin-left: auto; font-size: 14pt;">MAR 31, 2026</span>
+              </div>
+              <p style="margin: 0; display: flex; align-items: baseline; gap: 14px;"><span style="font-size: 36pt; font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; white-space: nowrap;">~100M</span><span style="font-size: 17pt; line-height: 1.3;">downloads a week, backdoored</span></p>
+              <p style="margin: 0; font-size: 18pt; line-height: 1.35;">Social engineering put a RAT on <span class="hl">the lead maintainer's PC</span>. It stole the npm login.</p>
             </div>
-            <div class="stat-card warn" style="padding: 20px 24px; gap: 10px;">
-              <p class="font-mono" style="margin: 0; font-size: 14pt; font-weight: 600; color: var(--card-color); display: flex; align-items: center; gap: 10px;">
-                <span class="logo" style="--logo: var(--logo-redhat); width: 30px; height: 30px; background: var(--card-color);"></span>JUN 1, 2026</p>
-              <p style="margin: 0; font-size: 19pt; line-height: 1.35;"><strong>Red Hat:</strong> 32 npm packages compromised through a GitHub account "compromised via a VS code extension containing malware".</p>
+            <div class="stat-card critical" style="padding: 14px 22px; gap: 4px;">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <span class="logo" style="--logo: var(--logo-trivy); width: 34px; height: 34px; background: var(--card-color);" role="img" aria-label="trivy-action"></span>
+                <span style="font-size: 24pt; font-weight: 700; color: var(--card-color);">trivy-action</span>
+                <span class="font-mono text-muted" style="margin-left: auto; font-size: 14pt;">MAR 19, 2026</span>
+              </div>
+              <p style="margin: 0; display: flex; align-items: baseline; gap: 14px;"><span style="font-size: 36pt; font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; white-space: nowrap;">76 of 77</span><span style="font-size: 17pt; line-height: 1.3;">release tags hijacked</span></p>
+              <p style="margin: 0; font-size: 18pt; line-height: 1.35;">A stolen CI token turned a security scanner into malware.</p>
             </div>
-            <div class="stat-card critical" style="padding: 20px 24px; gap: 10px;">
-              <p class="font-mono" style="margin: 0; font-size: 14pt; font-weight: 600; color: var(--card-color); display: flex; align-items: center; gap: 10px;">
-                <span class="logo" style="--logo: var(--logo-npm); width: 30px; height: 30px; background: var(--card-color);"></span>AUG 4, 2026</p>
-              <p style="margin: 0; font-size: 19pt; line-height: 1.35;"><strong>ChainDrop worm:</strong> 400+ npm packages across unrelated publishers (<code>keyv</code>, <code>cache-manager</code>…) via stolen maintainer credentials.</p>
+            <div class="stat-card warn" style="padding: 14px 22px; gap: 4px;">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <span class="logo" style="--logo: var(--logo-github); width: 34px; height: 34px; background: var(--card-color);" role="img" aria-label="GitHub"></span>
+                <span style="font-size: 24pt; font-weight: 700; color: var(--card-color);">GitHub</span>
+                <span class="font-mono text-muted" style="margin-left: auto; font-size: 14pt;">MAY 20, 2026</span>
+              </div>
+              <p style="margin: 0; display: flex; align-items: baseline; gap: 14px;"><span style="font-size: 36pt; font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; white-space: nowrap;">~3,800</span><span style="font-size: 17pt; line-height: 1.3;">internal repos accessed</span></p>
+              <p style="margin: 0; font-size: 18pt; line-height: 1.35;">One employee installed a poisoned VS Code extension (Nx Console).</p>
             </div>
-            <div class="stat-card primary" style="padding: 20px 24px; gap: 10px;">
-              <p class="font-mono" style="margin: 0; font-size: 14pt; font-weight: 600; color: var(--card-color); display: flex; align-items: center; gap: 10px;">
-                <span class="logo" style="--logo: var(--logo-npm); width: 30px; height: 30px; background: var(--card-color);" role="img" aria-label="npm"></span>SEP 18, 2026</p>
-              <p style="margin: 0; font-size: 19pt; line-height: 1.35;"><strong>npm responds:</strong> stage-only tokens and staged publishing with malware scans. Every maintainer now has migration homework.</p>
+            <div class="stat-card critical" style="padding: 14px 22px; gap: 4px;">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <span class="logo" style="--logo: var(--logo-npm); width: 34px; height: 34px; background: var(--card-color);" role="img" aria-label="ChainDrop worm"></span>
+                <span style="font-size: 24pt; font-weight: 700; color: var(--card-color);">ChainDrop worm</span>
+                <span class="font-mono text-muted" style="margin-left: auto; font-size: 14pt;">AUG 4, 2026</span>
+              </div>
+              <p style="margin: 0; display: flex; align-items: baseline; gap: 14px;"><span style="font-size: 36pt; font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; white-space: nowrap;">400+</span><span style="font-size: 17pt; line-height: 1.3;">npm packages infected</span></p>
+              <p style="margin: 0; font-size: 18pt; line-height: 1.35;">Stolen tokens republished keyv, cache-manager and more.</p>
             </div>
           </div>
         </div>
-        <p class="footnote">Sources: <a href="https://github.com/advisories/GHSA-69fq-xp46-6x23" target="_blank" rel="noopener">GHSA-69fq-xp46-6x23</a> · <a href="https://access.redhat.com/security/vulnerabilities/RHSB-2026-006" target="_blank" rel="noopener">Red Hat RHSB-2026-006</a> · <a href="https://www.microsoft.com/en-us/security/blog/2026/08/04/chaindrop-supply-chain-compromise-anatomy-self-propagating-worm/" target="_blank" rel="noopener">Microsoft Security Blog, Aug 4 2026</a> · <a href="https://github.blog/changelog/2026-09-18-stage-only-npm-tokens-for-safer-automation/" target="_blank" rel="noopener">GitHub changelog, Sep 18 2026</a></p>
+        <p class="footnote">Sources: <a href="https://github.com/axios/axios/issues/10636" target="_blank" rel="noopener">axios post-mortem, axios/axios#10636, Apr 2 2026</a> · <a href="https://www.wiz.io/blog/axios-npm-compromised-in-supply-chain-attack" target="_blank" rel="noopener">Wiz, Mar 31 2026</a> · <a href="https://github.com/advisories/GHSA-69fq-xp46-6x23" target="_blank" rel="noopener">GHSA-69fq-xp46-6x23</a> · <a href="https://github.blog/security/investigating-unauthorized-access-to-githubs-internal-repositories/" target="_blank" rel="noopener">GitHub Blog, May 20 2026</a> · <a href="https://www.microsoft.com/en-us/security/blog/2026/08/04/chaindrop-supply-chain-compromise-anatomy-self-propagating-worm/" target="_blank" rel="noopener">Microsoft Security Blog, Aug 4 2026</a></p>
         <aside class="notes">
-          New in revision 2. The through-line: every one of these attacks went
-          through a person's credentials or workstation, not a code bug. And
-          the people holding those credentials are mostly volunteers with no
-          security team.
+          Rewritten Sep 30 2026: the four biggest open-source attacks of 2026,
+          each told as project → one number → one line. Every one went through
+          a person or their credential, not a code bug.
 
-          Receipts:
-          - GHSA-69fq-xp46-6x23 (CVE-2026-33634), incident Mar 19, 2026:
-            "force-push 76 of 77 version tags in aquasecurity/trivy-action to
-            credential-stealing malware".
-          - Red Hat RHSB-2026-006 (Jun 1, 2026): "Our investigation identified
-            32 @redhat-cloud-services npm packages that were compromised";
-            May 29, a GitHub account "compromised via a VS code extension
-            containing malware". Even a vendor with a security team got hit
-            through a developer laptop.
-          - ChainDrop (Aug 4, 2026), Microsoft Threat Intelligence: "a
+          - axios (Mar 31 2026, no CVE). Post-mortem by maintainer Jason
+            Saayman, axios/axios#10636 (Apr 2): "The attacker gained access to
+            the lead maintainer's PC through a targeted social engineering
+            campaign and RAT malware. This gave them access to the npm account
+            credentials, which they used to publish the malicious versions."
+            Malicious versions 1.14.1 and 0.30.4. Wiz (Mar 31): "present in
+            ~80% of cloud and code environments and downloaded ~100 million
+            times per week"; "observed execution in 3% of affected
+            environments". The post-mortem's own lesson: "Open source
+            maintainers with high-impact packages are active targets for
+            sophisticated social engineering."
+          - trivy-action (CVE-2026-33634, GHSA-69fq-xp46-6x23, CVSS 9.4).
+            Attack live Mar 19–20; advisory published Mar 21. "force-push 76
+            of 77 version tags in aquasecurity/trivy-action to
+            credential-stealing malware". Aqua: attackers extracted a
+            privileged access token, and the rotation "was not fully
+            comprehensive". Knock-on: LiteLLM on PyPI (Mar 24): "the
+            compromise originated from the Trivy dependency used in our CI/CD
+            security scanning workflow".
+          - GitHub (May 20 2026, updated May 26; CVE-2026-48027,
+            GHSA-c9j4-9m59-847w for Nx Console 18.95.0). GitHub Blog, Alexis
+            Wales: "a compromise of an employee device involving a poisoned
+            VS Code extension published by a third party." "The attacker's
+            current claims of ~3,800 repositories are directionally
+            consistent with our investigation so far." And: "no evidence of
+            impact to customer information stored outside of GitHub's
+            internal repositories". Chain: TanStack (CVE-2026-45321, May 11,
+            84 malicious versions across 42 @tanstack packages) leaked an Nx
+            developer's GitHub credentials, which shipped the poisoned Nx
+            Console, which reached a GitHub employee.
+          - ChainDrop (Aug 4 2026), Microsoft Threat Intelligence: "a
             large-scale npm supply chain attack affecting more than 400
             packages across multiple unrelated publishers, including packages
             associated with major enterprise software ecosystems such as keyv,
-            flat-cache, cache-manager, and others." And: "Evidence points
-            towards stolen maintainer credentials as the attack vector for
-            initial compromise." Worth saying out loud: "Many malicious
-            versions had no corresponding source-code commit, pull request,
-            tag, or legitimate release" — reviewing the GitHub repo would not
-            have caught it. It also injects .claude/ and .vscode/ config files
-            into repos for persistence. Datadog Security Labs has the
-            timeline from the keyv side.
-          - npm (GitHub changelog, Sep 3 and Sep 18, 2026): multiple trusted
-            publishers per package, staged publishing, stage-only tokens;
-            direct publishing with 2FA-bypass tokens goes away Jan 2027.
+            flat-cache, cache-manager, and others." "Evidence points towards
+            stolen maintainer credentials as the attack vector for initial
+            compromise." Datadog Security Labs (same day) shows the first wave
+            went out through a malicious commit and legitimate OIDC trusted
+            publishing, with genuine provenance: "Some of these npm packages
+            have over 150 million weekly downloads." "Many malicious versions
+            had no corresponding source-code commit, pull request, tag, or
+            legitimate release" (Microsoft).
 
-          [TIMING: 90s.]
+          Dropped from the cards, say if there's time:
+          - Red Hat RHSB-2026-006 (Jun 1): 32 @redhat-cloud-services npm
+            packages, GitHub account "compromised via a VS code extension
+            containing malware". Same pattern as GitHub, smaller victim.
+          - npm's response (GitHub changelog, Sep 3 and Sep 18): staged
+            publishing, stage-only tokens; 2FA-bypass tokens for direct
+            publishing go away Jan 2027. Every maintainer has migration
+            homework.
+          - Contrast, if asked "what about real bugs?": Copy Fail,
+            CVE-2026-31431 (Apr 29), a 9-year-old Linux kernel local root, in
+            CISA KEV May 1. The worst code bug of the year, still not the
+            year's story.
+
+          [TIMING: 90s. One sentence per card.]
         </aside>
       </section>
 

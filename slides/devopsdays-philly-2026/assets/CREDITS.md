@@ -34,8 +34,7 @@ Marks identify the company or project being discussed. All trademarks belong to 
 | `logos/devopsdays-philly-2026-light.png`, `-dark.png` | `#title` | https://devopsdays.org/events/2026-philadelphia/logo-2026.png | Event logo, cropped; the dark copy recolors the near-black lettering to off-white. Used on a talk accepted at the event. |
 | `logos/palantir-wordmark.png` | `#title` | https://1000logos.net/wp-content/uploads/2022/08/Palantir-Logo.jpg (converted to a transparent mask, cropped) | Speaker's employer. Better source: Palantir brand/comms. Employer approval for logo use is the speaker's call. |
 | `logos/openssf.svg` | `#companies-paying`, `#funding-that-works` | https://openssf.org/wp-content/uploads/2022/10/openssf-icon-color.svg | OpenSSF / Linux Foundation mark |
-| `logos/curl-logo.svg` | `#curl-apple` | https://curl.se/logo/curl-logo.svg (official wordmark, unmodified file; drawn as a CSS mask in its navy `#093754`, text color in dark mode) | curl's terms: "You are free to use the images for purposes of showing … general or specific curl information, curl advocacy and similar. You are allowed to resize the images and host them yourself" |
-| `logos/{anthropic,apachemaven,apple,curl,europeanunion,firefox,github,npm,openai,redhat,trivy}.svg` | various | Simple Icons, https://simpleicons.org (`cdn.jsdelivr.net/npm/simple-icons@latest/icons/<slug>.svg`) | SVG data CC0 1.0; the marks remain their owners' trademarks |
+| `logos/{anthropic,apachemaven,axios,europeanunion,firefox,github,npm,openai,trivy}.svg` | various | Simple Icons, https://simpleicons.org (`cdn.jsdelivr.net/npm/simple-icons@latest/icons/<slug>.svg`; `axios.svg` from simple-icons@16.33.0, Sep 30 2026) | SVG data CC0 1.0; the marks remain their owners' trademarks |
 
 Single-color marks are drawn as CSS masks (`.logo` in `styles.css`) so they follow the theme. Masks can't load files over `file://`, so `assets/logos.css` embeds each used logo as a data URI. After adding or changing a logo, run `python3 build-css.py` in `assets/logos/`.
 
@@ -47,7 +46,6 @@ Screenshots of primary sources, taken with headless Chrome on 2026-09-26 and cro
 
 | File | Page | Used on |
 |---|---|---|
-| `curl-summer-of-bliss.png` | https://daniel.haxx.se/blog/2026/06/15/curl-summer-of-bliss/ | `#ai-maintainer-flood` |
 | `glasswing-update.png` | https://www.anthropic.com/research/glasswing-initial-update | `#ai-vulnerability-explosion` |
 | `openssf-registries-signers.png` | OpenSSF's own post image, https://openssf.org/wp-content/uploads/2026/09/Open-Source-Sustainability-1.png | `#companies-paying` |
 | `scorecard-ingress-nginx.png` | https://scorecard.dev/viewer/?uri=github.com/kubernetes/ingress-nginx (captured 2026-09-27; report header and the "Maintained" row stitched together, other rows cut) | `#reframe` |
