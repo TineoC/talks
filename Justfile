@@ -122,3 +122,8 @@ scorecard repo="github.com/TineoC/talks" format="default":
     token="${GITHUB_AUTH_TOKEN:-$(gh auth token)}"
     docker run --rm --network host -e GITHUB_AUTH_TOKEN="$token" {{scorecard_image}} \
         --repo={{repo}} --format={{format}} --show-details
+
+# Check Node.js / Vue versions used by CI and decks against endoflife.date
+# (fails if one is past end of life; local node/python are shown as info)
+eol:
+    node scripts/check-eol.mjs

@@ -1,0 +1,30 @@
+name: End of life
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/**'
+      - 'slides/*/package-lock.json'
+      - 'scripts/check-eol.mjs'
+      - 'Justfile'
+  schedule:
+    - cron: '0 7 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  eol:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: extractions/setup-just@53165ef7e734c5c07cb06b3c8e7b647c5aa16db3 # v4
+
+      # Fails when a Node.js or Vue version CI or a deck depends on is past
+      # end of life on endoflife.date; the weekly run catches dates passing.
+      - name: Check versions against endoflife.date
+        run: just eol
