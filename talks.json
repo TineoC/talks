@@ -1,5 +1,12 @@
 [
   {
+    "event": "TBD",
+    "title": "Free Software Isn't Gratis",
+    "date": "TBD",
+    "pages": "devopsdays-philly-2026",
+    "pdf": "slides/devopsdays-philly-2026/devopsdays-philly-2026.pdf"
+  },
+  {
     "event": "containers.day",
     "title": "How I 10xed My Career Through Open Source",
     "date": "August 2026",
