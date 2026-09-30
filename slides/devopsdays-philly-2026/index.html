@@ -48,7 +48,7 @@
           The wordplay is deliberate, and yes, it's also why this talk is called
           what it is.
 
-          [TIMING: 60s. Don't rush. Land the title.]
+          [TIMING: 45s. Don't rush. Land the title.]
         </aside>
       </section>
 
@@ -143,7 +143,7 @@
         </aside>
       </section>
 
-      <section id="roadmap">
+      <section id="roadmap" data-visibility="hidden">
         <h2>The five acts</h2>
         <div class="content">
           <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; margin-top: 32px;">
@@ -200,7 +200,7 @@
         </aside>
       </section>
 
-      <section id="stat-oss-everywhere">
+      <section id="stat-oss-everywhere" data-visibility="hidden">
         <h2>Open source is everywhere</h2>
         <div class="content" style="align-items: center; text-align: center;">
           <span class="number"
@@ -305,7 +305,7 @@
         </aside>
       </section>
 
-      <section id="free-vs-open">
+      <section id="free-vs-open" data-visibility="hidden">
         <p class="title-prompt">❯ clarification</p>
         <h2 style="margin-bottom: 16px; font-size: 36pt;">Free software <span
             style="color: var(--critical-color); font-weight: 800;">≠</span> Open source</h2>
@@ -420,7 +420,7 @@
           If the image fails to load, the slide still works — the layout
           collapses gracefully (the text on the right has enough weight).
 
-          [TIMING: 2 minutes. This is the conceptual heart of the talk.
+          [TIMING: 60s. This is the conceptual heart of the talk.
           Don't rush it.]
         </aside>
       </section>
@@ -494,7 +494,7 @@
           feature-rich Ingress controller out there." No source for that, so
           it stays off the slide.
 
-          [TIMING: 60s. Less is more on this slide. The ~60% at CERN is the
+          [TIMING: 45s. Less is more on this slide. The ~60% at CERN is the
           takeaway. Let the room absorb it before you advance.]
         </aside>
       </section>
@@ -588,7 +588,7 @@
           "10 of the 17 landed in 2025–2026": 5 CVEs in 2025 + 5 in 2026.
           7 of those 10 are high or critical.
 
-          [TIMING: 2 minutes. Pause on 2025 and 2026: half the CVEs landed in
+          [TIMING: 90s. Pause on 2025 and 2026: half the CVEs landed in
           the project's last 18 months.]
         </aside>
       </section>
@@ -791,7 +791,7 @@
           Unplanned migration means going through every ingress YAML to translate
           Nginx annotations. It is months of engineering time.
 
-          [TIMING: 2 minutes. Reference the official K8s statement from Jan 2026.]
+          [TIMING: 60s. Reference the official K8s statement from Jan 2026.]
         </aside>
       </section>
 
@@ -840,7 +840,7 @@
           feature work for free — they were doing SECURITY work for free.
           That's the part that doesn't show up on a procurement report.
 
-          [TIMING: 2 minutes. The number is the headline. The @BenTheElder
+          [TIMING: 60s. The number is the headline. The @BenTheElder
           quote is the moral. Let the room do the math.]
         </aside>
       </section>
@@ -958,11 +958,11 @@
           Caveat on 25M → 90M+: that's ALL merged PRs on GitHub (private repos,
           bots, agents included), not only open source.
 
-          [TIMING: 2 minutes.]
+          [TIMING: 90s.]
         </aside>
       </section>
 
-      <section id="ai-vulnerability-explosion">
+      <section id="ai-vulnerability-explosion" data-visibility="hidden">
         <h2 style="margin-bottom: 14px;">AI finds bugs faster than volunteers can fix them</h2>
         <div class="content" style="padding-top: 8px;">
           <div style="display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 36px; align-items: start; width: 100%;">
@@ -1188,18 +1188,28 @@
             </div>
             <div class="solution">
               <p class="solution-label"><i class="fa-solid fa-people-group"></i> Staff it</p>
-              <figure class="evidence" style="--evidence-h: 200px;">
-                <img src="assets/evidence/open-source-pledge.png" alt="Open Source Pledge homepage: Together, we pay the maintainers. $7,408,535 raised, $3M+ in the past year" style="object-position: top;" />
-                <figcaption>opensourcepledge.com</figcaption>
-              </figure>
+              <div style="min-height: 244px; display: flex; flex-direction: column; justify-content: space-between; gap: 8px;">
+                <div style="display: flex; align-items: center; gap: 14px; padding: 6px 12px; border: 1px solid var(--line-color); border-radius: 6px;">
+                  <span class="logo" style="--logo: var(--logo-linuxfoundation); width: 30px; height: 30px; flex: none;" role="img" aria-label="Linux Foundation"></span>
+                  <div style="line-height: 1.2;"><p style="margin: 0; font-size: 17pt; font-weight: 700; white-space: nowrap;">Linux Foundation</p><p class="text-muted" style="margin: 0; font-size: 14pt; white-space: nowrap;">hosts CNCF and AAIF</p></div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 14px; padding: 6px 12px; border: 1px solid var(--line-color); border-radius: 6px;">
+                  <span class="logo" style="--logo: var(--logo-cncf); width: 30px; height: 30px; flex: none;" role="img" aria-label="CNCF"></span>
+                  <div style="line-height: 1.2;"><p style="margin: 0; font-size: 17pt; font-weight: 700; white-space: nowrap;">CNCF</p><p class="text-muted" style="margin: 0; font-size: 14pt; white-space: nowrap;">Kubernetes, OpenTelemetry</p></div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 14px; padding: 6px 12px; border: 1px solid var(--line-color); border-radius: 6px;">
+                  <i class="fa-solid fa-robot" style="font-size: 26px; width: 30px; text-align: center; flex: none; color: var(--primary-color);" aria-hidden="true"></i>
+                  <div style="line-height: 1.2;"><p style="margin: 0; font-size: 17pt; font-weight: 700; white-space: nowrap;">AAIF <span class="text-muted" style="font-weight: 400; font-size: 14pt;">Agentic AI Foundation</span></p><p class="text-muted" style="margin: 0; font-size: 14pt; white-space: nowrap;">MCP, goose, AGENTS.md</p></div>
+                </div>
+              </div>
               <ul class="solution-steps">
                 <li>An owner for every tier-1 dependency, with <strong>2 h/week</strong> upstream.</li>
-                <li>A budget line: <strong>$2,000 per developer</strong> per year.</li>
+                <li>Join the <strong>foundation</strong> behind what you run. These are examples.</li>
               </ul>
             </div>
           </div>
         </div>
-        <p class="footnote">Sources: <a href="https://scorecard.dev/viewer/?uri=github.com/kubernetes/ingress-nginx" target="_blank" rel="noopener">OpenSSF Scorecard, ingress-nginx</a> · <a href="https://endoflife.date/kubernetes" target="_blank" rel="noopener">endoflife.date, Kubernetes</a> · <a href="https://opensourcepledge.com/" target="_blank" rel="noopener">Open Source Pledge</a> · SLO targets are examples</p>
+        <p class="footnote">Sources: <a href="https://scorecard.dev/viewer/?uri=github.com/kubernetes/ingress-nginx" target="_blank" rel="noopener">OpenSSF Scorecard, ingress-nginx</a> · <a href="https://endoflife.date/kubernetes" target="_blank" rel="noopener">endoflife.date, Kubernetes</a> · <a href="https://www.linuxfoundation.org/press/linux-foundation-announces-the-formation-of-the-agentic-ai-foundation" target="_blank" rel="noopener">Linux Foundation, AAIF launch, Dec 9 2025</a> · <a href="https://www.cncf.io/projects/" target="_blank" rel="noopener">CNCF projects</a> · SLO targets are examples</p>
         <aside class="notes">
           Rebuilt Sep 27 2026 with a real tool for each practice. Walk left to
           right; each column is something a platform team can start this
@@ -1226,18 +1236,32 @@
           tier-1 deps. Use an error budget: when it's spent, dependency work
           beats feature work.
 
-          STAFF IT. Screenshot: opensourcepledge.com, "$7,408,535 raised,
-          $3M+ in the past year" (Sep 27 2026). Owners: one per tier-1
-          dependency, like a service owner. 2 h/week: the Bloomberg
-          OpenTelemetry cohort later in the deck. Budget: the Pledge's
-          $2,000 per developer per year. An OSPO, even 1-2 people, holds it
-          together.
+          STAFF IT (Sep 30 2026: foundations replaced the Open Source
+          Pledge screenshot). Owners: one per tier-1 dependency, like a
+          service owner. 2 h/week: the Bloomberg OpenTelemetry cohort later in
+          the deck. Then join the foundation that hosts what you run. The
+          three are examples, pick by stack:
+          - Linux Foundation: the umbrella. CNCF and AAIF are both Linux
+            Foundation projects (aaif.io: "a neutral, open foundation under
+            the Linux Foundation").
+          - CNCF: Kubernetes, OpenTelemetry (cncf.io/projects).
+            Membership prices are on the funding ladder two slides on, don't
+            repeat them here.
+          - AAIF, the Agentic AI Foundation: launched Dec 9 2025 (Linux
+            Foundation press release) with MCP from Anthropic, goose from
+            Block and AGENTS.md from OpenAI. Platinum members: AWS,
+            Anthropic, Block, Bloomberg, Cloudflare, Google, Microsoft,
+            OpenAI. Relevant if your teams build on agents.
+          Open Source Pledge, if asked: companies pay maintainers at least
+          $2,000 per developer per year; members have paid $7,408,535 since
+          launch (opensourcepledge.com/members, Sep 30 2026).
+          An OSPO, even 1-2 people, holds it together.
 
-          [TIMING: 2 minutes. The pivot should feel like relief, not work.]
+          [TIMING: 90s. The pivot should feel like relief, not work.]
         </aside>
       </section>
 
-      <section id="companies-paying">
+      <section id="companies-paying" data-visibility="hidden">
         <p class="title-prompt">❯ new since June</p>
         <h2 style="margin-bottom: 14px;">The industry just said it out loud</h2>
         <div class="content" style="padding-top: 8px;">
@@ -1358,7 +1382,7 @@
             within 24 hours, notification within 72 hours, final report within
             14 days of a fix. Full CRA obligations from Dec 11, 2027.
 
-          [TIMING: 2 minutes.]
+          [TIMING: 90s.]
         </aside>
       </section>
 
@@ -1378,7 +1402,7 @@
               <span class="step-number">02 · Upstream</span>
               <h3>Upstream your fixes</h3>
               <p><span class="hl">Send the patch instead of carrying it.</span></p>
-              <p class="rung-proof">Percona Operator PR #2315 (Game Plan Tech). <strong>66%</strong> say maintainers respond
+              <p class="rung-proof">Mine is in the last act. <strong>66%</strong> say maintainers respond
                 faster to contributors.</p>
             </div>
             <div class="step" style="margin-top: 50px;">
@@ -1395,7 +1419,7 @@
             </div>
           </div>
         </div>
-        <p class="footnote">Sources: <a href="https://www.linuxfoundation.org/research/contribution-roi" target="_blank" rel="noopener">Linux Foundation, "ROI for Open Source Software Contribution", Feb 2026</a> · <a href="https://github.com/percona/percona-server-mongodb-operator/pull/2315" target="_blank" rel="noopener">percona-server-mongodb-operator#2315</a> · <a href="https://github.com/microsoft/foss-fund" target="_blank" rel="noopener">Microsoft FOSS Fund</a> · <a href="https://blog.sentry.io/another-year-another-750-000-to-open-source-maintainers" target="_blank" rel="noopener">Sentry, Jan 6 2026</a> · <a href="https://www.cncf.io/about/join/" target="_blank" rel="noopener">CNCF membership</a></p>
+        <p class="footnote">Sources: <a href="https://www.linuxfoundation.org/research/contribution-roi" target="_blank" rel="noopener">Linux Foundation, "ROI for Open Source Software Contribution", Feb 2026</a> · <a href="https://github.com/microsoft/foss-fund" target="_blank" rel="noopener">Microsoft FOSS Fund</a> · <a href="https://blog.sentry.io/another-year-another-750-000-to-open-source-maintainers" target="_blank" rel="noopener">Sentry, Jan 6 2026</a> · <a href="https://www.cncf.io/about/join/" target="_blank" rel="noopener">CNCF membership</a></p>
         <aside class="notes">
           Rewritten Sep 27 2026: the old Discover / Assess / Fund / Contribute
           framework became a ladder of what real companies already do. Walk it
@@ -1409,24 +1433,25 @@
             more quickly to security issues". "Foundation membership stands out
             with a 4.8x ratio"; membership "increases overall OSS contribution
             rates by 24% on average".
-          - Percona PR #2315: my own upstream contribution at Game Plan Tech
-            (details on the build-vs-buy slide).
+          - Rung 02 points ahead to #one-less-fork (Percona PR #2315), so the
+            story is told once.
           - Microsoft FOSS Fund (github.com/microsoft/foss-fund): "Every quarter
             a new fund and selection process will distribute up to $12,500 USD
             across one or more open source project(s)." Only employees who
             contributed to open source get a vote. Running since 2020. Indeed
             (2019) and Bloomberg (2023, $10K grants) run the same model.
           - Sentry, Jan 6 2026: $750K to maintainers for 2025, fifth year in a
-            row. The Open Source Pledge ($2,000 per developer per year) reports
-            $4.5M paid by members as of Jan 2026.
+            row. The Open Source Pledge ($2,000 per developer per year): members
+            have paid $7,408,535 since launch (opensourcepledge.com/members,
+            Sep 30 2026).
           - CNCF join page: Silver $2K-$50K a year by company size, Gold $100K,
             Platinum $350K; "722 CNCF Members" on the counter.
 
-          [TIMING: 2 minutes. This is the slide they photograph.]
+          [TIMING: 90s. This is the slide they photograph.]
         </aside>
       </section>
 
-      <section id="new-reality">
+      <section id="new-reality" data-visibility="hidden">
         <p class="title-prompt">❯ the new reality</p>
         <h2 style="margin-bottom: 16px;">The build-vs-buy equation has flipped</h2>
         <div class="content" style="padding-top: 24px;">
@@ -1581,7 +1606,7 @@
 
           Ask the room: how many internal patches does your team carry?
 
-          [TIMING: 90s.]
+          [TIMING: 75s.]
         </aside>
       </section>
 
@@ -1639,7 +1664,7 @@
           Note: Bloomberg's own site blocked our fetches; these numbers are from
           Bloomberg's posts on the CNCF blog.
 
-          [TIMING: 90s.]
+          [TIMING: 60s.]
         </aside>
       </section>
 
@@ -1739,7 +1764,7 @@
             shortage was already a problem, but it was one that we successfully
             ignored. We can no longer ignore it."
 
-          [TIMING: 2 minutes. End on "one merged patch is one less fork."]
+          [TIMING: 90s. End on "one merged patch is one less fork."]
         </aside>
       </section>
 
@@ -1758,7 +1783,7 @@
           don't force it. End on "It's only fine if we pay for it," and let
           the silence do the work.
 
-          [TIMING: 60s. Land it. Stop. Q&A.]
+          [TIMING: 45s. Land it. Stop. Q&A.]
         </aside>
       </section>
 
