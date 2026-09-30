@@ -1388,42 +1388,51 @@
 
 
       <section id="framework">
-        <h2 style="margin-bottom: 6px;">What companies actually do</h2>
-        <p class="text-lg text-muted" style="margin: 0;">Four rungs. Every one has a company already standing on it.</p>
-        <div class="content" style="padding-top: 12px;">
-          <div class="ladder">
-            <div class="step" style="margin-top: 150px;">
+        <h2 style="margin-bottom: 6px;">Start where your budget is</h2>
+        <p class="text-lg text-muted" style="margin: 0;">Two of the four cost nothing but time. Each has a company already doing it.</p>
+        <div class="content" style="padding-top: 20px;">
+          <div class="ladder" style="align-items: stretch;">
+            <div class="step" style="display: flex; flex-direction: column;">
               <span class="step-number">01 · Know</span>
               <h3>Know what you run</h3>
-              <p>An SBOM for every service, plus a list of the forks and patches you carry.</p>
-              <p class="rung-proof"><strong>45%</strong> of organizations keep private forks (LF, 2026).</p>
+              <p class="rung-cost" style="margin: 0 0 6px 0; font-family: var(--mono-font); font-size: 14pt; font-weight: 600; color: var(--primary-color);">Cost: $0, a few hours</p>
+              <p>An SBOM for every service, plus the forks and patches you carry.</p>
+              <p class="rung-proof" style="margin-top: auto;"><strong>45%</strong> of organizations keep private forks (LF, 2026).</p>
             </div>
-            <div class="step" style="margin-top: 100px;">
+            <div class="step" style="display: flex; flex-direction: column;">
               <span class="step-number">02 · Upstream</span>
               <h3>Upstream your fixes</h3>
+              <p class="rung-cost" style="margin: 0 0 6px 0; font-family: var(--mono-font); font-size: 14pt; font-weight: 600; color: var(--primary-color);">Cost: $0, your time</p>
               <p><span class="hl">Send the patch instead of carrying it.</span></p>
-              <p class="rung-proof">Mine is in the last act. <strong>66%</strong> say maintainers respond
-                faster to contributors.</p>
+              <p class="rung-proof" style="margin-top: auto;"><strong>66%</strong> say maintainers respond faster to contributors. Mine is in the last act.</p>
             </div>
-            <div class="step" style="margin-top: 50px;">
+            <div class="step" style="display: flex; flex-direction: column;">
               <span class="step-number">03 · Fund</span>
               <h3>Fund what you use</h3>
-              <p>Let the engineers who contribute pick the projects.</p>
-              <p class="rung-proof">Microsoft FOSS Fund: up to $12.5K a quarter. Sentry: $750K in 2025.</p>
+              <p class="rung-cost" style="margin: 0 0 6px 0; font-family: var(--mono-font); font-size: 14pt; font-weight: 600; color: var(--primary-color);">Cost: any amount</p>
+              <p>Let the engineers who contribute pick the projects. Small grants count.</p>
+              <p class="rung-proof" style="margin-top: auto;">Microsoft FOSS Fund: up to $12.5K a quarter, chosen by its engineers.</p>
             </div>
-            <div class="step">
+            <div class="step" style="display: flex; flex-direction: column;">
               <span class="step-number">04 · Join</span>
               <h3>Join the foundation</h3>
+              <p class="rung-cost" style="margin: 0 0 6px 0; font-family: var(--mono-font); font-size: 14pt; font-weight: 600; color: var(--primary-color);">Cost: from $2K a year</p>
               <p>A seat where the roadmap is decided.</p>
-              <p class="rung-proof">CNCF Silver from $2K a year, 722 members. Membership returns <strong>4.8×</strong>.</p>
+              <p class="rung-proof" style="margin-top: auto;">CNCF Silver from $2K a year. Membership returns <strong>4.8×</strong>.</p>
             </div>
           </div>
         </div>
-        <p class="footnote">Sources: <a href="https://www.linuxfoundation.org/research/contribution-roi" target="_blank" rel="noopener">Linux Foundation, "ROI for Open Source Software Contribution", Feb 2026</a> · <a href="https://github.com/microsoft/foss-fund" target="_blank" rel="noopener">Microsoft FOSS Fund</a> · <a href="https://blog.sentry.io/another-year-another-750-000-to-open-source-maintainers" target="_blank" rel="noopener">Sentry, Jan 6 2026</a> · <a href="https://www.cncf.io/about/join/" target="_blank" rel="noopener">CNCF membership</a></p>
+        <p class="footnote">Sources: <a href="https://www.linuxfoundation.org/research/contribution-roi" target="_blank" rel="noopener">Linux Foundation, "ROI for Open Source Software Contribution", Feb 2026</a> · <a href="https://github.com/microsoft/foss-fund" target="_blank" rel="noopener">Microsoft FOSS Fund</a> · <a href="https://www.cncf.io/about/join/" target="_blank" rel="noopener">CNCF membership</a></p>
         <aside class="notes">
-          Rewritten Sep 27 2026: the old Discover / Assess / Fund / Contribute
-          framework became a ladder of what real companies already do. Walk it
-          bottom-left to top-right. Nobody has to start at the top.
+          Reframed Sep 30 2026 as advice, not a sales pitch: cards are equal
+          height and each carries its cost. Not every company has a budget,
+          and that's fine. Rungs 01 and 02 cost only engineering time, and
+          02 is time you already spend carrying the patch. Say: "Start with
+          the rung your budget allows. Most of you can do the first two on
+          Monday without asking anyone for money." Funding and foundations
+          are for when you're ready, not a price of admission.
+          Sentry's $750K (below) is in the notes, not on the slide, so the
+          slide doesn't read as "spend big".
 
           Receipts (all checked on the source page, Sep 2026):
           - LF, "ROI for Open Source Software Contribution: Insight from the
