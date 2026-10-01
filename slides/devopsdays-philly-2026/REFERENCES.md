@@ -164,7 +164,6 @@ Also in the same GitHub discussion, not on a slide: @iBug, Feb 7, 2026 — https
 
 ### `fork-tax` — "The fork tax"
 - **LF ROI report** (above) — "On average, an organization maintains 86 private forks … Each … requires 60 labor hours for maintenance and integration per release cycle." 86 × 60 = 5,160 hours; ≈ $258K is the report's estimate at an assumed $50/hour, not reported spend. Fork questions n=238. 37% of forks exist for "security patches or compliance requirements".
-- **Android, Generic Kernel Image** (updated Jun 17, 2026) — up to 50% of kernel code out of tree; "a delay of up to 18 months from the point where an LTS release was available upstream, to when it was in a device"; 90% of kernel security issues in the Android Security Bulletin already fixed for devices that stay up to date. https://source.android.com/docs/core/architecture/kernel/generic-kernel-image
 - **ChromeOS, "Upstream First"** — https://www.chromium.org/chromium-os/chromiumos-design-docs/upstream-first/ · LWN, Sep 2019: https://lwn.net/Articles/798147/
 
 ### `bloomberg-cohort` — "Two hours a week"

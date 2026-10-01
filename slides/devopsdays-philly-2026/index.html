@@ -1557,28 +1557,17 @@
       <section id="fork-tax">
         <h2>The fork tax</h2>
         <div class="content">
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; width: 100%;">
+          <div style="width: 100%;">
             <div>
               <p class="font-mono" style="margin: 0; font-size: 14pt; font-weight: 600; color: var(--primary-color); display: flex; align-items: center; gap: 10px; text-transform: uppercase; letter-spacing: 0.08em;"><i class="fa-solid fa-code-branch" aria-hidden="true"></i> Carrying private forks</p>
               <span class="number" style="display: block; margin-top: 10px; font-size: 92pt; font-weight: 800; line-height: 1; letter-spacing: -0.03em; color: var(--primary-color);">5,160 h</span>
               <p class="text-xl" style="margin: 14px 0 0 0; line-height: 1.4;">of rework <span class="hl">every release cycle</span>, just to keep forks building.</p>
               <p style="margin: 14px 0 0 0; font-size: 16pt; line-height: 1.4; display: flex; align-items: center; gap: 10px;" class="text-muted"><span class="logo" style="--logo: var(--logo-linuxfoundation); width: 22px; height: 22px; flex: none; background: var(--muted-color);" role="img" aria-label="Linux Foundation"></span> 86 forks × 60 h each · ≈ $258K at $50/h</p>
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 22px;">
-              <p class="font-mono" style="margin: 0; font-size: 14pt; font-weight: 600; color: var(--primary-color); display: flex; align-items: center; gap: 10px; text-transform: uppercase; letter-spacing: 0.08em;"><span class="logo" style="--logo: var(--logo-android); width: 28px; height: 28px; flex: none; background: var(--primary-color);" role="img" aria-label="Android"></span> At Android scale</p>
-              <div class="stat-row critical">
-                <span class="number">18 months</span>
-                <span class="label">from an upstream kernel release to phones.</span>
-              </div>
-              <div class="stat-row warn">
-                <span class="number">90%</span>
-                <span class="label">of kernel security bugs were already fixed upstream.</span>
-              </div>
-              <p style="margin: 0; font-size: 18pt; line-height: 1.35; display: flex; align-items: center; gap: 12px;"><i class="fa-solid fa-arrow-up-from-bracket" style="color: var(--primary-color);" aria-hidden="true"></i><span>The fix: <strong>Upstream First</strong>. The patch lands upstream before it ships.</span></p>
+              <p style="margin: 28px 0 0 0; font-size: 18pt; line-height: 1.35; display: flex; align-items: center; gap: 12px;"><i class="fa-solid fa-arrow-up-from-bracket" style="color: var(--primary-color);" aria-hidden="true"></i><span>The fix: <strong>Upstream First</strong>. The patch lands upstream before it ships.</span></p>
             </div>
           </div>
         </div>
-        <p class="footnote">Sources: <a href="https://www.linuxfoundation.org/research/contribution-roi" target="_blank" rel="noopener">Linux Foundation, "ROI for Open Source Software Contribution", Feb 2026 (fork questions n=238)</a> · <a href="https://source.android.com/docs/core/architecture/kernel/generic-kernel-image" target="_blank" rel="noopener">Android GKI docs</a> · <a href="https://www.chromium.org/chromium-os/chromiumos-design-docs/upstream-first/" target="_blank" rel="noopener">ChromeOS, Upstream First</a></p>
+        <p class="footnote">Sources: <a href="https://www.linuxfoundation.org/research/contribution-roi" target="_blank" rel="noopener">Linux Foundation, "ROI for Open Source Software Contribution", Feb 2026 (fork questions n=238)</a> · <a href="https://www.chromium.org/chromium-os/chromiumos-design-docs/upstream-first/" target="_blank" rel="noopener">ChromeOS, Upstream First</a></p>
         <aside class="notes">
           New Sep 27 2026. This is the most realistic argument for the room: you
           are probably already paying for open source, just in the most
@@ -1596,15 +1585,8 @@
             compliance requirements" 37%. Aniszczyk's foreword: "Organizations
             that rely on internal patches without upstreaming them create
             private forks leading to technical debt".
-          - Android GKI docs (source.android.com, updated Jun 2026): as much as
-            50% of kernel code out of tree; "a delay of up to 18 months from
-            the point where an LTS release was available upstream, to when it
-            was in a device"; 90% of the kernel security issues reported in the
-            Android Security Bulletin had already been fixed for devices that
-            stay up to date.
           - ChromeOS "Upstream First": driver patches must be accepted upstream
-            first. LWN, Sep 2019, Doug Anderson: "We're trying not to do what
-            Android did 10 years ago."
+            first.
 
           Ask the room: how many internal patches does your team carry?
 
