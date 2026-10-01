@@ -59,6 +59,7 @@ Screenshots of primary sources, taken with headless Chrome on 2026-09-26 and cro
 | File | Used on | Notes |
 |---|---|---|
 | `linkedin-qr.png`, `slides-qr.png` | `#contact` | Generated with the `qrcode` npm package, teal `#1F6B73` on white, 400×400; shown on a white tile so phones can scan them in both themes. Encode https://www.linkedin.com/in/christopher-tineo/ and https://tineoc.github.io/talks/devopsdays-philly-2026/ (decoded with jsQR to confirm). |
+| `nco-qr.png` | `#contact` | Generated with the `qrcode` npm package, same style as above. Encodes https://k8s.dev/docs/orientation/, which redirects to the Kubernetes New Contributor Orientation page, https://www.kubernetes.dev/docs/orientation/ (decoded with jsQR to confirm, Oct 1 2026). |
 
 ### Credential badges (`#whoami`)
 
