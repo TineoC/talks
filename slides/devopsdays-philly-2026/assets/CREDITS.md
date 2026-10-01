@@ -22,6 +22,14 @@ Slides are referred to by their section id (`index.html#/<id>`), not by number, 
 - **Changes:** none (2000×2588, identical to the original; checked 2026-09-27)
 - **On-slide attribution:** "Photo: Ruben Rodriguez, LibrePlanet 2019 · CC BY 4.0 · Wikimedia Commons" (both linked), in the figure caption.
 
+### `nadia-eghbal-strange-loop-2017.jpg` (`#closing`)
+
+- **Source:** https://commons.wikimedia.org/wiki/File:Nadia_Eghbal_at_Strange_Loop_2017_-_1.jpg
+- **Author:** Chris Koerner, Strange Loop 2017, St. Louis, 30 September 2017
+- **License:** CC BY-SA 2.0, https://creativecommons.org/licenses/by-sa/2.0/ (checked on the Commons file page, 2026-10-01). The cropped version is shared under the same license.
+- **Changes:** cropped to the podium and screen from the 1920px Commons rendition, resized to 1000×723. Colors unchanged.
+- **On-slide attribution:** "Nadia Eghbal at Strange Loop 2017 · Photo: Chris Koerner, CC BY-SA 2.0, Wikimedia Commons · cropped" (license and source linked), in the figure caption.
+
 ---
 
 ## Trademarks (nominative use)
