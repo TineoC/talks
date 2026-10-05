@@ -1,0 +1,2337 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Open Source Isn't Gratis</title>
+
+  <!-- Reveal.js core -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="assets/logos.css">
+
+</head>
+
+<body>
+  <div class="theme-indicator" id="theme-indicator" aria-live="polite">LIGHT</div>
+  <div class="reveal">
+    <div class="slides">
+
+
+      <section id="title" class="section-divider">
+        <p class="title-prompt">❯ Open Source Isn't Gratis</p>
+        <h1>Por qué las empresas deben tratar<br />el open source como infraestructura</h1>
+        <p class="speaker">
+          Christopher Tineo
+          <span class="role">SRE @ Palantir Technologies</span>
+        </p>
+        <div class="title-logos">
+          <span style="display: flex; flex-direction: column; gap: 6px;">
+            <img src="assets/logos/nerdearla.png" alt="Nerdearla" />
+            <span style="font-family: var(--mono-font); font-size: 16pt; font-weight: 600; letter-spacing: 0.2em; color: var(--text-color);">MÉXICO 2026 · CDMX</span>
+          </span>
+          <span class="divider" aria-hidden="true"></span>
+          <span class="logo" style="--logo: var(--logo-palantir-wordmark); width: 240px; height: 56px;"
+            role="img" aria-label="Palantir"></span>
+        </div>
+        <aside class="notes">
+          Bienvenidos. Respira. Esta es una charla sobre open source, pero no
+          la versión alegre. Es sobre lo que le debemos a las personas que
+          construyen el software del que dependemos, y lo que pasa cuando no
+          pagamos esa deuda.
+
+          Una nota rápida sobre el título, que queda en inglés a propósito. En
+          inglés "free" significa libre y también gratis, y de esa confusión
+          viene todo. Richard Stallman, a quien vamos a ver en unos minutos,
+          usó "free" para hablar de libertad. En español tenemos dos palabras,
+          así que el juego de palabras se lee solo: el open source es libre,
+          pero no es gratis.
+
+          [TIEMPO: 45s. Sin prisa. Que el título aterrice.]
+        </aside>
+      </section>
+
+      <section id="whoami">
+        <p class="title-prompt">❯ whoami</p>
+        <div class="content" style="display: flex; flex-direction: column; gap: 24px;">
+
+          <div class="whoami-header">
+            <h2 class="whoami-name">Christopher Tineo</h2>
+            <p class="text-xl" style="margin: 6px 0 0 0; font-weight: 500; color: var(--muted-color);">
+              SRE &middot; Palantir Technologies
+            </p>
+          </div>
+
+          <div class="cert-row" style="justify-content: flex-start;">
+            <div class="cert-item">
+              <img class="cert-badge" src="assets/cert-cncf-ambassador.png" alt="CNCF Ambassador 2026–2028"
+                title="CNCF Ambassador 2026–2028" />
+              <span class="cert-label">CNCF Ambassador</span>
+            </div>
+            <div class="cert-item">
+              <img class="cert-badge" src="assets/cert-kubestronaut.png" alt="CNCF Kubestronaut"
+                title="CNCF Kubestronaut" />
+              <span class="cert-label">Kubestronaut</span>
+            </div>
+            <div class="cert-item">
+              <img class="cert-badge cert-gcp-light" src="assets/cert-gcp-pca.png"
+                alt="Google Cloud Professional Cloud Architect" title="Google Cloud Professional Cloud Architect" />
+              <img class="cert-badge cert-gcp-dark" src="assets/cert-gcp-pca-dark.png"
+                alt="Google Cloud Professional Cloud Architect" title="Google Cloud Professional Cloud Architect" />
+              <span class="cert-label">GCP Cloud Architect</span>
+            </div>
+            <div class="cert-item">
+              <img class="cert-badge cert-gcp-light" src="assets/cert-gcp-devops.png"
+                alt="Google Cloud Professional Cloud DevOps Engineer" title="Google Cloud Professional Cloud DevOps Engineer" />
+              <img class="cert-badge cert-gcp-dark" src="assets/cert-gcp-devops-dark.png"
+                alt="Google Cloud Professional Cloud DevOps Engineer" title="Google Cloud Professional Cloud DevOps Engineer" />
+              <span class="cert-label">GCP Cloud DevOps</span>
+            </div>
+            <div class="cert-item">
+              <img class="cert-badge" src="assets/cert-cks.png" alt="Certified Kubernetes Security Specialist"
+                title="CKS — Certified Kubernetes Security Specialist" />
+              <span class="cert-label">CKS</span>
+            </div>
+            <div class="cert-item">
+              <img class="cert-badge" src="assets/cert-mcpa.png" alt="Model Context Protocol Associate"
+                title="MCPA — Model Context Protocol Associate" />
+              <span class="cert-label">MCPA</span>
+            </div>
+          </div>
+
+          <div class="whoami-meta" style="grid-template-columns: auto 1fr; align-items: center;">
+            <span class="whoami-meta-label">Comunidad</span>
+            <div class="community-logos">
+              <figure><img src="assets/community-cn-nyc.png" alt="Cloud Native Community Groups NYC" /></figure>
+              <figure><img src="assets/community-cn-santo-domingo.png" alt="Cloud Native Community Groups Santo Domingo" /></figure>
+              <span class="whoami-meta-label" style="margin-left: 16px;">Organizador</span>
+              <figure class="wide"><img src="assets/community-kcd-nyc-2026.png" alt="KCD New York 2026" /></figure>
+            </div>
+            <span class="whoami-meta-label">Upstream</span>
+            <span class="whoami-meta-value">Kubernetes SIG Contributor Experience · <em>Miembro</em></span>
+          </div>
+
+          <div class="whoami-footer">
+            <p class="text-sm" style="margin: 0; color: var(--muted-color);">
+              <i class="fa-brands fa-linkedin"></i>&nbsp;
+              <a href="https://www.linkedin.com/in/christopher-tineo/" target="_blank"
+                rel="noopener">linkedin.com/in/christopher-tineo</a>
+              &nbsp;&nbsp;·&nbsp;&nbsp;
+              <i class="fa-solid fa-certificate"></i>&nbsp;
+              <a href="https://www.credly.com/users/christopher-tineo/badges" target="_blank"
+                rel="noopener">credly.com/users/christopher-tineo</a>
+            </p>
+          </div>
+
+        </div>
+        <aside class="notes">
+          Entre 30 y 45 segundos. Se trata de dar credibilidad y marcar el
+          tono, no de recitar el CV.
+
+          La fila de badges es el ancla visual, actualizada desde Credly para
+          la revisión 2 (2026-09-26): CNCF Ambassador 2026–2028, Kubestronaut,
+          Google Cloud Professional Cloud Architect, Google Cloud Professional
+          Cloud DevOps Engineer (jul 2026), CKS y MCPA (Model Context
+          Protocol Associate, sep 2026). La CKA salió de la fila porque
+          venció el 2026-07-19.
+
+          La fila de comunidad muestra los grupos: Cloud Native NYC y Cloud
+          Native Santo Domingo, y KCD New York 2026, que organizo.
+
+          [TIEMPO: 45s. No vendas de más. Sigue.]
+        </aside>
+      </section>
+
+      <section id="roadmap" data-visibility="hidden">
+        <h2>Los cinco actos</h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; margin-top: 32px;">
+            <div class="step">
+              <span class="step-number">01</span>
+              <h3>Problema</h3>
+              <p>Lo "gratis" del software tiene un precio, y alguien lo paga.</p>
+            </div>
+            <div class="step">
+              <span class="step-number">02</span>
+              <h3>Ejemplos</h3>
+              <p>Cómo se ve cuando llega la cuenta.</p>
+            </div>
+            <div class="step">
+              <span class="step-number">03</span>
+              <h3>Costo</h3>
+              <p>Para las empresas, los maintainers y el ecosistema.</p>
+            </div>
+            <div class="step">
+              <span class="step-number">04</span>
+              <h3>Solución</h3>
+              <p>Tratar el open source como la infraestructura que es.</p>
+            </div>
+            <div class="step">
+              <span class="step-number">05</span>
+              <h3>Acción</h3>
+              <p>Qué hacer el lunes por la mañana.</p>
+            </div>
+          </div>
+        </div>
+        <aside class="notes">
+          Recorre los cinco actos una vez, de izquierda a derecha. Las
+          tarjetas numeradas son intencionales: preparan los separadores de
+          sección que vienen después (cada uno dice "01. El problema", etc.).
+
+          La línea en itálica de abajo es el anzuelo: diles que esta es la
+          slide para sacarle foto. También adelanta la estructura de la
+          charla, y eso hace que todo se siga más fácil.
+
+          [TIEMPO: 75s.]
+        </aside>
+      </section>
+
+      <section id="divider-1" class="section-divider" data-state="is-section-divider">
+        <span class="section-number">Acto 01</span>
+        <h1>El problema</h1>
+        <p>"Gratis" tiene precio. Alguien siempre lo paga.</p>
+        <aside class="notes">
+          Los separadores de sección son para respirar. No los llenes de
+          contenido. Deja que el título haga el trabajo. La línea debajo del
+          título es la señal visual de que entramos a un nuevo acto.
+
+          [TIEMPO: 15s. Dilo y avanza.]
+        </aside>
+      </section>
+
+      <section id="stat-oss-everywhere" data-visibility="hidden">
+        <h2>El open source está en todas partes</h2>
+        <div class="content" style="align-items: center; text-align: center;">
+          <span class="number"
+            style="font-size: 180pt; font-weight: 800; line-height: 0.9; letter-spacing: -0.04em; color: var(--primary-color);">98%</span>
+          <p class="text-2xl" style="margin: 28px 0 0 0; line-height: 1.35; font-weight: 500;">de 947 codebases comerciales
+            auditados por Black Duck contienen open source.</p>
+        </div>
+        <p class="footnote">Fuentes: <a href="https://www.prnewswire.com/news-releases/black-duck-research-shows-open-source-vulnerabilities-have-doubled-as-ai-accelerates-code-creation-302692782.html" target="_blank" rel="noopener">Black Duck OSSRA 2026, 25 feb 2026</a></p>
+        <aside class="notes">
+          Este es el momento de bajar la velocidad. El 98% es la entrada a
+          todo el argumento moral: cuando tanto de tu stack es open source,
+          la palabra "gratis" está cargando con muchísimo peso.
+
+          Comprobante (revisado 2026-09-26): comunicado de prensa de Black
+          Duck OSSRA 2026 (25 feb 2026): 947 bases de código, con open source
+          "appearing in 98% of codebases". Cuidado: es el porcentaje de bases
+          de código que CONTIENEN open source, no el porcentaje del código
+          que es open source.
+
+          Si quieres que pegue más fuerte: pide que levanten la mano quienes
+          hayan hecho deploy hoy de un servicio que no dependa de al menos un
+          paquete open source. (Nadie va a levantar la mano.)
+
+          [TIEMPO: 45s. El 98% necesita un momento para aterrizar. Los
+          números de valor están en la siguiente slide.]
+        </aside>
+      </section>
+
+      <section id="oss-value-gap">
+        <h2>Cuesta millones. Vale billones.</h2>
+        <div class="content" style="justify-content: center; gap: 40px;">
+          <div style="display: grid; grid-template-columns: 0.9fr 80px 1.5fr; align-items: center; width: 100%;" role="img" aria-label="Escribir el open source más usado costó 4,150 millones de dólares; para las empresas que lo usan vale 8.8 billones de dólares.">
+            <div>
+              <p style="margin: 0; font-size: 44pt; font-weight: 800; line-height: 1; color: var(--muted-color); white-space: nowrap;">$4,150 M</p>
+              <p style="margin: 10px 0 0 0; font-size: 22pt;">costó escribirlo</p>
+            </div>
+            <i class="fa-solid fa-arrow-right" style="font-size: 40pt; color: var(--muted-color); justify-self: center;" aria-hidden="true"></i>
+            <div>
+              <p style="margin: 0; font-size: 60pt; font-weight: 800; line-height: 1; letter-spacing: -0.02em; color: var(--primary-color); white-space: nowrap;">$8.8 billones</p>
+              <p style="margin: 10px 0 0 0; font-size: 22pt;">vale para las empresas que lo usan</p>
+            </div>
+          </div>
+          <p class="text-2xl" style="margin: 0; font-weight: 500;">El <span class="hl">5% de los developers</span> crea el 96% de ese valor.</p>
+        </div>
+        <p class="footnote">Fuente: <a href="https://www.hbs.edu/faculty/Pages/item.aspx?num=65230" target="_blank" rel="noopener">Hoffmann, Nagle &amp; Zhou, "The Value of Open Source Software", HBS WP 24-038, ene 2024</a></p>
+        <aside class="notes">
+          Simplificada el 4 oct 2026: antes eran dos gráficas (cuadrados con
+          área a escala y una franja 5% → 96%). Ahora es una sola comparación
+          y el 5%/96% va como línea de apoyo.
+
+          Slide nueva (pasada de diseño, 2026-09-27): los números de Harvard
+          antes eran dos tarjetas y una cita en la slide anterior.
+
+          Texto que salió de la slide (díganlo en voz alta):
+          - $4,150 millones: lo que costó escribirlo una vez.
+          - $8.8 billones: lo que les costaría a las empresas reemplazar el
+            open source que usan.
+          - "Áreas a escala: el punto es ~2,100× más pequeño. Dólares;
+            1 billón = un millón de millones."
+          - Barra de arriba: developers de open source. Barra de abajo:
+            valor para las empresas ($8.8 billones).
+
+          Comprobantes, Harvard HBS WP 24-038 (ene 2024):
+          - "We estimate the supply-side value of widely-used OSS is $4.15
+            billion, but that the demand-side value is much larger at $8.8
+            trillion." Lado de la oferta = lo que cuesta escribir ese código
+            una vez. Lado de la demanda = lo que costaría si cada empresa que
+            lo usa tuviera que reconstruirlo.
+          - "96% of the demand-side value is created by only 5% of OSS
+            developers."
+
+          Ojo con la traducción: el "billion" en inglés son mil millones; el
+          "trillion" en inglés es un billón en español. $4.15 billion =
+          4,150 millones de dólares. $8.8 trillion = 8.8 billones de dólares.
+
+          Cómo leer el lado izquierdo: las ÁREAS de los cuadrados están a
+          escala. 8.8 billones son unas 2,100 veces 4,150 millones, así que
+          el cuadrado de 4,150 millones es un punto. Señálalo.
+
+          Cómo leer el lado derecho: el mismo 5% de personas, el 96% del
+          valor. Un puñado de personas carga con todo el ecosistema. Esto
+          prepara ingress-nginx en el siguiente acto.
+
+          Dilo así: "Escribirlo costó unos cuatro mil millones de dólares. Para
+          las empresas que lo usan vale casi nueve billones. Y el cinco por
+          ciento de las personas carga con casi todo."
+
+          Son estimaciones del modelo del paper, no dinero que cambió de
+          manos. Si alguien pregunta, di "estimación".
+
+          [TIEMPO: 75s.]
+        </aside>
+      </section>
+
+      <section id="free-vs-open" data-visibility="hidden">
+        <p class="title-prompt">❯ aclaración</p>
+        <h2 style="margin-bottom: 16px; font-size: 36pt;">Software libre <span
+            style="color: var(--critical-color); font-weight: 800;">≠</span> Open source</h2>
+        <div class="content">
+          <div
+            style="display: grid; grid-template-columns: 1fr 48px 1fr; gap: 0; align-items: stretch; max-width: 1080px;">
+            <div class="panel" style="border-top: 3px solid var(--primary-color);">
+              <p class="font-mono"
+                style="font-size: 14pt; margin: 0 0 2px 0; color: var(--primary-color); text-transform: uppercase; letter-spacing: 0.16em; font-weight: 600;">
+                Software libre
+              </p>
+              <p class="text-lg" style="margin: 0 0 10px 0; font-weight: 600; line-height: 1.15;">
+                Un movimiento
+              </p>
+              <ul style="margin: 0; font-size: 16pt; line-height: 1.4;">
+                <li>El objetivo: la libertad del usuario</li>
+                <li><strong>FSF</strong> · 1985 · Richard Stallman</li>
+                <li>Cuatro libertades (usar, estudiar, modificar, compartir)</li>
+                <li>Ética de licencia: <strong>copyleft</strong></li>
+              </ul>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: center;">
+              <span style="font-size: 28pt; font-weight: 800; color: var(--muted-color); line-height: 1;">≠</span>
+            </div>
+            <div class="panel" style="border-top: 3px solid var(--secondary-color);">
+              <p class="font-mono"
+                style="font-size: 14pt; margin: 0 0 2px 0; color: var(--secondary-color); text-transform: uppercase; letter-spacing: 0.16em; font-weight: 600;">
+                Open source
+              </p>
+              <p class="text-lg" style="margin: 0 0 10px 0; font-weight: 600; line-height: 1.15;">
+                Una metodología
+              </p>
+              <ul style="margin: 0; font-size: 16pt; line-height: 1.4;">
+                <li>El objetivo: beneficios prácticos</li>
+                <li><strong>OSI</strong> · 1998 · Raymond &amp; Perens</li>
+                <li>10 criterios de la Open Source Definition</li>
+                <li>Ética de licencia: <strong>copyright</strong></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <p class="footnote">Fuentes: <a href="https://www.gnu.org/philosophy/free-sw.html" target="_blank" rel="noopener">FSF, "What is Free Software?"</a> · <a href="https://opensource.org/osd" target="_blank" rel="noopener">OSI, The Open Source Definition</a></p>
+        <aside class="notes">
+          Texto que salió de la slide: "Dos filosofías que se cruzan, pero no
+          son iguales. Mismo código, distinto porqué." y "La mayoría de los
+          proyectos son ambos. Cambia el porqué, no el qué."
+
+          Esta es la base conceptual para el resto de la charla. Dos
+          términos distintos, dos comunidades distintas, dos marcos de
+          valores distintos. Coinciden en el código (casi todo el FLOSS es
+          ambas cosas), pero se separan en el *porqué*.
+
+          "Software libre" es una postura moral: el usuario tiene derechos.
+          "Open source" es una postura práctica: compartir el código produce
+          mejor software. Los dos llegan a licencias parecidas, pero la
+          *conversación* sobre sostenibilidad cambia según de qué lado
+          vengas.
+
+          El título dice "Open Source" porque es el término que usa la
+          industria, que es a quien le hablamos. El marco moral del software
+          libre aparece en la siguiente slide, con Stallman.
+
+          [TIEMPO: 90s. No te detengas. Pasa a la slide de Stallman, que es
+          donde aterriza la etimología.]
+        </aside>
+      </section>
+
+      <section id="stallman-free">
+        <h2>En inglés, "free" es una sola palabra</h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1fr 1.6fr; gap: 48px; align-items: center;">
+            <figure class="portrait">
+              <img src="assets/stallman.jpg"
+                alt="Retrato de Richard Stallman, fundador del Proyecto GNU y de la Free Software Foundation" />
+              <figcaption>
+                Richard Stallman
+                <span style="display: block; margin-top: 6px; font-style: normal;">Foto: Ruben Rodriguez, LibrePlanet 2019 ·
+                  <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a> ·
+                  <a href="https://commons.wikimedia.org/wiki/File:Richard_Stallman_at_LibrePlanet_2019.jpg" target="_blank" rel="noopener">Wikimedia Commons</a></span>
+              </figcaption>
+            </figure>
+            <div>
+              <p class="text-2xl" style="margin-top: 0; line-height: 1.35; font-weight: 500;">
+                <strong>"Free"</strong>: <em>libre</em>, no <em>gratis</em>.
+              </p>
+              <p class="text-xl"
+                style="margin-top: 28px; line-height: 1.45; color: var(--primary-color); font-weight: 600;">
+                La distancia entre <em>libre</em> y <em>gratis</em>: <span class="hl">¿quién la paga?</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <aside class="notes">
+          Dos cosas importantes para dejar claras.
+
+          Texto que salió de la slide (díganlo en voz alta):
+          - Stallman usó "free" como libre (free speech), no como gratis
+            (free beer).
+          - En inglés es la misma palabra, y llevan 40 años confundiéndolas.
+            En español tenemos dos.
+          - Esta charla es sobre la distancia entre libre y gratis, y quién
+            la paga.
+          - Stallman: fundador del Proyecto GNU y de la Free Software
+            Foundation. Su "free software" habla de libertad, no de precio.
+
+          1. La imagen. Stallman es el origen de la idea detrás del título.
+          Mostrar su cara hace que la etimología se sienta real, no
+          abstracta. El pie de foto ya incluye el crédito, según CREDITS.md.
+
+          2. El giro para esta audiencia. En inglés, "free as in beer / free
+          as in speech" es la frase de siempre en cualquier charla de open
+          source, porque el idioma necesita aclarar qué "free" quiere decir.
+          En español no hace falta: ya tenemos "libre" y "gratis". Úsalo a
+          favor: "Ustedes ya tienen la palabra que a los angloparlantes les
+          falta. Lo que no siempre tenemos es la cuenta de quién paga la
+          diferencia." El resto de la charla le pone precio a esa
+          diferencia.
+
+          Si la imagen no carga, la slide igual funciona: el layout se
+          acomoda solo (el texto de la derecha tiene suficiente peso).
+
+          [TIEMPO: 60s. Este es el corazón conceptual de la charla. Sin
+          prisa.]
+        </aside>
+      </section>
+
+      <section id="divider-2" class="section-divider" data-state="is-section-divider">
+        <span class="section-number">Acto 02</span>
+        <h1>Los ejemplos</h1>
+        <p>Cómo se ve cuando llega la cuenta.</p>
+        <aside class="notes">
+          [TIEMPO: 15s. Transición. Ahora empieza la historia.]
+        </aside>
+      </section>
+
+      <section id="case-ingress-intro">
+        <h2>¿Qué es ingress-nginx?</h2>
+        <div class="content" style="justify-content: center; gap: 36px;">
+          <div style="display: grid; grid-template-columns: 1fr 64px 1.2fr 64px 1fr; align-items: center; width: 100%;" role="img" aria-label="Diagrama: el tráfico de internet entra por ingress-nginx y llega a los servicios dentro del cluster de Kubernetes.">
+            <div class="panel" style="text-align: center; padding: 28px 16px;">
+              <i class="fa-solid fa-globe" style="font-size: 40pt; color: var(--muted-color);" aria-hidden="true"></i>
+              <p style="margin: 12px 0 0 0; font-size: 22pt; font-weight: 600;">Internet</p>
+            </div>
+            <i class="fa-solid fa-arrow-right" style="font-size: 30pt; color: var(--muted-color); justify-self: center;" aria-hidden="true"></i>
+            <div class="panel primary" style="text-align: center; padding: 28px 16px; border-width: 3px;">
+              <img src="assets/nginx-logo.png" alt="" style="width: 72px; height: auto; margin: 0 auto; border: none; box-shadow: none; background: transparent;" />
+              <p style="margin: 12px 0 0 0; font-size: 26pt; font-weight: 800; color: var(--primary-color);">ingress-nginx</p>
+            </div>
+            <i class="fa-solid fa-arrow-right" style="font-size: 30pt; color: var(--muted-color); justify-self: center;" aria-hidden="true"></i>
+            <div class="panel" style="text-align: center; padding: 28px 16px;">
+              <i class="fa-solid fa-cubes" style="font-size: 40pt; color: var(--muted-color);" aria-hidden="true"></i>
+              <p style="margin: 12px 0 0 0; font-size: 22pt; font-weight: 600;">Sus servicios</p>
+            </div>
+          </div>
+          <p class="text-2xl" style="margin: 0; text-align: center; font-weight: 500;">La <span class="hl">puerta de entrada</span> a su cluster de Kubernetes.</p>
+        </div>
+        <p class="footnote">Fuente: <a href="https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/" target="_blank" rel="noopener">kubernetes.io, "Ingress Controllers", consultado el 30 sep 2026</a></p>
+        <aside class="notes">
+          Texto que salió de la diapositiva (díganlo en voz alta):
+          - Lleva el tráfico externo hacia sus servicios.
+          - No viene incluido: Kubernetes no trae un Ingress controller por
+            defecto. Ustedes eligen uno.
+          - Lo mantiene un puñado de voluntarios de SIG Network.
+          - Proyecto kubernetes/ingress-nginx · responsable Kubernetes SIG
+            Network.
+
+          Preparen el terreno. Ingress NGINX no es un proyecto oscuro: es el
+          ingress controller que casi todos eligen por defecto. Al final de
+          este acto, el público debería sentir un pequeño golpe de
+          reconocimiento: "Yo uso esto. Y se va a acabar."
+
+          El logo de NGINX a la izquierda es un ancla visual rápida. No se
+          detengan en él; el público ya conoce el logo. El punto de la
+          diapositiva es el reconocimiento, no la marca.
+
+          [Reestructurado 4 oct 2026: el ~60% de CERN se movió a la
+          siguiente diapositiva, #case-ingress-adoption. Aquí solo va qué es.]
+
+          El diagrama es todo: internet entra, ingress-nginx decide a qué
+          servicio va cada request. Si se cae o tiene un bug, todo lo de atrás
+          queda expuesto o sin tráfico.
+
+          El dato de CERN (ahora en la siguiente): El "~60% de
+          los deployments" es la flota PROPIA de CERN, de la sección de CERN
+          en el post del CNCF End User TAB (2 abr 2026): "As of the end of
+          2025 ~60% of deployments rely on ingress-nginx as an ingress
+          controller." Digan "en CERN" en voz alta; no es un número de toda
+          la industria. El número de la industria está en la diapositiva del
+          costo: el "about half of cloud native environments" del Kubernetes
+          Steering Committee.
+
+          "No viene incluido": ingress-nginx nunca fue el Ingress controller
+          oficial, porque no existe uno. kubernetes.io (consultado el 30 sep
+          2026): "Kubernetes as a project supports and maintains AWS, and GCE
+          ingress controllers." Todo lo demás, más de 30 controllers, aparece
+          como de terceros. La gente eligió ingress-nginx por lo que podía
+          hacer: configuración dinámica de backends con OpenResty/Lua (algo
+          que NGINX estándar no hace sin un reload), módulos extra, varios
+          algoritmos de balanceo. Mi opinión, y díganla como opinión:
+          "probablemente el Ingress controller con más funcionalidades que
+          existe." No hay fuente para eso, así que no va en la diapositiva.
+
+          [TIEMPO: 45s. Menos es más en esta diapositiva. El ~60% en CERN es
+          el mensaje. Dejen que la sala lo absorba antes de avanzar.]
+        </aside>
+      </section>
+
+      <section id="case-ingress-adoption">
+        <h2>¿Quién lo usa?</h2>
+        <div class="content" style="justify-content: center; gap: 28px;">
+          <div style="display: flex; align-items: baseline; gap: 28px;">
+            <span style="font-size: 150pt; font-weight: 800; line-height: 0.9; letter-spacing: -0.04em; color: var(--primary-color);">~50%</span>
+            <span style="font-size: 28pt; line-height: 1.25; font-weight: 500;">de los entornos<br />cloud native</span>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 36px; width: 100%;">
+            <div class="stat-row warn">
+              <span class="number">41%+</span>
+              <span class="label">de los clusters expuestos a internet lo corrían (Wiz)</span>
+            </div>
+            <div class="stat-row primary">
+              <span class="number">~60%</span>
+              <span class="label">de los deployments en <strong>CERN</strong>, el lab del LHC</span>
+            </div>
+          </div>
+        </div>
+        <p class="footnote">Fuentes: <a href="https://kubernetes.io/blog/2026/01/29/ingress-nginx-statement/" target="_blank" rel="noopener">Kubernetes Steering statement, 29 ene 2026</a> · <a href="https://www.wiz.io/blog/ingress-nginx-kubernetes-vulnerabilities" target="_blank" rel="noopener">Wiz Research, IngressNightmare, 24 mar 2025</a> · <a href="https://www.cncf.io/blog/2026/04/02/ingress-nginx-retirement-experience-from-end-users/" target="_blank" rel="noopener">CNCF End User TAB, "Ingress NGINX retirement: Experience from end users", 2 abr 2026</a> (CERN: "As of the end of 2025 ~60% of deployments rely on ingress-nginx") · <a href="https://home.cern/science/accelerators/large-hadron-collider" target="_blank" rel="noopener">CERN, "The Large Hadron Collider"</a></p>
+        <aside class="notes">
+          Nueva en esta edición: antes estos números estaban repartidos entre
+          la intro y la diapositiva de CVEs.
+
+          - ~50%: Kubernetes Steering + Security Response Committee, 29 ene
+            2026: "critical infrastructure for about half of cloud native
+            environments." Es el número de la industria.
+          - 41%+: Wiz Research, 24 mar 2025: "over 41% of internet-facing
+            clusters are running Ingress-NGINX". Medido cuando salió
+            CVE-2025-1974.
+          - ~60% en CERN: CERN es el laboratorio europeo de física de
+            partículas en Ginebra, el del Large Hadron Collider (LHC). Lo
+            usamos porque es uno de los pocos end users que publicó su número
+            real. Su sección del post del CNCF End User TAB (2 abr 2026):
+            "Over the years we added multiple ingress controller options in
+            our clusters." "As of the end of 2025 ~60% of deployments rely on
+            ingress-nginx as an ingress controller." Digan "en CERN": es su
+            flota, no la industria. El post no dice cuántos clusters tienen.
+          - Qué hizo CERN: "Internally, we started tracking the remaining
+            deployments relying on ingress-nginx." En 2025 pasaron a Cilium
+            como CNI, "which brings built-in support for the Gateway API", y
+            para lo demás: "the recommendation is to move back to Traefik and
+            we provide a match for the most popular annotations."
+          - Su lección, que conecta con el Acto 04: "Appropriate review and
+            tracking of each component in the stack is essential, in
+            particular for sub-projects of graduated projects in the CNCF."
+            O sea: ingress-nginx vivía bajo Kubernetes, un proyecto graduado,
+            y aun así nadie lo estaba financiando.
+
+          Pregunta para la sala: "¿Quién de ustedes lo tiene en producción?"
+
+          [TIEMPO: 45s.]
+        </aside>
+      </section>
+
+      <section id="case-ingress-timeline">
+        <h2 style="margin-bottom: 10px;">Cada vez más CVEs</h2>
+        <div class="content" style="justify-content: center; gap: 18px;">
+          <div style="display: grid; grid-template-columns: 1.35fr 0.65fr; gap: 40px; align-items: center; width: 100%;">
+            <figure class="cve-chart" role="img"
+              aria-label="CVEs de ingress-nginx por año del CVE: 2018 1, 2019 0, 2020 1, 2021 2, 2022 1, 2023 2, 2024 0, 2025 5 incluyendo uno crítico, 2026 5. 17 en total.">
+              <p class="cve-title">CVEs de ingress-nginx por año</p>
+              <div class="cve-bars">
+                <div class="cve-col"><span class="cve-total">1</span><div class="cve-stack"><span style="height: 32px; background: var(--line-color); border-radius: 0;"></span></div><span class="cve-year">2018</span></div>
+                <div class="cve-col"><span class="cve-total" style="color: var(--muted-color);">0</span><div class="cve-stack"></div><span class="cve-year">2019</span></div>
+                <div class="cve-col"><span class="cve-total">1</span><div class="cve-stack"><span style="height: 32px; background: var(--line-color); border-radius: 0;"></span></div><span class="cve-year">2020</span></div>
+                <div class="cve-col"><span class="cve-total">2</span><div class="cve-stack"><span style="height: 32px; background: var(--line-color); border-radius: 0;"></span><span style="height: 32px; background: var(--primary-color); border-radius: 0;"></span></div><span class="cve-year">2021</span></div>
+                <div class="cve-col"><span class="cve-total">1</span><div class="cve-stack"><span style="height: 32px; background: var(--primary-color); border-radius: 0;"></span></div><span class="cve-year">2022</span></div>
+                <div class="cve-col"><span class="cve-total">2</span><div class="cve-stack"><span style="height: 66px; background: var(--primary-color); border-radius: 0;"></span></div><span class="cve-year">2023</span></div>
+                <div class="cve-col"><span class="cve-total" style="color: var(--muted-color);">0</span><div class="cve-stack"></div><span class="cve-year">2024</span></div>
+                <div class="cve-col"><span class="cve-total">5</span><div class="cve-stack"><span style="height: 32px; background: var(--line-color); border-radius: 0;"></span><span style="height: 100px; background: var(--primary-color); border-radius: 0;"></span><span style="height: 32px; background: var(--critical-color); border-radius: 0;"></span></div><span class="cve-year">2025</span></div>
+                <div class="cve-col"><span class="cve-total">5</span><div class="cve-stack"><span style="height: 66px; background: var(--line-color); border-radius: 0;"></span><span style="height: 100px; background: var(--primary-color); border-radius: 0;"></span></div><span class="cve-year">2026</span></div>
+              </div>
+              <p class="cve-legend"><span style="background: var(--critical-color);"></span>crítica
+                <span style="background: var(--primary-color);"></span>alta
+                <span style="background: var(--line-color);"></span>media / baja</p>
+            </figure>
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+              <div class="stat-row critical">
+                <span class="number">1 crítica</span>
+                <span class="label">CVE-2025-1974 · CVSS 9.8 · <strong>6,500+</strong> clusters expuestos</span>
+              </div>
+              <div class="stat-row primary">
+                <span class="number">10 de 17</span>
+                <span class="label"><span class="hl">en 2025–2026</span>, y luego se archivó.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="footnote">Fuentes: <a href="https://github.com/advisories?query=k8s.io%2Fingress-nginx" target="_blank" rel="noopener">GitHub Advisory Database, k8s.io/ingress-nginx, consultado el 27 sep 2026</a> · <a href="https://www.wiz.io/blog/ingress-nginx-kubernetes-vulnerabilities" target="_blank" rel="noopener">Wiz Research, IngressNightmare, 24 mar 2025</a></p>
+        <aside class="notes">
+          Texto que salió de la diapositiva:
+          - ~50%: "de los entornos cloud native dependen de él" (Steering,
+            ene 2026).
+          - 41%+: "de los clusters expuestos a internet lo usaban" (Wiz, mar
+            2025).
+          - 6,500+: "clusters exponían su admission controller a internet"
+            (Wiz, mar 2025).
+          - 1 crítica: CVE-2025-1974, CVSS 9.8, ejecución remota de código a
+            través del admission controller.
+          - 10 altas, de 17 CVEs en total. 10 de los 17 llegaron en
+            2025–2026, y luego se archivó.
+
+          Rehecha el 27 sep 2026: la línea de tiempo con fechas se cambió por
+          tarjetas de adopción más grandes y una gráfica de CVEs. Digan las
+          fechas clave en voz alta:
+          - 11 nov 2025: se anuncia el retiro, soporte best-effort hasta marzo 2026.
+          - 29 ene 2026: comunicado de Steering + Security Response, "critical
+            infrastructure for about half of cloud native environments."
+          - 19 mar 2026: último release (helm-chart-4.15.1); repo archivado el 24 mar.
+          - Hoy: seis meses sin patches para quien lo siga usando.
+
+          Tarjetas de adopción: el ~50% es del comunicado de Steering (ene
+          2026). El 41%+ y el 6,500+ son de Wiz Research, 24 mar 2025, medidos
+          cuando se publicó CVE-2025-1974: "over 41% of internet-facing
+          clusters are running Ingress-NGINX"; "over 6,500 clusters, including
+          Fortune 500 companies, that publicly expose vulnerable Kubernetes
+          ingress controllers' admission controllers to the public internet".
+          El 6,500 es solo lo que Wiz pudo ver desde internet, así que es un
+          piso, no un techo.
+
+          Gráfica de CVEs: cada entrada de la GitHub Advisory Database para el
+          paquete Go k8s.io/ingress-nginx (gh api advisories?ecosystem=go&affects=
+          k8s.io/ingress-nginx), consultado el 2026-09-27. 17 CVEs: 1 crítica,
+          10 altas, 5 medias, 1 baja. Agrupados por el año del ID del CVE,
+          porque las fechas de publicación de los viejos en la base de datos
+          son cargas retroactivas de 2022.
+          - 2018: CVE-2018-1002104 (media)
+          - 2020: CVE-2020-8553 (media)
+          - 2021: CVE-2021-25745 (alta), CVE-2021-25748 (media)
+          - 2022: CVE-2022-4886 (alta)
+          - 2023: CVE-2023-5043, CVE-2023-5044 (altas; inyección por
+            annotations, "arbitrary command execution")
+          - 2025: CVE-2025-1974 (crítica, 9.8, RCE de IngressNightmare),
+            CVE-2025-24514, -1098, -1097 (altas, inyección de configuración),
+            CVE-2025-24513 (media)
+          - 2026: CVE-2026-1580, -24512, -4342 (altas, inyección de configuración),
+            CVE-2026-24513 (baja), CVE-2026-24514 (media)
+          "10 de los 17 llegaron en 2025–2026": 5 CVEs en 2025 + 5 en 2026.
+          7 de esos 10 son altas o críticas.
+
+          [TIEMPO: 90s. Hagan una pausa en 2025 y 2026: la mitad de los CVEs
+          llegaron en los últimos 18 meses del proyecto.]
+        </aside>
+      </section>
+
+      <section id="case-ingress-demand">
+        <h2 style="margin-bottom: 6px;">Cada feature se volvió mantenimiento</h2>
+        <p class="text-lg text-muted" style="margin: 0 0 14px 0;">Issues y PRs por año · <code>kubernetes/ingress-nginx</code></p>
+        <div class="content" style="padding-top: 0;">
+          <div style="width: 100%;">
+            <svg viewBox="0 -64 1120 400" width="100%" height="300" role="img" aria-label="Issues y pull requests abiertos por año en kubernetes/ingress-nginx, de 2016 a 2026, lado a lado. Marcas: jul 2018 configuración dinámica con Lua activada por defecto; jun 2022 pausa de features; mar 2025 los maintainers no aceptan features nuevas. Los PRs pasan de 1,300 al año en 2024 y 2025 mientras los issues bajan." style="display:block; overflow: visible;">
+                  <line x1="56" x2="1100" y1="290.0" y2="290.0" stroke="var(--line-color)" stroke-width="1" />
+                  <text x="48" y="298.0" text-anchor="end" font-size="23" fill="var(--muted-color)" font-family="var(--mono-font)">0</text>
+                  <line x1="56" x2="1100" y1="201.3" y2="201.3" stroke="var(--line-color)" stroke-width="1" />
+                  <text x="48" y="209.3" text-anchor="end" font-size="23" fill="var(--muted-color)" font-family="var(--mono-font)">500</text>
+                  <line x1="56" x2="1100" y1="112.7" y2="112.7" stroke="var(--line-color)" stroke-width="1" />
+                  <text x="48" y="120.7" text-anchor="end" font-size="23" fill="var(--muted-color)" font-family="var(--mono-font)">1,000</text>
+                  <line x1="56" x2="1100" y1="24.0" y2="24.0" stroke="var(--line-color)" stroke-width="1" />
+                  <text x="48" y="32.0" text-anchor="end" font-size="23" fill="var(--muted-color)" font-family="var(--mono-font)">1,500</text>
+                  <rect x="67.5" y="280.8" width="34" height="9.2" fill="var(--primary-color)" />
+                  <rect x="105.5" y="281.5" width="34" height="8.5" fill="var(--chart-2)" />
+                  <text x="103.5" y="322" text-anchor="middle" font-size="23" fill="var(--muted-color)" font-family="var(--mono-font)">2016*</text>
+                  <rect x="162.4" y="158.6" width="34" height="131.4" fill="var(--primary-color)" />
+                  <rect x="200.4" y="108.9" width="34" height="181.1" fill="var(--chart-2)" />
+                  <text x="198.4" y="322" text-anchor="middle" font-size="23" fill="var(--muted-color)" font-family="var(--mono-font)">2017</text>
+                  <rect x="257.3" y="145.1" width="34" height="144.9" fill="var(--primary-color)" />
+                  <rect x="295.3" y="125.6" width="34" height="164.4" fill="var(--chart-2)" />
+                  <text x="293.3" y="322" text-anchor="middle" font-size="23" fill="var(--muted-color)" font-family="var(--mono-font)">2018</text>
+                  <rect x="352.2" y="165.9" width="34" height="124.1" fill="var(--primary-color)" />
+                  <rect x="390.2" y="191.0" width="34" height="99.0" fill="var(--chart-2)" />
+                  <text x="388.2" y="322" text-anchor="middle" font-size="23" fill="var(--muted-color)" font-family="var(--mono-font)">2019</text>
+                  <rect x="447.1" y="120.3" width="34" height="169.7" fill="var(--primary-color)" />
+                  <rect x="485.1" y="135.7" width="34" height="154.3" fill="var(--chart-2)" />
+                  <text x="483.1" y="322" text-anchor="middle" font-size="23" fill="var(--muted-color)" font-family="var(--mono-font)">2020</text>
+                  <rect x="542.0" y="155.6" width="34" height="134.4" fill="var(--primary-color)" />
+                  <rect x="580.0" y="179.3" width="34" height="110.7" fill="var(--chart-2)" />
+                  <text x="578.0" y="322" text-anchor="middle" font-size="23" fill="var(--muted-color)" font-family="var(--mono-font)">2021</text>
+                  <rect x="636.9" y="174.4" width="34" height="115.6" fill="var(--primary-color)" />
+                  <rect x="674.9" y="162.1" width="34" height="127.9" fill="var(--chart-2)" />
+                  <text x="672.9" y="322" text-anchor="middle" font-size="23" fill="var(--muted-color)" font-family="var(--mono-font)">2022</text>
+                  <rect x="731.8" y="184.5" width="34" height="105.5" fill="var(--primary-color)" />
+                  <rect x="769.8" y="160.4" width="34" height="129.6" fill="var(--chart-2)" />
+                  <text x="767.8" y="322" text-anchor="middle" font-size="23" fill="var(--muted-color)" font-family="var(--mono-font)">2023</text>
+                  <rect x="826.7" y="209.3" width="34" height="80.7" fill="var(--primary-color)" />
+                  <rect x="864.7" y="52.0" width="34" height="238.0" fill="var(--chart-2)" />
+                  <text x="862.7" y="322" text-anchor="middle" font-size="23" fill="var(--muted-color)" font-family="var(--mono-font)">2024</text>
+                  <rect x="921.6" y="233.4" width="34" height="56.6" fill="var(--primary-color)" />
+                  <rect x="959.6" y="39.3" width="34" height="250.7" fill="var(--chart-2)" />
+                  <text x="957.6" y="322" text-anchor="middle" font-size="23" fill="var(--muted-color)" font-family="var(--mono-font)">2025</text>
+                  <rect x="1016.5" y="287.2" width="34" height="2.8" fill="var(--primary-color)" />
+                  <rect x="1054.5" y="225.1" width="34" height="64.9" fill="var(--chart-2)" />
+                  <text x="1052.5" y="322" text-anchor="middle" font-size="23" fill="var(--muted-color)" font-family="var(--mono-font)">2026*</text>
+                  <line x1="293.3" x2="293.3" y1="-34" y2="290" stroke="var(--text-color)" stroke-width="1.5" stroke-dasharray="4 4" />
+                  <text x="299.3" y="-40" text-anchor="start" font-size="23" font-weight="600" fill="var(--text-color)" font-family="var(--mono-font)">config dinámica Lua</text>
+                  <line x1="665.0" x2="665.0" y1="-34" y2="290" stroke="var(--text-color)" stroke-width="1.5" stroke-dasharray="4 4" />
+                  <text x="671.0" y="-40" text-anchor="start" font-size="23" font-weight="600" fill="var(--text-color)" font-family="var(--mono-font)">pausa de features</text>
+                  <line x1="926.0" x2="926.0" y1="-34" y2="290" stroke="var(--text-color)" stroke-width="1.5" stroke-dasharray="4 4" />
+                  <text x="932.0" y="-40" text-anchor="start" font-size="23" font-weight="600" fill="var(--text-color)" font-family="var(--mono-font)">sin features</text>
+            </svg>
+          </div>
+          <div style="display: flex; gap: 28px; align-items: center; margin-top: 10px; width: 100%;">
+            <span class="receipt" style="margin: 0; display: flex; align-items: center; gap: 6px;"><span
+                style="width: 12px; height: 12px; background: var(--primary-color); display: inline-block;"></span> issues</span>
+            <span class="receipt" style="margin: 0; display: flex; align-items: center; gap: 6px;"><span
+                style="width: 12px; height: 12px; background: var(--chart-2); display: inline-block;"></span> pull&nbsp;requests</span>
+            <span class="receipt" style="margin: 0;">* año parcial</span>
+          </div>
+          <p class="text-xl" style="margin: 10px 0 0 0; font-weight: 500;"><span class="hl">9 de cada 10 PRs en 2025</span>: un solo maintainer o un bot.</p>
+        </div>
+        <p class="footnote">Fuentes: GitHub search API, repo:kubernetes/ingress-nginx created:&lt;año&gt;, consultado el 26 sep 2026 (autores 2025: 1,000 de 1,414 PRs, 30 sep 2026) · <a href="https://github.com/kubernetes/ingress-nginx/pull/2794" target="_blank" rel="noopener">PR #2794, 27 jul 2018</a> · <a href="https://groups.google.com/a/kubernetes.io/g/dev/c/rxtrKvT_Q8E/m/6_ej0c1ZBAAJ" target="_blank" rel="noopener">kubernetes dev list, 23 jun 2022</a> · <a href="https://github.com/kubernetes/ingress-nginx/issues/13002" target="_blank" rel="noopener">issue #13002, 20 mar 2025</a></p>
+        <aside class="notes">
+          Texto que salió de la diapositiva:
+          - Subtítulo: "Issues y pull requests abiertos por año en
+            kubernetes/ingress-nginx".
+          - * 2016 empieza el 4 nov (creación del repo) · 2026 termina con el
+            archivo en marzo.
+          - "Las features llegaron; el mantenimiento se quedó."
+
+          Nueva en la revisión 2. No existe un dataset público de cuántos
+          clusters en producción usaban ingress-nginx año con año, así que no
+          digan que lo hay. Esta gráfica es el lado de la demanda: cada issue
+          y pull request abierto en el repo, por año calendario, desde la
+          GitHub search API (consultado el 2026-09-26). Totales (issues / PRs):
+          2016 52/48 (desde el 4 nov) · 2017 741/1,021 · 2018 817/927 ·
+          2019 700/558 · 2020 957/870 · 2021 758/624 · 2022 652/721 ·
+          2023 595/731 · 2024 455/1,342 · 2025 319/1,414 · 2026 16/366
+          (hasta el archivo en marzo). Suma: 14,684 (6,062 issues + 8,622 PRs).
+
+          Léanla así: entre ~1,300 y 1,800 elementos al año, constantes por
+          una década, cayendo sobre un equipo que llegó a seis maintainers
+          como máximo y pasó años con dos.
+
+          Actualizada el 30 sep 2026. Ahora las barras van lado a lado (la
+          versión apilada se malinterpretaba). La historia es cómo las
+          features se vuelven mantenimiento:
+          - Jul 2018: PR #2794 "enable dynamic backend configuration by
+            default" (release 0.18.0). Los backends se actualizan con
+            OpenResty/Lua sin reload de NGINX, algo que NGINX estándar no
+            puede hacer. Salió primero detrás de
+            --enable-dynamic-configuration en 0.12.0 (Changelog.md); el PR
+            #3198 (oct 2018) lo volvió el único modo.
+          - 23 jun 2022, dev list: "it's time to temporarily pause accepting
+            new features and focus on fixing and stabilizing Ingress NGINX."
+          - 20 mar 2025, issue fijado #13002: "No new features from
+            maintainers".
+          - Autores de PRs en 2025, de los primeros 1,000 de 1,414 PRs (la
+            búsqueda de GitHub corta en 1,000 resultados): Gacko (maintainer)
+            565, k8s-infra-cherrypick-robot 245, Dependabot 104 = 914, o sea
+            "9 de cada 10". Los títulos de Gacko son casi todos tareas de
+            mantenimiento: "Images: Trigger NGINX build." 219, "Go: Update
+            dependencies." 128, CI 70, Tests 51. El siguiente autor humano:
+            11 PRs. 2024 se ve igual: cherry-pick robot 529, Gacko 184,
+            Dependabot 115 de 1,000.
+          - Entonces hay más PRs que issues porque los maintainers y los bots
+            los abrieron para mantener el proyecto con patch, no porque los
+            usuarios mandaran arreglos.
+
+          Los números de adopción (Wiz 41%+, Steering ~50%) están en la
+          diapositiva anterior; esta es solo sobre la demanda.
+
+          [TIEMPO: 60s.]
+        </aside>
+      </section>
+
+      <section id="case-ingress-people">
+        <h2>Las personas detrás del controller</h2>
+        <div class="content" style="justify-content: center;">
+          <div class="quote-card critical" style="width: 100%;">
+            <p class="quote" style="font-size: 30pt; line-height: 1.3;">"Hacemos esto en nuestro tiempo libre, y cada vez nos
+              cuesta más mantener este ritmo. … y <span class="hl">los bugs que puedan salir de esas features</span>."</p>
+            <p class="who">James Strong (@strongjz) · maintainer de ingress-nginx · 23 jun 2022</p>
+            <p class="receipt" lang="en" style="margin-top: 10px;">"We do this in our spare time, and it's becoming hard for us to keep this pace. … and the bugs that may arise from this feature." <span lang="es">(traducción propia)</span></p>
+          </div>
+        </div>
+        <p class="footnote">Fuentes: <a href="https://groups.google.com/a/kubernetes.io/g/dev/c/rxtrKvT_Q8E/m/6_ej0c1ZBAAJ" target="_blank" rel="noopener">James Strong, kubernetes dev list, 23 jun 2022</a> · <a href="https://github.com/kubernetes/org/pull/5305" target="_blank" rel="noopener">kubernetes/org#5305, 15 dic 2024</a></p>
+        <aside class="notes">
+          Esta es la diapositiva humana. Reescrita el 30 sep 2026: se quitó la
+          caja de terminal (su "we're drowning" era una paráfrasis entre
+          comillas, no palabras de los maintainers), y una cita textual de un
+          maintainer explica lo que estaba pasando.
+
+          Cita completa (en la diapositiva va recortada con "…"): "Hacemos
+          esto en nuestro tiempo libre, y cada vez nos cuesta más mantener
+          este ritmo. … ahora tenemos que repartir nuestro tiempo entre
+          issues, bug fixing, review de features nuevas y los bugs que puedan
+          salir de esas features." Original: "We do this in our spare time,
+          and it's becoming hard for us to keep this pace. … we now have to
+          split our time between issues, bug fixing, new feature reviews, and
+          the bugs that may arise from this feature." Fuente: kubernetes dev
+          list.
+
+          La cita: el correo de James Strong a la kubernetes dev list, 23 jun
+          2022, verificado contra la página de Google Groups el 30 sep 2026.
+          El "…" omite una oración: "This lack of support becomes a burden to
+          Ingress NGINX maintainers:". El mismo correo sigue: "it's time to
+          temporarily pause accepting new features and focus on fixing and
+          stabilizing Ingress NGINX" (la marca de pausa de features en la
+          gráfica). La frase resaltada es la diapositiva anterior dicha por un
+          maintainer: cada feature se vuelve mantenimiento.
+
+          La traducción en pantalla es propia; el original en inglés va
+          abajo, textual.
+
+          Díganlo después de la cita (el costo personal, con su voz): dos años
+          después, Ricardo Katz (@rikatz) dio un paso al costado.
+          kubernetes/org#5305, 15 dic 2024: "I need some time for myself, and
+          I am not really being able to take care of the project and my
+          personal life together :)" ("Necesito tiempo para mí, y no estoy
+          pudiendo cuidar del proyecto y de mi vida personal a la vez :)").
+          La carita feliz es lo que lo hace peor.
+
+          Lo que realmente hacían, por $0, fuera de horario: triage y review,
+          patches de CVEs, gestión de releases, soporte a usuarios.
+
+          Viene de la diapositiva eliminada "Por qué colapsó" (27 sep 2026).
+          Cuatro razones del colapso, para decirlas si hay tiempo:
+          - Sobrecarga de CVEs: un puñado de maintainers haciendo patch de bugs de
+            seguridad sin compensación (la gráfica de CVEs, dos diapositivas
+            atrás).
+          - Triage congelado: más de 50 issues con la etiqueta
+            lifecycle/frozen porque la cola se volvió imposible de revisar.
+          - Reemplazo abandonado: InGate, el sucesor en kubernetes-sigs con el
+            mismo equipo de maintainers, salió y se retiró. Sin voluntarios.
+          - Rescate corporativo rechazado: Steering rechazó una toma de
+            control de último minuto, por confianza en seguridad.
+            @BenTheElder, 21 ene 2026: "Building trust for owning critical
+            software takes time, we needed that to happen years ago during the
+            earlier pleas for support." ("Ganar la confianza para ser dueño de
+            software crítico toma tiempo; necesitábamos que eso pasara hace
+            años, cuando se pidió ayuda las primeras veces.")
+            (kubernetes/ingress-nginx#14178)
+
+          [TIEMPO: 60s. Lean la cita, hagan una pausa, avancen.]
+        </aside>
+      </section>
+
+      <section id="divider-3" class="section-divider" data-state="is-section-divider">
+        <span class="section-number">Acto 03</span>
+        <h1>El costo</h1>
+        <p>Para las empresas, los maintainers y la IA.</p>
+        <aside class="notes">
+          Subtítulo original: "Para las empresas. Para los maintainers. Y ahora, la avalancha de IA."
+
+          [TIEMPO: 15s. Pasamos de la historia al libro de cuentas. Las
+          siguientes diapositivas le ponen números a lo que acaba de pasar.]
+        </aside>
+      </section>
+
+      <section id="cost-companies">
+        <h2>No hay reemplazo directo</h2>
+        <div class="content" style="width: 100%; justify-content: center; gap: 36px;">
+          <div style="display: flex; align-items: baseline; gap: 28px;">
+            <span class="number" style="font-size: 150pt; font-weight: 800; line-height: 0.8; letter-spacing: -0.04em; color: var(--critical-color);">0</span>
+            <p style="margin: 0; font-size: 34pt; font-weight: 600; line-height: 1.15;">reemplazos directos<br />para
+              <code style="font-size: 30pt;">ingress-nginx</code>.</p>
+          </div>
+          <blockquote class="statement">
+            <p>"<span class="hl">La mitad de ustedes se verá afectada.</span>"</p>
+            <cite>Kubernetes Steering + Security Response Committee · 29 ene 2026</cite>
+            <p lang="en" style="margin-top: 10px; font-size: 14pt; font-weight: 400; color: var(--muted-color); font-family: var(--mono-font);">"Half of you will be affected." <span lang="es">(traducción propia)</span></p>
+          </blockquote>
+        </div>
+        <p class="footnote">Fuentes: <a href="https://kubernetes.io/blog/2026/01/29/ingress-nginx-statement/" target="_blank" rel="noopener">Kubernetes Steering + Security Response Committee statement, 29 ene 2026</a></p>
+        <aside class="notes">
+          Simplificada el 4 oct 2026: la cita en la slide quedó solo con su
+          última frase. La primera ("Ninguna de las alternativas disponibles
+          es un reemplazo directo") ya la dice el número 0.
+
+          Un solo número en esta diapositiva: cero reemplazos directos. El dato
+          de "about half of cloud native environments" (comunicado de Steering,
+          29 ene 2026, Kat Cosgrove) ya salió en la diapositiva de la línea de
+          tiempo; aquí regresa como la última línea de la cita: "La mitad de
+          ustedes se verá afectada." No es un problema de nicho; afecta a la
+          mitad de la sala. Enfaticen la cita del Steering Committee:
+          "Ninguna de las alternativas disponibles es un reemplazo directo."
+
+          Cita completa (en la diapositiva va recortada con "…"): "Ninguna de
+          las alternativas disponibles es un reemplazo directo. Esto va a
+          requerir planificación y tiempo de ingeniería. La mitad de ustedes
+          se verá afectada." Original: "None of the available alternatives
+          are direct drop-in replacements. This will require planning and
+          engineering time. Half of you will be affected."
+
+          Una migración no planeada significa revisar cada YAML de ingress
+          para traducir las annotations de Nginx. Son meses de tiempo de
+          ingeniería.
+
+          [TIEMPO: 60s. Hagan referencia al comunicado oficial de K8s de enero
+          2026.]
+        </aside>
+      </section>
+
+      <section id="cost-maintainers">
+        <h2>La mayoría no cobra</h2>
+        <div class="content" style="width: 100%; justify-content: center; gap: 40px;">
+          <div style="display: flex; align-items: baseline; gap: 32px;">
+            <span class="number" style="font-size: 170pt; font-weight: 800; line-height: 0.8; letter-spacing: -0.04em; color: var(--secondary-color);">60%</span>
+            <p style="margin: 0; font-size: 34pt; font-weight: 600; line-height: 1.15;">de los maintainers<br />no recibe pago</p>
+          </div>
+        </div>
+        <p class="footnote">Fuente: <a href="https://www.businesswire.com/news/home/20240917030299/en/Tidelift-Study-Reveals-Paid-Open-Source-Maintainers-Do-Significantly-More-Critical-Security-and-Maintenance-Work-Than-Unpaid-Maintainers" target="_blank" rel="noopener">Tidelift, 2024 State of the Open Source Maintainer Report</a></p>
+        <aside class="notes">
+          [4 oct 2026: se quitó del slide la línea "60% renunció o pensó en
+          renunciar" para no mostrar dos 60% distintos. Tidelift lo publica
+          como "almost 60% of maintainers have quit or considered quitting"
+          (https://dev.to/tidelift/maintainer-burnout-is-real-almost-60-of-maintainers-have-quit-or-considered-quitting-maintaining-one-of-their-projects-51ma).
+          Si lo dicen, digan "casi 60%" y que es otra pregunta de la encuesta.]
+
+          Simplificada el 4 oct 2026: la cita de @BenTheElder salió de la
+          slide; ahora va solo el 60% y la línea de "renunció o pensó en
+          renunciar" (mismo reporte de Tidelift: "have either quit or
+          considered quitting", 60%).
+
+          Cita que salió, díganla en voz alta:
+          "Hace tiempo que nadie le paga a nadie por trabajar en este
+          software; ha sido totalmente voluntario y los ha rebasado."
+          Original: "Nobody has been paying anyone to work on this software
+          for some time, it has been entirely volunteer driven and they've
+          been overwhelmed." @BenTheElder, Kubernetes Steering Committee, 21
+          ene 2026, kubernetes/ingress-nginx#14178:
+          https://github.com/kubernetes/ingress-nginx/issues/14178#issuecomment-3779849797
+
+          Texto que salió de la diapositiva (díganlo al cerrar):
+          - "60% de los maintainers de open source no reciben pago por su
+            trabajo."
+          - "Es la línea más cara de esta charla: tiempo, salud e impacto en
+            la carrera."
+          - "La cascada de CVEs convirtió el trabajo voluntario en un segundo
+            empleo con responsabilidad de seguridad constante."
+
+          Esta es la diapositiva que el público de Nerdearla va a sentir en el
+          pecho. Son las personas que serían maintainers si la economía fuera
+          distinta.
+
+          El "60%" viene del reporte 2024 State of the Open Source Maintainer
+          de Tidelift: "60% of maintainers are (still) not paid for their
+          work", y el porcentaje que "have either quit or considered quitting"
+          también fue 60%. Digan "2024": Tidelift (hoy parte de Sonar) no ha
+          publicado una edición más nueva. La revisión 1 citaba ByteIota / It's
+          FOSS, que estaban repitiendo esta misma encuesta.
+
+          La cita de @BenTheElder es la línea individual más fuerte de todo
+          el registro de kubernetes.org. Él está en el Steering Committee. El
+          backdoor de XZ Utils es lo que hizo que el Steering Committee
+          rechazara el rescate corporativo de último minuto: no querían
+          respaldar a un maintainer que no hubiera pasado por la escalera de
+          contribución. Pero el problema de fondo era: nadie le pagaba a nadie.
+
+          La línea de la "cascada de CVEs" de abajo conecta con la diapositiva
+          "Por qué colapsó". Los maintainers no solo hacían trabajo de
+          features gratis: hacían trabajo de SEGURIDAD gratis. Esa es la parte
+          que no aparece en un reporte de compras.
+
+          [TIEMPO: 60s. El número es el titular. La cita de @BenTheElder es
+          la moraleja. Dejen que la sala haga las cuentas.]
+        </aside>
+      </section>
+
+      <section id="ai-maintainer-flood">
+        <h2 style="margin-bottom: 10px;">La IA multiplicó el inbox</h2>
+        <div class="content" style="width: 100%; justify-content: center; gap: 16px;">
+          <div style="display: grid; grid-template-columns: 720px 1fr; gap: 40px; align-items: center; width: 100%;">
+          <svg viewBox="0 0 740 370" width="720" height="360" role="img" aria-label="Pull requests merged por mes en GitHub: 25 millones en enero de 2023, 35 millones promedio 2024, 43.2 millones promedio 2025, más de 90 millones a mediados de 2026." style="display: block; overflow: visible;">
+            <line x1="20" x2="740" y1="300" y2="300" stroke="var(--line-color)" stroke-width="2" />
+            <rect x="40" y="230.6" width="120" height="69.4" rx="3" fill="var(--secondary-color)" />
+            <text x="100.0" y="218.6" text-anchor="middle" font-size="30" font-weight="800" fill="var(--text-color)" font-family="var(--mono-font)">25M</text>
+            <text x="100.0" y="330" text-anchor="middle" font-size="22" fill="var(--muted-color)" font-family="var(--mono-font)">ene</text>
+            <text x="100.0" y="356" text-anchor="middle" font-size="22" fill="var(--muted-color)" font-family="var(--mono-font)">2023</text>
+            <rect x="220" y="202.8" width="120" height="97.2" rx="3" fill="var(--secondary-color)" />
+            <text x="280.0" y="190.8" text-anchor="middle" font-size="30" font-weight="800" fill="var(--text-color)" font-family="var(--mono-font)">35M</text>
+            <text x="280.0" y="330" text-anchor="middle" font-size="22" fill="var(--muted-color)" font-family="var(--mono-font)">2024</text>
+            <text x="280.0" y="356" text-anchor="middle" font-size="22" fill="var(--muted-color)" font-family="var(--mono-font)">prom.</text>
+            <rect x="400" y="180.0" width="120" height="120.0" rx="3" fill="var(--secondary-color)" />
+            <text x="460.0" y="168.0" text-anchor="middle" font-size="30" font-weight="800" fill="var(--text-color)" font-family="var(--mono-font)">43.2M</text>
+            <text x="460.0" y="330" text-anchor="middle" font-size="22" fill="var(--muted-color)" font-family="var(--mono-font)">2025</text>
+            <text x="460.0" y="356" text-anchor="middle" font-size="22" fill="var(--muted-color)" font-family="var(--mono-font)">prom.</text>
+            <rect x="580" y="50.0" width="120" height="250.0" rx="3" fill="var(--critical-color)" />
+            <text x="640.0" y="38.0" text-anchor="middle" font-size="30" font-weight="800" fill="var(--text-color)" font-family="var(--mono-font)">90M+</text>
+            <text x="640.0" y="330" text-anchor="middle" font-size="22" fill="var(--muted-color)" font-family="var(--mono-font)">mediados</text>
+            <text x="640.0" y="356" text-anchor="middle" font-size="22" fill="var(--muted-color)" font-family="var(--mono-font)">2026</text>
+          </svg>
+            <div>
+              <p style="margin: 0; font-size: 96pt; font-weight: 800; line-height: 0.9; color: var(--critical-color);">3.6×</p>
+              <p style="margin: 12px 0 0 0; font-size: 24pt; line-height: 1.3;"><span class="hl">PRs merged al mes</span> en GitHub desde 2023</p>
+            </div>
+          </div>
+        </div>
+        <p class="footnote">Fuentes: <a href="https://github.blog/news-insights/octoverse/octoverse-a-new-developer-joins-github-every-second-as-ai-leads-typescript-to-1/" target="_blank" rel="noopener">GitHub Octoverse 2025, 28 oct 2025 (promedios mensuales 2024/2025, repos públicos)</a> · <a href="https://github.blog/open-source/maintainers/how-pull-request-limits-are-cutting-down-the-noise/" target="_blank" rel="noopener">GitHub Blog, 18 jun 2026 (PRs mergeados, ene 2023 y 2026)</a></p>
+        <aside class="notes">
+          Simplificada el 4 oct 2026: quedó solo el panel de PRs merged. Los
+          paneles de Commits (65M prom. 2024, 82M prom. 2025, ~1,200M ritmo
+          abr 2026*) y PRs abiertos (39.5M prom. 2024, 47.5M prom. 2025) salieron
+          de la slide; los números y su explicación siguen abajo.
+          * Fuente del ritmo de commits: Kyle Daigle (COO de GitHub), citado
+          en Latent Space, 2 jun 2026: 275M commits/semana en abr 2026.
+          https://www.latent.space/p/github
+
+          Texto que salió de la diapositiva:
+          - Subtítulo: "Actividad mensual en GitHub, según GitHub (cada panel
+            tiene su propia escala)".
+          - "PRs merged: de 25M a más de 90M al mes desde enero de 2023, unas
+            3.6×."
+          - El panel "Commits" se llamaba "Commits enviados" (pushes).
+
+          Gráfica de tres paneles (30 sep 2026, segunda versión). Todos los
+          números son de GitHub, todos por mes:
+          - Octoverse 2025 (28 oct 2025), tabla "2024 monthly average / 2025
+            monthly average": "Code pushes 65M 82.19M", "Pull requests merged
+            35M 43.2M" y "Pull requests created: +20.4% (47.5M vs 39.5M)".
+            Octoverse dice que sus números son actividad pública salvo que se
+            indique otra cosa. Además: "pushed nearly 1 billion commits in
+            2025 (+25.1% YoY)".
+          - GitHub Blog, 18 jun 2026: "In January 2023, developers merged
+            about 25 million pull requests a month across GitHub. Today that
+            number tops 90 million—a roughly 3.6x increase." Ojo: el alcance
+            dice "across GitHub" (Octoverse dice público); las etiquetas de
+            GitHub no coinciden entre sí, así que no digan que es solo open
+            source.
+          - Kyle Daigle, COO de GitHub, citado en Latent Space (2 jun 2026):
+            "There were 1 billion commits in 2025. Now, it's 275 million per
+            week, on pace for 14 billion this year if growth remains
+            linear". La barra de ~1,200M al mes es 275M × 52 / 12, un ritmo
+            proyectado, no un mes medido. Díganlo en voz alta: "ritmo".
+          - Cuidado con "billion": en español son MIL MILLONES, no billones.
+            1 billion commits = mil millones; 14 billion = 14 mil millones.
+          - Todavía no hay un número oficial de PRs abiertos en 2026, así que
+            ese panel termina en 2025. En la tabla de Octoverse, commits y PRs
+            son pushes; el texto trata ~1,000 millones de commits y 82M de
+            pushes al mes como lo mismo.
+          Cada panel tiene su propia escala: comparen el crecimiento dentro
+          de un panel, no las alturas entre paneles.
+
+          Versión anterior de esta gráfica (descartada): GitHub Innovation
+          Graph, git pushes humanos por trimestre, sin bots: de 106.3M (Q2
+          2021) a 319.8M (Q1 2026), 3.0×, +80% interanual.
+
+          Nuevo en la revisión 2. Desde la presentación de junio, la historia
+          de la IA cambió de "la IA encuentra bugs" a "la IA entierra a los
+          maintainers".
+
+          curl (15 jun 2026): "The curl project will not accept or otherwise
+          handle any vulnerability reports during the month of July 2026."
+          ("El proyecto curl no aceptará ni atenderá reportes de
+          vulnerabilidades durante julio de 2026.") Pausa desde el 1 de julio
+          00:00 CEST, reanudación el 3 de agosto 09:00 CEST. Solo se pausaron
+          los reportes de vulnerabilidades; los issue trackers siguieron
+          abiertos. Y la frase que hace el punto de la charla por ustedes:
+          "Everyone with a paid support contracts will of course still get
+          full and appropriate service even during this period." (el error
+          de dedo está en el original). Quien pagaba soporte siguió
+          atendido; los demás esperaron.
+          Seguimiento (3 ago): "This was possibly our best project decision
+          in a long while." ("Posiblemente fue nuestra mejor decisión como
+          proyecto en mucho tiempo.")
+
+          "High-Quality Chaos" (22 abr): "Recently it's been about double the
+          rate we had through 2025, which already was more than double from
+          previous years." Y ahora los reportes son BUENOS: "somewhere in the
+          15-16% range" son vulnerabilidades confirmadas. El problema ya no
+          es basura. Es volumen de trabajo real con el mismo puñado de
+          personas.
+
+          GitHub (18 jun 2026, Camilla Moraes y Ashley Wolf): "In January
+          2023, developers merged about 25 million pull requests a month
+          across GitHub. Today that number tops 90 million—a roughly 3.6x
+          increase."
+
+          Quitado de la diapositiva el 27 sep 2026, vale la pena decirlo si
+          hay tiempo: kernel.org (29 ago 2026), "git.kernel.org receives
+          about 6M daily requests"; "legitimate requests are only about 2% of
+          git.kernel.org traffic — everything else are scrapers." (Solo ~2%
+          del tráfico es legítimo; el resto son scrapers.)
+          https://people.kernel.org/monsieuricon/creepy-crawlies
+
+          Advertencia sobre 25M → 90M+: son TODOS los PRs merged en
+          GitHub (repos privados, bots y agentes incluidos), no solo open
+          source.
+
+          [TIEMPO: 90 s.]
+        </aside>
+      </section>
+
+      <section id="ai-vulnerability-explosion" data-visibility="hidden">
+        <h2 style="margin-bottom: 14px;">La IA encuentra bugs más rápido de lo que los voluntarios pueden arreglarlos</h2>
+        <div class="content" style="padding-top: 8px;">
+          <div style="display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 36px; align-items: start; width: 100%;">
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+              <figure class="evidence" style="--evidence-h: 230px;">
+                <img src="assets/evidence/glasswing-update.png" alt="Captura de pantalla de la primera actualización de Project Glasswing de Anthropic" />
+                <figcaption>anthropic.com · "Project Glasswing: An initial update" · 22 may 2026</figcaption>
+              </figure>
+              <div class="comment-card warn">
+                <p class="who"><span class="logo sm" style="--logo: var(--logo-anthropic); background: var(--secondary-color);"></span> Anthropic · Project Glasswing</p>
+                <blockquote>"…algunos incluso nos pidieron bajar el ritmo de nuestras divulgaciones porque necesitan más
+                  tiempo para diseñar los patches."</blockquote>
+                <p class="receipt" lang="en" style="margin: 4px 0 0 0;">"…some have even asked us to slow down our rate of our disclosures because they need more time to design patches." <span lang="es">(traducción propia)</span></p>
+                <span class="src">75 de 530 bugs altos/críticos ya tenían patch al publicar</span>
+              </div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+              <div class="panel critical" style="margin: 0; padding: 14px 18px;">
+                <p class="text-mono" style="margin: 0 0 4px 0; color: var(--critical-color); text-transform: uppercase; letter-spacing: 0.1em; font-size: 14pt; font-weight: 600;">
+                  Black Duck OSSRA 2026</p>
+                <p style="margin: 0; font-size: 18pt; line-height: 1.4;">El promedio de vulnerabilidades por codebase subió
+                  <strong>107%</strong>, a <strong>581</strong>. El <strong>87%</strong> de los codebases tiene al menos una.</p>
+              </div>
+              <div class="panel primary" style="margin: 0; padding: 14px 18px;">
+                <p class="text-mono" style="margin: 0 0 4px 0; color: var(--primary-color); text-transform: uppercase; letter-spacing: 0.1em; font-size: 14pt; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                  <span class="logo sm primary" style="--logo: var(--logo-firefox);"></span> Mozilla · con equipo pagado</p>
+                <p style="margin: 0; font-size: 18pt; line-height: 1.4;"><strong>423</strong> security bugs de Firefox en abril de 2026;
+                  <strong>271</strong> los encontró un pipeline de IA.</p>
+              </div>
+              <div class="panel warn" style="margin: 0; padding: 14px 18px;">
+                <p class="text-mono" style="margin: 0 0 4px 0; color: var(--secondary-color); text-transform: uppercase; letter-spacing: 0.1em; font-size: 14pt; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                  <span class="logo sm" style="--logo: var(--logo-openai); background: var(--secondary-color);"></span> Patch the Planet · 22 jun</p>
+                <p style="margin: 0; font-size: 17pt; line-height: 1.4;">"una manguera de hallazgos de seguridad, y maintainers ya rebasados
+                  tienen que revisarlo todo"</p>
+                <p class="receipt" lang="en" style="margin: 4px 0 0 0;">"a firehose of security findings, and already-stretched maintainers must sift through all of it" <span lang="es">(traducción propia)</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="footnote">Fuentes: <a href="https://www.anthropic.com/research/glasswing-initial-update" target="_blank" rel="noopener">Anthropic, Glasswing update, 22 may 2026</a> · Black Duck OSSRA 2026 · <a href="https://hacks.mozilla.org/2026/05/behind-the-scenes-hardening-firefox/" target="_blank" rel="noopener">Mozilla Hacks, 7 may 2026</a> · <a href="https://blog.trailofbits.com/2026/06/22/introducing-patch-the-planet/" target="_blank" rel="noopener">Trail of Bits, 22 jun 2026</a></p>
+        <aside class="notes">
+          Actualizado en la revisión 2. En junio el titular era "la IA
+          encuentra más de 10 mil bugs". Cuatro meses después el titular es:
+          arreglarlos no escaló.
+
+          Evidencia (re-verificada el 26 sep 2026):
+          - Anthropic, "Project Glasswing: An initial update" (22 may 2026):
+            "several maintainers have told us they're currently severely
+            capacity constrained, and some have even asked us to slow down our
+            rate of our disclosures because they need more time to design
+            patches." Y "75 of the 530 high- or critical-severity bugs we've
+            reported have now been patched". Anthropic también donó $2.5M a
+            Alpha-Omega/OpenSSF y $1.5M a la Apache Software Foundation
+            (anthropic.com/glasswing).
+            NOTA: las cifras que tanto se repiten de "1,596 vulns / 281
+            proyectos / ~6% con patch" son de una nota de la Cloud Security
+            Alliance, no de Anthropic. No las usen sin citar a la CSA.
+          - Blog de Black Duck sobre OSSRA 2026: "rising 107% to an average of
+            581 vulnerabilities"; "87% of all audited codebases contained at
+            least one vulnerability".
+          - Mozilla Hacks, 7 may 2026: "We fixed a total of 423 security bugs
+            in releases in April. In addition to the 271 bugs announced two
+            weeks ago…" El contraste: Mozilla tiene un equipo de seguridad con
+            presupuesto para absorber 271 bugs encontrados por IA. Un proyecto
+            de dos personas no.
+          - Trail of Bits, "Introducing Patch the Planet", 22 jun 2026:
+            "Frontier models like GPT-5.5-Cyber are producing a firehose of
+            security findings, and already-stretched maintainers must sift
+            through all of it to separate real vulnerabilities from
+            plausible-sounding false positives." Personas hacen el triage
+            antes de que los maintainers vean nada, y se incluyen los patches.
+            Ese es el modelo a aplaudir.
+
+          Texto recortado de la diapositiva: "75 de los 530 bugs
+          altos/críticos reportados a proyectos OSS estaban con patch al
+          momento de publicar"; "423 bugs de seguridad de Firefox corregidos
+          en abril de 2026, 271 de ellos encontrados por un pipeline de IA."
+
+          El cuello de botella ya no es encontrar bugs. Es la capacidad humana
+          de hacerles patch, y esa capacidad no se paga.
+          [TIEMPO: 2 minutos.]
+        </aside>
+      </section>
+
+      <section id="supply-chain-2026">
+        <h2 style="margin-bottom: 10px;">Entraron por personas, no por código</h2>
+        <div class="content" style="justify-content: center; gap: 18px; width: 100%;">
+          <div style="display: grid; grid-template-columns: 40px 1fr 1fr; gap: 18px; width: 100%; font-family: var(--mono-font); font-size: 14pt; color: var(--muted-color); text-transform: uppercase; letter-spacing: 0.1em;">
+            <span></span><span>Qué cayó · 2026</span><span>Cómo <span class="hl">entraron</span></span>
+          </div>
+            <div class="stat-row critical" style="display: grid; grid-template-columns: 40px 1fr 1fr; gap: 18px; align-items: center; padding-top: 14px;">
+              <span class="logo" style="--logo: var(--logo-axios); width: 32px; height: 32px; background: var(--card-color);" aria-hidden="true"></span>
+              <span style="font-size: 20pt; font-weight: 700; line-height: 1.25;">axios <span class="text-muted" style="font-weight: 400;">(paquete npm, ~100M descargas/semana)</span></span>
+              <span style="font-size: 20pt; line-height: 1.25;">RAT en la PC del maintainer</span>
+            </div>
+            <div class="stat-row critical" style="display: grid; grid-template-columns: 40px 1fr 1fr; gap: 18px; align-items: center; padding-top: 14px;">
+              <span class="logo" style="--logo: var(--logo-trivy); width: 32px; height: 32px; background: var(--card-color);" aria-hidden="true"></span>
+              <span style="font-size: 20pt; font-weight: 700; line-height: 1.25;">trivy-action <span class="text-muted" style="font-weight: 400;">(GitHub Action de seguridad)</span></span>
+              <span style="font-size: 20pt; line-height: 1.25;">token de CI robado · 76 de 77 tags</span>
+            </div>
+            <div class="stat-row warn" style="display: grid; grid-template-columns: 40px 1fr 1fr; gap: 18px; align-items: center; padding-top: 14px;">
+              <span class="logo" style="--logo: var(--logo-github); width: 32px; height: 32px; background: var(--card-color);" aria-hidden="true"></span>
+              <span style="font-size: 20pt; font-weight: 700; line-height: 1.25;">GitHub <span class="text-muted" style="font-weight: 400;">(sus repos internos)</span></span>
+              <span style="font-size: 20pt; line-height: 1.25;">extensión de VS Code envenenada · ~3,800 repos</span>
+            </div>
+            <div class="stat-row critical" style="display: grid; grid-template-columns: 40px 1fr 1fr; gap: 18px; align-items: center; padding-top: 14px;">
+              <span class="logo" style="--logo: var(--logo-npm); width: 32px; height: 32px; background: var(--card-color);" aria-hidden="true"></span>
+              <span style="font-size: 20pt; font-weight: 700; line-height: 1.25;">ChainDrop <span class="text-muted" style="font-weight: 400;">(worm en npm)</span></span>
+              <span style="font-size: 20pt; line-height: 1.25;">tokens de maintainers robados · 400+ paquetes</span>
+            </div>
+        </div>
+        <p class="footnote">Fuentes: <a href="https://github.com/axios/axios/issues/10636" target="_blank" rel="noopener">post-mortem de axios, axios/axios#10636, 2 abr 2026</a> · <a href="https://www.wiz.io/blog/axios-npm-compromised-in-supply-chain-attack" target="_blank" rel="noopener">Wiz, 31 mar 2026</a> · <a href="https://github.com/advisories/GHSA-69fq-xp46-6x23" target="_blank" rel="noopener">GHSA-69fq-xp46-6x23</a> · <a href="https://github.blog/security/investigating-unauthorized-access-to-githubs-internal-repositories/" target="_blank" rel="noopener">GitHub Blog, 20 may 2026</a> · <a href="https://www.microsoft.com/en-us/security/blog/2026/08/04/chaindrop-supply-chain-compromise-anatomy-self-propagating-worm/" target="_blank" rel="noopener">Microsoft Security Blog, 4 ago 2026</a></p>
+        <aside class="notes">
+          Simplificada el 4 oct 2026: de 4 tarjetas con número grande a 4
+          líneas "qué cayó (qué es) · cómo entraron". El título es el mensaje:
+          ninguno entró por un bug de código. Fechas: axios 31 mar, trivy-action
+          19 mar, GitHub 20 may, ChainDrop 4 ago 2026. Título anterior: "El
+          token de un maintainer es tu producción".
+          Explicaciones de nombres, verificadas el 4 oct 2026: Wiz describe
+          axios como paquete npm "downloaded ~100 million times per week"; el
+          GHSA describe aquasecurity/trivy-action como GitHub Action de Trivy,
+          un vulnerability scanner usado en CI/CD; Microsoft llama a ChainDrop
+          "self-propagating worm" en npm.
+
+          Texto que salió de la diapositiva (una frase por tarjeta):
+          - Subtítulo: "Los mayores ataques a open source de 2026 entraron
+            por personas, no por código."
+          - axios: ingeniería social metió un RAT en la PC del maintainer
+            principal. Robó el login de npm.
+          - trivy-action: un token de CI robado convirtió un scanner de
+            seguridad en malware.
+          - GitHub: un empleado instaló una extensión de VS Code envenenada
+            (Nx Console).
+          - ChainDrop worm: con tokens robados republicaron keyv,
+            cache-manager y más.
+
+          Reescrita el 30 sep 2026: los cuatro mayores ataques a open source
+          de 2026, cada uno contado como proyecto → un número → una línea.
+          Todos entraron por una persona o su credencial, no por un bug de
+          código.
+
+          - axios (31 mar 2026, sin CVE). Post-mortem del maintainer Jason
+            Saayman, axios/axios#10636 (2 abr): "The attacker gained access to
+            the lead maintainer's PC through a targeted social engineering
+            campaign and RAT malware. This gave them access to the npm account
+            credentials, which they used to publish the malicious versions."
+            Versiones maliciosas 1.14.1 y 0.30.4. Wiz (31 mar): "present in
+            ~80% of cloud and code environments and downloaded ~100 million
+            times per week"; "observed execution in 3% of affected
+            environments". La lección del propio post-mortem: "Open source
+            maintainers with high-impact packages are active targets for
+            sophisticated social engineering." (Los maintainers de paquetes
+            de alto impacto son blancos activos de ingeniería social
+            sofisticada.)
+          - trivy-action (CVE-2026-33634, GHSA-69fq-xp46-6x23, CVSS 9.4).
+            Ataque activo del 19 al 20 de marzo; advisory publicado el 21.
+            "force-push 76 of 77 version tags in aquasecurity/trivy-action to
+            credential-stealing malware". Aqua: los atacantes extrajeron un
+            token de acceso privilegiado, y la rotación "was not fully
+            comprehensive". Efecto dominó: LiteLLM en PyPI (24 mar): "the
+            compromise originated from the Trivy dependency used in our CI/CD
+            security scanning workflow".
+          - GitHub (20 may 2026, actualizado el 26 de mayo; CVE-2026-48027,
+            GHSA-c9j4-9m59-847w para Nx Console 18.95.0). GitHub Blog, Alexis
+            Wales: "a compromise of an employee device involving a poisoned
+            VS Code extension published by a third party." "The attacker's
+            current claims of ~3,800 repositories are directionally
+            consistent with our investigation so far." Y: "no evidence of
+            impact to customer information stored outside of GitHub's
+            internal repositories". La cadena: TanStack (CVE-2026-45321, 11
+            may, 84 versiones maliciosas en 42 paquetes @tanstack) filtró las
+            credenciales de GitHub de un desarrollador de Nx, con eso se
+            publicó el Nx Console envenenado, que llegó a un empleado de
+            GitHub.
+          - ChainDrop (4 ago 2026), Microsoft Threat Intelligence: "a
+            large-scale npm supply chain attack affecting more than 400
+            packages across multiple unrelated publishers, including packages
+            associated with major enterprise software ecosystems such as keyv,
+            flat-cache, cache-manager, and others." "Evidence points towards
+            stolen maintainer credentials as the attack vector for initial
+            compromise." Datadog Security Labs (el mismo día) muestra que la
+            primera ola salió por un commit malicioso y por trusted publishing
+            legítimo con OIDC, con provenance genuina: "Some of these npm
+            packages have over 150 million weekly downloads." "Many malicious
+            versions had no corresponding source-code commit, pull request,
+            tag, or legitimate release" (Microsoft).
+
+          Lo que quedó fuera de las tarjetas, díganlo si hay tiempo:
+          - Red Hat RHSB-2026-006 (1 jun): 32 paquetes npm de
+            @redhat-cloud-services, cuenta de GitHub "compromised via a VS
+            code extension containing malware". El mismo patrón que GitHub,
+            con una víctima más chica.
+          - La respuesta de npm (changelog de GitHub, 3 y 18 sep): publicación
+            por etapas, tokens solo para staging; los tokens que se saltan el
+            2FA para publicar directo desaparecen en enero de 2027. Cada
+            maintainer tiene tarea de migración.
+          - Contraste, si preguntan "¿y los bugs de verdad?": Copy Fail,
+            CVE-2026-31431 (29 abr), un root local en el kernel de Linux con
+            9 años de antigüedad, en el CISA KEV desde el 1 de mayo. El peor
+            bug de código del año, y aun así no fue la historia del año.
+
+          [TIEMPO: 90 s. Una frase por tarjeta.]
+        </aside>
+      </section>
+
+
+      <section id="divider-4" class="section-divider" data-state="is-section-divider">
+        <span class="section-number">Acto 04</span>
+        <h1>La solución</h1>
+        <p>Dejen de llamarlo gratis. Trátenlo como infraestructura.</p>
+        <aside class="notes">
+          [TIEMPO: 15 s. Giro. Ya nombramos el problema. Ahora les damos
+          un framework.]
+        </aside>
+      </section>
+
+      <section id="reframe">
+        <h2>Operen sus dependencias como infra</h2>
+        <div class="content" style="justify-content: center; gap: 20px;">
+          <div style="display: grid; grid-template-columns: 1fr 40px 1fr 40px 1fr; align-items: start; width: 100%;">
+            <div style="display: flex; flex-direction: column; gap: 10px; min-width: 0;">
+              <p class="font-mono" style="margin: 0; font-size: 16pt; font-weight: 600; color: var(--primary-color); text-transform: uppercase; letter-spacing: 0.1em;"><i class="fa-solid fa-chart-line" aria-hidden="true"></i> 1 · Medir</p>
+              <figure class="evidence" style="--evidence-h: 220px; background: #ffffff;">
+                <img src="assets/evidence/scorecard-ingress-nginx.png" alt="OpenSSF Scorecard de github.com/kubernetes/ingress-nginx: puntaje 6.9, generado el 2026-03-20, check Maintained en 10" style="height: 196px; max-height: none; object-fit: contain; object-position: left center;" />
+                <figcaption>scorecard.dev · 27 sep 2026</figcaption>
+              </figure>
+              <p style="margin: 0; font-size: 18pt; line-height: 1.3;"><strong>Scorecard</strong>: nota de salud del repo, en CI</p>
+            </div>
+            <i class="fa-solid fa-arrow-right" style="font-size: 24pt; color: var(--muted-color); align-self: start; justify-self: center; margin-top: 130px;" aria-hidden="true"></i>
+            <div style="display: flex; flex-direction: column; gap: 10px; min-width: 0;">
+              <p class="font-mono" style="margin: 0; font-size: 16pt; font-weight: 600; color: var(--primary-color); text-transform: uppercase; letter-spacing: 0.1em;"><i class="fa-solid fa-bullseye" aria-hidden="true"></i> 2 · Definir SLOs</p>
+              <figure class="evidence" style="--evidence-h: 220px; background: #ffffff;">
+                <img src="assets/evidence/endoflife-kubernetes.png" alt="endoflife.date/kubernetes: fechas de soporte activo y de mantenimiento por versión, actualizado el 24 sep 2026" style="height: 196px; max-height: none; object-fit: contain; object-position: left center;" />
+                <figcaption>endoflife.date · 27 sep 2026</figcaption>
+              </figure>
+              <p style="margin: 0; font-size: 18pt; line-height: 1.3;"><span class="hl">Nada EOL en producción</span></p>
+            </div>
+            <i class="fa-solid fa-arrow-right" style="font-size: 24pt; color: var(--muted-color); align-self: start; justify-self: center; margin-top: 130px;" aria-hidden="true"></i>
+            <div style="display: flex; flex-direction: column; gap: 10px; min-width: 0;">
+              <p class="font-mono" style="margin: 0; font-size: 16pt; font-weight: 600; color: var(--primary-color); text-transform: uppercase; letter-spacing: 0.1em;"><i class="fa-solid fa-people-group" aria-hidden="true"></i> 3 · Asignar gente</p>
+              <figure class="evidence" style="--evidence-h: 220px; background: #ffffff;">
+                <img src="assets/evidence/bloomberg-otel-cohort.png" alt="Post del blog de la CNCF: Sustaining OpenTelemetry: What a 10-week contributor cohort actually looks like, 23 jul 2026, por Alyssa Wright, OSPO de Bloomberg" style="height: 196px; max-height: none; object-fit: contain; object-position: left center;" />
+                <figcaption>cncf.io · 23 jul 2026</figcaption>
+              </figure>
+              <p style="margin: 0; font-size: 18pt; line-height: 1.3;"><strong>2 h/semana</strong> upstream por ingeniero</p>
+            </div>
+          </div>
+        </div>
+        <p class="footnote">Fuentes: <a href="https://scorecard.dev/viewer/?uri=github.com/kubernetes/ingress-nginx" target="_blank" rel="noopener">OpenSSF Scorecard, ingress-nginx</a> · <a href="https://endoflife.date/kubernetes" target="_blank" rel="noopener">endoflife.date, Kubernetes</a> · <a href="https://www.cncf.io/blog/2026/07/23/sustaining-opentelemetry-what-a-10-week-contributor-cohort-actually-looks-like/" target="_blank" rel="noopener">CNCF Blog, Alyssa Wright (Bloomberg OSPO), 23 jul 2026</a> · Capturas recortadas · Los SLOs son ejemplos</p>
+        <aside class="notes">
+          4 oct 2026: volvieron las capturas, una por paso. La tercera es el
+          post de la CNCF sobre la cohorte de Bloomberg × OpenTelemetry
+          (Alyssa Wright, OSPO de Bloomberg, 23 jul 2026): 48 ingenieros, 10
+          semanas. Es la prueba de "asignar gente"; el detalle va en
+          #bloomberg-cohort, no lo repitan aquí.
+          Antes (simplificación): flujo de 3 pasos sin capturas; salieron
+          de la slide las dos capturas (Scorecard de ingress-nginx y
+          endoflife.date/kubernetes) y la columna de fundaciones (Linux
+          Foundation, CNCF, AAIF). Todo sigue abajo. Fuentes que salieron del
+          footer: Linux Foundation, lanzamiento de AAIF, 9 dic 2025
+          (https://www.linuxfoundation.org/press/linux-foundation-announces-the-formation-of-the-agentic-ai-foundation)
+          y Proyectos de la CNCF (https://www.cncf.io/projects/).
+          - Antes: "Open source es infraestructura crítica".
+          - Monitorear (ahora "Medir"): alerten también por archived y EOL.
+          - Definir SLOs: CVE crítico, patch en 7 días.
+          - Asignar gente: súmense a la fundación detrás de lo que corren.
+
+          Texto que salió de la slide (díganlo en voz alta si hace falta):
+          - Subtítulo: "Sus dependencias son su infraestructura. Opérenlas como tal."
+          - Monitorear: un SBOM por servicio (Syft), más Scorecard y OSV-Scanner
+            en CI. Alerten también por archived y EOL: el último scan aún dice
+            Maintained 10/10.
+          - Definir SLOs: CVE crítico en una dependencia, patched en 7 días.
+            Nada después de su EOL en producción; alerta 90 días antes.
+          - Asignar gente: un owner por cada dependencia tier-1, con 2 h/semana
+            upstream. Súmense a la fundación detrás de lo que corren. Las
+            fundaciones de la columna son ejemplos.
+
+          Rehecha el 27 sep 2026 con una herramienta real por práctica.
+          Recórranla de izquierda a derecha; cada columna es algo que un
+          equipo de plataforma puede empezar este trimestre. Ninguna es una
+          disciplina nueva: es SRE aplicado a las dependencias.
+
+          MONITOREAR. Captura: el visor de OpenSSF Scorecard para
+          github.com/kubernetes/ingress-nginx, tomada el 27 sep 2026.
+          Puntaje total 6.9. "Generated at 2026-03-20", cuatro días antes de
+          que archivaran el repo (24 mar), y nada más reciente. Todavía
+          muestra el check Maintained en 10/10. Esa es la lección: un puntaje
+          de salud por sí solo no les habría avisado. Alerten también cuando
+          un repo se archiva y cuando se anuncia un EOL. Stack práctico: un
+          SBOM por servicio (Syft o CycloneDX), OSV-Scanner o
+          Dependabot/Renovate para CVEs, Scorecard o deps.dev para la salud
+          del proyecto, métricas de CHAOSS para el riesgo de maintainers.
+
+          DEFINIR SLOs. Captura: endoflife.date/kubernetes, "Last updated on
+          24 September 2026", con las fechas de fin de soporte activo y de
+          mantenimiento por release. El EOL es una fecha, así que se puede
+          alertar. Los dos SLOs de la diapositiva son EJEMPLOS, no un estándar
+          de la industria; díganlo. Otros buenos: nada con más de 12 meses o
+          una versión mayor de atraso; Scorecard de 6 o más y al menos 2
+          maintainers activos en dependencias tier-1. Usen un error budget:
+          cuando se agota, el trabajo en dependencias va antes que las
+          features.
+
+          ASIGNAR GENTE (30 sep 2026: las fundaciones reemplazaron la captura
+          de Open Source Pledge). Responsables: uno por dependencia tier-1,
+          como un service owner. 2 h/semana: la cohorte de OpenTelemetry de
+          Bloomberg, más adelante en la charla. Luego súmense a la fundación
+          que aloja lo que corren. Las tres son ejemplos, elijan según su
+          stack:
+          - Linux Foundation: la sombrilla. CNCF y AAIF son proyectos de la
+            Linux Foundation (aaif.io: "a neutral, open foundation under the
+            Linux Foundation").
+          - CNCF: Kubernetes, OpenTelemetry (cncf.io/projects).
+            Los precios de membresía están en la escalera de financiamiento,
+            dos diapositivas más adelante; no los repitan aquí.
+          - AAIF, la Agentic AI Foundation: lanzada el 9 dic 2025 (comunicado
+            de la Linux Foundation) con MCP de Anthropic, goose de Block y
+            AGENTS.md de OpenAI. Miembros Platinum: AWS, Anthropic, Block,
+            Bloomberg, Cloudflare, Google, Microsoft, OpenAI. Relevante si sus
+            equipos construyen sobre agentes.
+          Open Source Pledge, si preguntan: las empresas pagan a maintainers
+          al menos $2,000 USD por desarrollador al año; los miembros han
+          pagado $7,408,535 USD desde el lanzamiento
+          (opensourcepledge.com/members, 30 sep 2026).
+          Una OSPO, aunque sea de 1 o 2 personas, sostiene todo esto.
+
+          [TIEMPO: 90 s. El giro debe sentirse como alivio, no como más
+          trabajo.]
+        </aside>
+      </section>
+
+      <section id="companies-paying" data-visibility="hidden">
+        <p class="title-prompt">❯ nuevo desde junio</p>
+        <h2 style="margin-bottom: 14px;">La industria por fin lo dijo en voz alta</h2>
+        <div class="content" style="padding-top: 8px;">
+          <div style="display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 28px; align-items: start; width: 100%;">
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+              <figure class="evidence" style="--evidence-h: 400px;">
+                <img src="assets/evidence/openssf-registries-signers.png"
+                  alt="Gráfico de OpenSSF: We're In: Enterprise Commitment to Sustainable Package Registries, firmado por Arm, Datadog, Dell Technologies, Ericsson, GitHub, Google, IBM, Kusari, Microsoft, Red Hat, Rust Foundation y Sonatype" />
+                <figcaption>openssf.org · "We're In: Enterprise Commitment to Sustainable Package Registries" · 16 sep 2026</figcaption>
+              </figure>
+              <p class="receipt" style="margin: 0;">12 firmantes pagarán a los registries según su uso empresarial.</p>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 22px;">
+              <div class="comment-card">
+                <p class="who"><img src="assets/logos/openssf.svg" alt="" style="width: 18px; height: 18px; margin: 0; border: none; box-shadow: none; background: none;" /> OpenSSF · 16 sep 2026</p>
+                <blockquote>"…los esfuerzos heroicos de equipos pequeños, muchas veces de solo dos o tres personas."</blockquote>
+                <p class="receipt" lang="en" style="margin: 4px 0 0 0;">"…the heroic efforts of small teams, often just two or three people." <span lang="es">(traducción propia)</span></p>
+                <span class="src">1.8 millones de paquetes maliciosos que requirieron baja manual "en lo que va de 2026"</span>
+              </div>
+              <div class="comment-card warn">
+                <p class="who"><span class="logo sm" style="--logo: var(--logo-apachemaven); background: var(--secondary-color);"></span> Brian Fox · Sonatype / Maven Central · 16 jun 2026</p>
+                <blockquote>"Pero abierto no significa infinito. Y <span class="hl">gratis no significa sin costo</span>."</blockquote>
+                <p class="receipt" lang="en" style="margin: 4px 0 0 0;">"But open does not mean infinite. And free does not mean costless." <span lang="es">(traducción propia)</span></p>
+                <span class="src">Límites de publicación + plan pago "Publisher Pro" para escala comercial · vigente desde el 1 oct 2026</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="footnote">Fuentes: <a href="https://openssf.org/blog/2026/09/16/were-in-enterprise-commitment-to-sustainable-package-registries/" target="_blank" rel="noopener">OpenSSF, 16 sep 2026</a> · <a href="https://www.sonatype.com/blog/open-publishing-commercial-scale" target="_blank" rel="noopener">Sonatype, "Sustaining Open Publishing at Commercial Scale", 16 jun 2026</a></p>
+        <aside class="notes">
+          Texto que salió de la slide (díganlo en voz alta si hace falta):
+          - 12 firmantes se comprometen a pagar cuotas a los registries según su
+            uso empresarial, como inversión de negocio, manteniendo el acceso
+            gratis para personas y organizaciones pequeñas. Incluye PyPI, npm,
+            Maven Central, crates.io, RubyGems, NuGet, Open VSX, Packagist.
+
+          Nuevo en la revisión 2, y la evidencia más fuerte de toda la charla.
+          El 16 de septiembre, doce organizaciones, entre ellas Google,
+          Microsoft, GitHub, IBM y Red Hat, firmaron una declaración pública:
+          los registros de paquetes son infraestructura por la que las
+          empresas deberían pagar. Esa es la tesis de esta charla, en sus
+          propias palabras.
+
+          Evidencia:
+          - Blog de OpenSSF, 16 sep 2026. Firmantes: Arm, Datadog, Dell
+            Technologies, Ericsson, GitHub, Google, IBM, Kusari, Microsoft, Red
+            Hat, Rust Foundation, Sonatype. Citas: los registros dependen de
+            "the heroic efforts of small teams, often just two or three
+            people." "The number of malicious components that require human
+            analysis and takedown has reached 1.8 million packages so far in
+            2026". El gráfico de la izquierda es la imagen oficial de OpenSSF
+            en el post.
+          - Sonatype, "Sustaining Open Publishing at Commercial Scale", Brian
+            Fox, 16 jun 2026: "But open does not mean infinite. And free does
+            not mean costless." La aplicación estricta se fijó primero para el
+            11 de agosto; la actualización del 23 de julio la movió al 1 oct
+            2026. Gratis para open source comunitario; los límites apuntan a
+            la publicación a escala comercial.
+          - Esta frase de Brian Fox es el título de la charla dicho por
+            alguien más. Si la usan, háganlo explícito: "free" aquí es
+            "gratis", no "libre".
+
+          Pregúntenle a la sala: ¿su empresa está en esa lista? Si no, ¿por
+          qué no?
+
+          [TIEMPO: 2 minutos.]
+        </aside>
+      </section>
+
+      <section id="fastapi-latam">
+        <p class="title-prompt">❯ hecho en Latinoamérica</p>
+        <h2 style="margin-bottom: 14px;">FastAPI: noches y fines de semana</h2>
+        <div class="content" style="padding-top: 8px;">
+          <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 36px; align-items: center; width: 100%;">
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <span style="font-size: 96pt; font-weight: 800; line-height: 0.95; letter-spacing: -0.03em; color: var(--primary-color);">~800K</span>
+              <p style="margin: 0; font-size: 22pt; line-height: 1.3;">downloads <strong>al día</strong> (2023) de FastAPI, framework web de Python hecho en Colombia.</p>
+            </div>
+            <div class="comment-card critical">
+              <p class="who">Sebastián Ramírez (@tiangolo) · creador de FastAPI</p>
+              <blockquote>"Estaba trabajando como loco"… tanto, que <span class="hl">un dedo se le durmió por completo</span>.</blockquote>
+              <p class="receipt" lang="en" style="margin: 4px 0 0 0;">"I was just working like crazy," … so much so that … one of his fingers went completely numb. <span lang="es">(traducción propia)</span></p>
+            </div>
+          </div>
+        </div>
+        <p class="footnote">Fuente: <a href="https://sequoiacap.com/article/sebastian-ramirez-spotlight" target="_blank" rel="noopener">Natalie So, "Keeping an Open-Source Mind", Sequoia Capital, 3 ago 2023</a></p>
+        <aside class="notes">
+          Texto que salió de la slide (díganlo en voz alta si hace falta):
+          - ~800K downloads al día de FastAPI en 2023, creado por Sebastián
+            Ramírez, desde Colombia.
+          - Lo construyó en noches y fines de semana, con un trabajo de tiempo
+            completo. Antes de que se le durmiera el dedo, también le empezó a
+            temblar un ojo. Quién: Sebastián Ramírez (@tiangolo), vía Sequoia,
+            3 ago 2023.
+          - Lo que cambió: una fellowship pagada. "Por primera vez en su vida"
+            pudo dedicarse de tiempo completo a su open source.
+
+          Nuevo en esta edición, para Nerdearla. Un ejemplo de nuestra región:
+          esto no es solo un problema de Silicon Valley.
+
+          FastAPI es uno de los frameworks web de Python más usados. Lo creó
+          Sebastián Ramírez, colombiano. Lo hizo en sus noches y fines de
+          semana mientras trabajaba tiempo completo en otra cosa, y el costo
+          fue físico: un ojo que temblaba y un dedo dormido.
+
+          Lo que lo cambió fue que alguien pagara. Con la Sequoia Open Source
+          Fellowship, "for the first time in his life", pudo dedicarse de
+          tiempo completo a su trabajo open source. Esa es la tesis del Acto 04:
+          cuando alguien paga, el proyecto deja de depender de la salud de una
+          persona.
+
+          Evidencia (Sequoia Capital, "Keeping an Open-Source Mind", Natalie
+          So, 3 ago 2023):
+          - "As of 2023, FastAPI is downloaded roughly 800,000 times per day."
+          - "He was still working for his brother-in-law full-time, with
+            nights and weekends devoted to this passion project."
+          - "'I was just working like crazy,' he recalled later, so much so
+            that he developed a twitch in his eye, and one of his fingers went
+            completely numb."
+          - "The fellowship means that, for the first time in his life,
+            Ramirez can focus full-time on his open-source work."
+
+          Ojo: la fuente es de 2023 y la publica Sequoia, que creó la
+          fellowship. Digan "según Sequoia" si alguien pregunta. El 800K es
+          de 2023, no de hoy.
+
+          [TIEMPO: 75 s.]
+        </aside>
+      </section>
+
+      <section id="funding-that-works">
+        <h2>Poco dinero, resultados medibles</h2>
+        <div class="content" style="justify-content: center; gap: 28px;">
+          <p class="font-mono" style="margin: 0; font-size: 16pt; font-weight: 600; color: var(--primary-color); display: flex; align-items: center; gap: 10px; text-transform: uppercase; letter-spacing: 0.08em;"><span class="logo" style="--logo: var(--logo-github); width: 28px; height: 28px; flex: none; background: var(--primary-color);" role="img" aria-label="GitHub"></span> GitHub Secure Open Source Fund · fondo de seguridad</p>
+          <div style="display: flex; align-items: baseline; gap: 28px;">
+            <span style="font-size: 150pt; font-weight: 800; line-height: 0.9; letter-spacing: -0.04em; color: var(--primary-color);">533</span>
+            <span style="font-size: 28pt; line-height: 1.25; font-weight: 500;">CVEs encontrados por 188 proyectos<br />con <span class="hl">~$10K cada uno</span></span>
+          </div>
+          <div class="stat-row primary" style="max-width: 760px;">
+            <span class="number">ROI 2–5×</span>
+            <span class="label">para empresas que contribuyen vs. solo consumir (Linux Foundation)</span>
+          </div>
+        </div>
+        <p class="footnote">Fuentes: <a href="https://github.blog/open-source/maintainers/what-50-open-source-projects-taught-us-about-security-in-the-ai-era/" target="_blank" rel="noopener">GitHub, 13 ago 2026</a> · <a href="https://www.linuxfoundation.org/press/new-linux-foundation-report-shows-active-open-source-contribution-delivers-2-5x-roi-while-passive-consumption-increases-costly-technical-debt" target="_blank" rel="noopener">Linux Foundation, 24 feb 2026</a></p>
+        <aside class="notes">
+          Simplificada el 4 oct 2026: un solo hero (533 CVEs con ~$10K por
+          proyecto: $1.88M entre 188 proyectos) más el ROI. Salieron de la
+          slide Alpha-Omega y el EU CRA; díganlos en voz alta si hay tiempo.
+          Fuentes que salieron del footer:
+          - OpenSSF, 17 mar 2026: https://openssf.org/press-release/2026/03/17/linux-foundation-announces-12-5-million-in-grant-funding-from-leading-organizations-to-advance-open-source-security/
+            (Alpha-Omega es el fondo de seguridad de OpenSSF).
+          - EU CRA, obligaciones de reporte: https://digital-strategy.ec.europa.eu/en/policies/cra-reporting
+            (EU CRA = ley europea de ciberseguridad).
+
+          Texto que salió de la slide (díganlo en voz alta si hace falta):
+          - Subtítulo: "Lo que realmente compraron los programas de
+            financiamiento de 2026."
+          - GitHub Secure OSS Fund: 533 CVEs encontrados y divulgados por 188
+            proyectos financiados, con $1.88M USD en total.
+          - Alpha-Omega · OpenSSF: $12.5M USD en grants para maintainers
+            golpeados por bugs encontrados por IA.
+          - Linux Foundation: ROI 2–5× para empresas que contribuyen en vez de
+            solo consumir.
+          - EU Cyber Resilience Act (Ley de Ciberresiliencia), desde el 11 sep
+            2026: reportar vulnerabilidades explotadas en 24 horas. La
+            obligación es de quien distribuye el open source.
+
+          Nuevo en la revisión 2. La respuesta a "no tenemos presupuesto": los
+          montos que funcionan son pequeños, y el ROI está publicado.
+
+          Evidencia:
+          - GitHub, "What 50 open source projects taught us about security in
+            the AI era", Gregg Cochran, 13 ago 2026: "The Secure Fund invested
+            more than $500,000 across 50 projects", $10,000 USD cada uno. Los
+            533 CVEs son de TODOS los proyectos participantes en todas las
+            cohortes (188 proyectos, $1.88M USD), no solo de estos 50:
+            "Participating projects have identified and disclosed 533 new
+            CVEs". Además, "participating and Alumni projects fixed 4,210
+            CodeQL alerts" en los seis meses que terminaron en julio de 2026.
+          - Comunicado de OpenSSF, 17 mar 2026: "$12.5 million in total grants
+            from Anthropic, AWS, GitHub, Google, Google DeepMind, Microsoft,
+            and OpenAI". Es anterior a junio, pero son los laboratorios de IA
+            pagando por el desorden que crearon sus herramientas.
+          - Linux Foundation, "ROI for Open Source Software Contribution"
+            (Boysel y Lawson, feb 2026, 567 respuestas): "active contribution
+            delivers a 2-5x return on investment"; "Foundation membership
+            stands out with a 4.8x ratio". Los números de forks privados del
+            mismo reporte están en la diapositiva del "impuesto del fork", en
+            el Acto 05.
+          - Obligaciones de reporte del EU CRA (página de la Comisión, 11 sep
+            2026): "As of 11 September 2026, manufacturers are required to
+            report actively exploited vulnerabilities and severe incidents".
+            Alerta temprana en 24 horas, notificación en 72 horas, reporte
+            final dentro de 14 días después del fix. Las obligaciones
+            completas del CRA aplican desde el 11 dic 2027.
+          - Para una audiencia en México: el CRA aplica a quien vende
+            productos con elementos digitales en la Unión Europea. Si su
+            empresa exporta software o hardware a la UE, les toca.
+
+          [TIEMPO: 90 s.]
+        </aside>
+      </section>
+
+
+      <section id="framework">
+        <h2>Empiecen donde alcance el presupuesto</h2>
+        <div class="content" style="justify-content: center;">
+          <div class="ladder" style="align-items: stretch;">
+            <div class="step" style="display: flex; flex-direction: column;">
+              <span class="step-number"><i class="fa-solid fa-magnifying-glass" style="margin-right: 8px;" aria-hidden="true"></i>01</span>
+              <h3>Sepan qué corren</h3>
+              <p class="rung-cost" style="margin: auto 0 0 0; font-family: var(--mono-font); font-size: 16pt; font-weight: 600; color: var(--primary-color);">$0 · unas horas</p>
+            </div>
+            <div class="step" style="display: flex; flex-direction: column;">
+              <span class="step-number"><i class="fa-solid fa-code-pull-request" style="margin-right: 8px;" aria-hidden="true"></i>02</span>
+              <h3>Suban sus fixes upstream</h3>
+              <p class="rung-cost" style="margin: auto 0 0 0; font-family: var(--mono-font); font-size: 16pt; font-weight: 600; color: var(--primary-color);">$0 · su tiempo</p>
+            </div>
+            <div class="step" style="display: flex; flex-direction: column;">
+              <span class="step-number"><i class="fa-solid fa-hand-holding-dollar" style="margin-right: 8px;" aria-hidden="true"></i>03</span>
+              <h3>Financien lo que usan</h3>
+              <p class="rung-cost" style="margin: auto 0 0 0; font-family: var(--mono-font); font-size: 16pt; font-weight: 600; color: var(--primary-color);">cualquier monto</p>
+            </div>
+            <div class="step" style="display: flex; flex-direction: column;">
+              <span class="step-number"><i class="fa-solid fa-people-group" style="margin-right: 8px;" aria-hidden="true"></i>04</span>
+              <h3>Únanse a la fundación</h3>
+              <p class="rung-cost" style="margin: auto 0 0 0; font-family: var(--mono-font); font-size: 16pt; font-weight: 600; color: var(--primary-color);">desde $2K al año</p>
+            </div>
+          </div>
+        </div>
+        <p class="footnote">Fuente: <a href="https://www.cncf.io/about/join/" target="_blank" rel="noopener">Membresía CNCF</a></p>
+        <aside class="notes">
+          Simplificada el 4 oct 2026: cada escalón es número + acción + costo.
+          Las etiquetas Conocer / Upstream / Pagar / Unirse salieron; la acción
+          ya lo dice. Fuentes que salieron del footer (sus datos solo están
+          aquí en las notas):
+          - Linux Foundation, "ROI for Open Source Software Contribution",
+            feb 2026: https://www.linuxfoundation.org/research/contribution-roi
+          - Bloomberg FOSS Contributor Fund, Open Collective, 30 sep 2026:
+            https://opencollective.com/bloomberg-foss-fund
+
+          Texto que salió de la slide (díganlo en voz alta si hace falta):
+          - Subtítulo: "Dos de los cuatro solo cuestan tiempo. Cada uno ya lo
+            hace alguna empresa."
+          - 01 Conocer: un SBOM por servicio, más los forks y patches que
+            cargan. El 45% de las organizaciones mantiene forks privados (LF,
+            2026).
+          - 02 Upstream: manden el patch en vez de cargarlo. El 66% dice que
+            los maintainers responden más rápido a quien contribuye.
+          - 03 Pagar: aportes pequeños y regulares a los proyectos de los que
+            dependen. Bloomberg FOSS Fund: aportes de $10K, ~$320K pagados,
+            p. ej. a Let's Encrypt.
+          - 04 Unirse: un lugar en la mesa donde se decide el roadmap. CNCF
+            Silver desde $2K al año. La membresía rinde 4.8×.
+
+          Replanteada el 30 sep 2026 como consejo, no como pitch de ventas:
+          las tarjetas tienen la misma altura y cada una muestra su costo. No
+          toda empresa tiene presupuesto, y está bien. Los escalones 01 y 02
+          solo cuestan tiempo de ingeniería, y el 02 es tiempo que ya gastan
+          cargando el patch. Digan: "Empiecen por el escalón que permita su
+          presupuesto. La mayoría puede hacer los dos primeros el lunes sin
+          pedirle dinero a nadie." Financiar y unirse a fundaciones es para
+          cuando estén listos, no un costo de entrada.
+          Los $750K de Sentry (abajo) van en las notas, no en la slide, para
+          que no se lea como "gasten mucho".
+
+          Evidencia (todo verificado en la página fuente, sep 2026):
+          - LF, "ROI for Open Source Software Contribution: Insight from the
+            Open Source ROI Survey and Economic Model", Sam Boysel y Adrienn
+            Lawson, feb 2026, 567 respuestas (oct-nov 2025). 45% mantiene forks
+            privados. "66% of respondents noted that upstream maintainers respond
+            more quickly to security issues". "Foundation membership stands out
+            with a 4.8x ratio"; la membresía "increases overall OSS contribution
+            rates by 24% on average".
+          - Escalón 02: la historia de Percona (PR #2315) se cuenta una sola
+            vez, en #one-less-fork. Comentario opcional aquí: "al final les
+            muestro el mío."
+          - Ejemplo de la tarjeta 03: Bloomberg FOSS Contributor Fund en Open
+            Collective (opencollective.com/bloomberg-foss-fund, 30 sep 2026):
+            "$319,902.13" desembolsados, $360,021.98 recaudados; aportes
+            recientes de $10,000 a Let's Encrypt y pURL. La página de Bloomberg
+            bloquea las descargas, así que el registro de Open Collective es la
+            fuente pública.
+          - Ejemplo alternativo, Microsoft FOSS Fund (github.com/microsoft/foss-fund):
+            "Every quarter a new fund and selection process will distribute up
+            to $12,500 USD across one or more open source project(s)." Solo
+            votan empleados que han contribuido a open source. Existe desde
+            2020. Indeed (2019) y Bloomberg (2023, aportes de $10K) usan el
+            mismo modelo.
+          - Sentry, 6 ene 2026: $750K a maintainers por 2025, quinto año
+            seguido. Open Source Pledge ($2,000 por developer al año): los
+            miembros han pagado $7,408,535 desde el lanzamiento
+            (opensourcepledge.com/members, 30 sep 2026).
+          - Página de membresía CNCF: Silver de $2K a $50K al año según el
+            tamaño de la empresa, Gold $100K, Platinum $350K; el contador dice
+            "722 CNCF Members".
+
+          [TIEMPO: 90s. Esta es la slide a la que le toman foto.]
+        </aside>
+      </section>
+
+      <section id="new-reality" data-visibility="hidden">
+        <p class="title-prompt">❯ la nueva realidad</p>
+        <h2 style="margin-bottom: 16px;">La ecuación construir-vs-comprar se invirtió</h2>
+        <div class="content" style="padding-top: 24px;">
+          <div style="display: grid; grid-template-columns: 1.15fr 1fr; gap: 48px; align-items: center; width: 100%;">
+
+            <!-- Left column: AI shift & stats -->
+            <div style="display: flex; flex-direction: column; gap: 28px;">
+              <p class="text-xl" style="margin: 0; line-height: 1.4; font-weight: 500;">
+                La IA abarata construir. Los márgenes del SaaS se erosionan.
+              </p>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                <div class="stat-card warn">
+                  <span class="number" style="font-size: 46pt;">~$1T</span>
+                  <span class="label">de valor perdido por el mercado de software en siete días (feb 2026)</span>
+                </div>
+                <div class="stat-card primary">
+                  <span class="number" style="font-size: 46pt;">+10%</span>
+                  <span class="label">empleos proyectados de developers de software en EE. UU., 2025–35 (BLS)</span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Right column: Upstream contribution -->
+            <div style="display: flex; flex-direction: column; gap: 24px;">
+              <div style="border-left: 4px solid var(--primary-color); padding-left: 20px;">
+                <p class="font-mono"
+                  style="font-size: 14pt; color: var(--primary-color); text-transform: uppercase; letter-spacing: 0.16em; margin: 0 0 6px 0; font-weight: 600;">
+                  OSS es el motor
+                </p>
+                <p style="margin: 0; font-size: 18pt; line-height: 1.4; font-weight: 500;">
+                  Construimos sobre open source, y ahora toca pagar nuestra parte subiendo fixes upstream.
+                </p>
+              </div>
+
+              <div class="panel"
+                style="border-top: 4px solid var(--primary-color); padding: 24px 28px; margin: 0; display: flex; flex-direction: column; gap: 10px;">
+                <p class="font-mono"
+                  style="margin: 0; font-size: 14pt; color: var(--primary-color); text-transform: uppercase; letter-spacing: 0.16em; font-weight: 600;">
+                  Caso · rol anterior en Game Plan Tech
+                </p>
+                <p style="margin: 0; font-size: 17pt; line-height: 1.45;">
+                  Agregamos GCS Workload Identity al Percona MongoDB Operator.
+                </p>
+                <p style="margin: 0; font-size: 15.5pt; line-height: 1.45; color: var(--muted-color);">
+                  Upstream, no un fork privado.
+                </p>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <p class="footnote">Fuentes: <a href="https://www.youtube.com/watch?v=Z-ZnXPlrZME" target="_blank" rel="noopener">"Build vs. Buy Is Dead" (YouTube)</a> · <a href="https://fortune.com/2026/02/05/trillion-dollar-tech-wipeout-ensnares-all-stocks-in-ais-path/" target="_blank" rel="noopener">Fortune / Bloomberg, 5 feb 2026</a> · <a href="https://www.bls.gov/ooh/computer-and-information-technology/software-developers.htm" target="_blank" rel="noopener">BLS OOH</a> · <a href="https://github.com/percona/percona-server-mongodb-operator/pull/2315" target="_blank" rel="noopener">percona-server-mongodb-operator#2315</a></p>
+        <aside class="notes">
+          Texto que salió de la slide (díganlo en voz alta si hace falta):
+          - La IA está bajando el costo de desarrollar e invierte la ecuación
+            construir-vs-comprar. Los márgenes del SaaS tradicional se erosionan.
+          - Agregamos soporte de GCS Workload Identity al Percona MongoDB
+            Operator para un workload con requisitos federales de compliance.
+            En vez de mantener un fork privado, contribuir upstream lo resolvió
+            para nosotros y para la comunidad.
+
+          [TIEMPO: 2 minutos. Es el puente entre el framework y la acción. El
+          video sostiene que la IA hace que construir sea más barato que
+          comprar, pero el corolario es que sus CLIENTES ahora pueden usar IA
+          para construir sobre sus APIs, así que el modelo de negocio del
+          vendor se rompe. La otra cara: no escribimos operators de MongoDB
+          desde cero, usamos el de Percona. Cuando necesitamos una feature
+          (Workload Identity para IL4/FedRAMP), la contribuimos upstream como
+          el PR #2315. Esa contribución es cómo "pagamos" lo que usamos. Misma
+          lógica que el framework, pero aterrizada en un ejemplo real de mi
+          trabajo.]
+
+          [Los dos números son la evidencia, ambos corregidos en la revisión 2:
+          - ~$1T: Bloomberg vía Fortune, 5 feb 2026, sobre la venta masiva de
+            software ("SaaSpocalypse"): "the value of those tracked in an
+            iShares ETF has now dropped almost $1 trillion over the past seven
+            days." La revisión 1 decía "$1T+ en un solo mes", y estaba mal.
+          - +10%: BLS Occupational Outlook Handbook, software developers,
+            página actualizada el 27 ago 2026: "projected to grow 10 percent
+            from 2025 to 2035". La revisión 1 usaba la cifra anterior,
+            2024–34 (15%).
+          El contraste es el punto: las empresas de software sangrando, y aun
+          así se sigue contratando ingenieros.]
+
+          [El ejemplo de Game Plan Tech es el caso concreto. IL4 es un nivel
+          federal de cumplimiento donde no pueden exportar llaves JSON de
+          service accounts. Workload Identity es el enfoque que recomienda
+          Google para autenticación entre servicios en GKE. El operator no lo
+          soportaba. En vez de hacer fork, lo contribuimos upstream. Todos los
+          clientes de GKE recibieron la feature, no solo nosotros.]
+        </aside>
+      </section>
+
+      <section id="divider-5" class="section-divider" data-state="is-section-divider">
+        <span class="section-number">Acto 05</span>
+        <h1>La acción</h1>
+        <p>Lo que hacen el lunes en la mañana.</p>
+        <aside class="notes">
+          [TIEMPO: 15s. Último acto. Es el llamado a la acción. Que sea
+          concreto y corto.]
+        </aside>
+      </section>
+
+      <section id="fork-tax">
+        <h2>El impuesto del fork</h2>
+        <div class="content" style="justify-content: center; gap: 18px;">
+          <p class="font-mono" style="margin: 0; font-size: 16pt; font-weight: 600; color: var(--primary-color); text-transform: uppercase; letter-spacing: 0.08em;"><i class="fa-solid fa-code-branch" aria-hidden="true"></i> Fork privado: su propia copia del proyecto</p>
+          <span class="number" style="display: block; font-size: 150pt; font-weight: 800; line-height: 0.9; letter-spacing: -0.04em; color: var(--primary-color);">5,160 h</span>
+          <p class="text-2xl" style="margin: 0; line-height: 1.3;">de rework <span class="hl">en cada release</span>, solo para que sigan compilando.</p>
+          <p class="font-mono" style="margin: 0; font-size: 18pt; color: var(--muted-color);">86 forks × 60 h cada uno</p>
+        </div>
+        <p class="footnote">Fuente: <a href="https://www.linuxfoundation.org/research/contribution-roi" target="_blank" rel="noopener">Linux Foundation, "ROI for Open Source Software Contribution", feb 2026 (preguntas sobre forks n=238)</a></p>
+        <aside class="notes">
+          [Simplificada 4 oct 2026: la columna de Android salió de la slide.
+          Cuéntenla en voz alta si hay tiempo:
+          - 18 meses desde un release upstream del kernel hasta los teléfonos.
+          - 90% de los security bugs del kernel ya estaban corregidos upstream.
+          - La solución de Android/ChromeOS: Upstream First, el patch llega
+            upstream antes de salir.
+          Fuentes: Documentación de Android GKI,
+          https://source.android.com/docs/core/architecture/kernel/generic-kernel-image
+          · ChromeOS, Upstream First,
+          https://www.chromium.org/chromium-os/chromiumos-design-docs/upstream-first/ ]
+
+          Texto que salió de la slide (díganlo en voz alta si hace falta):
+          - 5,160 h de rework en cada ciclo de release, solo para que los forks
+            sigan compilando (86 forks × 60 h cada uno · ≈ $258K a $50/h).
+          - 18 meses desde un release upstream del kernel hasta los teléfonos.
+          - 90% de los security bugs del kernel ya estaban corregidos upstream.
+          - La solución: Upstream First. El patch llega upstream antes de salir.
+
+          Nueva el 27 sep 2026. Es el argumento más realista para la sala:
+          probablemente ya están pagando por open source, solo que de la forma
+          más cara, cargando patches.
+
+          Evidencia:
+          - Reporte de ROI de la LF (feb 2026): "On average, an organization
+            maintains 86 private forks … Each … requires 60 labor hours for
+            maintenance and integration per release cycle." 86 × 60 = 5,160
+            horas. Los $258K son la estimación del propio reporte con un
+            supuesto de $50/hora (salario mediano de Stack Overflow), NO gasto
+            reportado. Las preguntas sobre forks tuvieron n=238 de las 567
+            respuestas. Escala con el tamaño: 147 horas en organizaciones
+            chicas, 11,152 en las de más de 5,000 empleados. Razones para hacer
+            fork: features a la medida 54%, integración interna 44%, "security
+            patches or compliance requirements" 37%. Prólogo de Aniszczyk:
+            "Organizations that rely on internal patches without upstreaming
+            them create private forks leading to technical debt".
+          - Documentación de Android GKI (source.android.com, actualizada jun
+            2026): hasta 50% del código del kernel fuera del árbol; "a delay
+            of up to 18 months from the point where an LTS release was
+            available upstream, to when it was in a device"; el 90% de los
+            problemas de seguridad del kernel reportados en el Android Security
+            Bulletin ya estaban corregidos en dispositivos que se mantienen
+            actualizados.
+          - ChromeOS "Upstream First": los patches de drivers deben aceptarse
+            upstream primero. LWN, sep 2019, Doug Anderson: "We're trying not
+            to do what Android did 10 years ago."
+
+          Pregunten a la sala: ¿cuántos patches internos carga su equipo?
+
+          [TIEMPO: 75s.]
+        </aside>
+      </section>
+
+      <section id="bloomberg-cohort">
+        <p class="title-prompt">❯ cómo se ve en la práctica</p>
+        <h2 style="margin-bottom: 10px;">Dos horas a la semana</h2>
+        <div class="content" style="justify-content: center; gap: 18px;">
+          <p class="font-mono" style="margin: 0; font-size: 16pt; font-weight: 600; color: var(--primary-color); display: flex; align-items: center; gap: 10px; text-transform: uppercase; letter-spacing: 0.08em;"><span class="logo" style="--logo: var(--logo-opentelemetry); width: 30px; height: 30px; flex: none; background: var(--primary-color);" role="img" aria-label="OpenTelemetry"></span> Bloomberg × OpenTelemetry · 2026</p>
+          <span class="number" style="display: block; font-size: 150pt; font-weight: 800; line-height: 0.9; letter-spacing: -0.04em; color: var(--primary-color);">70 PRs</span>
+          <p class="text-2xl" style="margin: 0; line-height: 1.3;">merged en 10 semanas, con <span class="hl">2 h/semana por ingeniero</span>.</p>
+          <p style="margin: 0; font-size: 18pt; color: var(--muted-color);">Bloomberg: empresa de datos financieros · OpenTelemetry: estándar de observabilidad de la CNCF</p>
+        </div>
+        <p class="footnote">Fuentes: <a href="https://www.cncf.io/blog/2026/07/23/sustaining-opentelemetry-what-a-10-week-contributor-cohort-actually-looks-like/" target="_blank" rel="noopener">Blog de CNCF, 23 jul 2026</a> · <a href="https://www.cncf.io/blog/2026/03/31/sustaining-opentelemetry-moving-from-dependency-management-to-stewardship/" target="_blank" rel="noopener">Blog de CNCF, 31 mar 2026</a></p>
+        <aside class="notes">
+          [Simplificada 4 oct 2026: 94% y "hasta 2×" salieron de la slide.
+          Díganlos si hay tiempo. Fuente del 2×: Nagle, "Learning by
+          Contributing", Organization Science 2018, vía HBS Working Knowledge,
+          https://www.library.hbs.edu/working-knowledge/the-hidden-benefit-of-giving-back-to-open-source-software ]
+
+          Texto que salió de la slide (díganlo en voz alta si hace falta):
+          - 70 PRs merged en 10 semanas por 48 ingenieros, con 2 horas a la
+            semana cada uno. La mayoría contribuía por primera vez.
+          - 94% de los participantes se sintió con más confianza para
+            contribuir.
+          - Hasta 2× de productividad en empresas que le pagan a su gente por
+            contribuir (Nagle, 2018).
+
+          Nueva el 27 sep 2026. La respuesta realista a "no tenemos tiempo":
+          una empresa grande lo hizo con dos horas a la semana por ingeniero.
+
+          Evidencia:
+          - Alyssa Wright (OSPO de Bloomberg), blog de CNCF, 23 jul 2026: "48
+            Bloomberg engineers participated in the initiative. Most had never
+            contributed to open source before." "118 pull requests (PRs) were
+            submitted to the OpenTelemetry project. 70 were merged". "842
+            volunteer hours were logged by participants". 94% con más
+            confianza, 88% planea seguir. Un equipo construyó una extensión de
+            rotación de credenciales para el Collector para resolver un
+            problema real de su trabajo (todavía en revisión de los
+            maintainers).
+          - Blog de CNCF, 31 mar 2026: "~2 hours/week per Bloomberg
+            participant" y la cita sobre stewardship.
+          - Bloomberg también tiene un FOSS Contributor Fund (desde ene 2023,
+            aportes de $10K votados cada trimestre; Open Collective muestra
+            ~$320K desembolsados).
+          - Frank Nagle, "Learning by Contributing", Organization Science
+            29(4), 2018, vía HBS Working Knowledge (5 sep 2018): pagarle a la
+            gente por contribuir aumenta la "productivity from using the
+            software by as much as 100 percent, when compared with free-riding
+            competitors." "Hasta 2×" en la slide = "as much as 100 percent".
+
+          Nota: el sitio de Bloomberg bloqueó nuestras descargas; estos números
+          vienen de los posts de Bloomberg en el blog de CNCF.
+
+          [TIEMPO: 60s.]
+        </aside>
+      </section>
+
+      <section id="one-less-fork">
+        <p class="title-prompt">❯ git log --author=me</p>
+        <h2 style="margin-bottom: 12px;">Un fork menos</h2>
+        <div class="content" style="padding-top: 0; width: 100%; gap: 22px;">
+          <figure class="evidence" style="--evidence-h: 150px; width: 100%;">
+            <img src="assets/evidence/percona-pr-2315.png" alt="Pull request de GitHub percona/percona-server-mongodb-operator #2315, K8SPSMDB-1602: soporte de Workload Identity para el almacenamiento de backups en GCS, merged el 22 jun 2026" style="object-position: left top;" />
+            <figcaption>github.com · percona/percona-server-mongodb-operator #2315 · merged el 22 jun 2026</figcaption>
+          </figure>
+          <div style="display: grid; grid-template-columns: 1fr 48px 1fr 48px 1fr; align-items: stretch; width: 100%;">
+            <div class="panel" style="padding: 18px 20px;">
+              <p class="font-mono" style="margin: 0; font-size: 14pt; font-weight: 600; color: var(--primary-color); text-transform: uppercase; letter-spacing: 0.08em;"><i class="fa-solid fa-lock" aria-hidden="true"></i> 1 · Problema</p>
+              <p style="margin: 8px 0 0 0; font-size: 26pt; font-weight: 800; line-height: 1.1;">Bloqueado</p>
+              <p style="margin: 6px 0 0 0; font-size: 16pt; line-height: 1.3;">Las normas de seguridad del gobierno de EE. UU. prohíben key files.</p>
+            </div>
+            <i class="fa-solid fa-arrow-right" style="font-size: 24pt; color: var(--muted-color); justify-self: center; align-self: center;" aria-hidden="true"></i>
+            <div class="panel" style="padding: 18px 20px;">
+              <p class="font-mono" style="margin: 0; font-size: 14pt; font-weight: 600; color: var(--primary-color); text-transform: uppercase; letter-spacing: 0.08em;"><i class="fa-solid fa-code-pull-request" aria-hidden="true"></i> 2 · Upstream</p>
+              <p style="margin: 8px 0 0 0; font-size: 26pt; font-weight: 800; line-height: 1.1;">PR al operator</p>
+              <p style="margin: 6px 0 0 0; font-size: 16pt; line-height: 1.3;">de Percona, empresa de bases de datos open source.</p>
+            </div>
+            <i class="fa-solid fa-arrow-right" style="font-size: 24pt; color: var(--muted-color); justify-self: center; align-self: center;" aria-hidden="true"></i>
+            <div class="panel primary" style="padding: 18px 20px;">
+              <p class="font-mono" style="margin: 0; font-size: 14pt; font-weight: 600; color: var(--primary-color); text-transform: uppercase; letter-spacing: 0.08em;"><i class="fa-solid fa-check" aria-hidden="true"></i> 3 · Merge</p>
+              <p style="margin: 8px 0 0 0; font-size: 40pt; font-weight: 800; line-height: 1.1;">67 días</p>
+              <p style="margin: 6px 0 0 0; font-size: 16pt; line-height: 1.3;">del issue al merge. Cero patches que cargar.</p>
+            </div>
+          </div>
+        </div>
+        <p class="footnote">Fuentes: <a href="https://github.com/percona/percona-server-mongodb-operator/issues/2314" target="_blank" rel="noopener">percona/percona-server-mongodb-operator issue #2314, 16 abr 2026</a> · <a href="https://github.com/percona/percona-server-mongodb-operator/pull/2315" target="_blank" rel="noopener">PR #2315, mergeado el 22 jun 2026</a> · captura recortada, 30 sep 2026</p>
+        <aside class="notes">
+          [Simplificada 4 oct 2026: la slide ahora cuenta la historia en 3 pasos.
+          "Normas de seguridad del gobierno de EE. UU." = IL4 (Impact Level 4
+          del Departamento de Defensa) y FedRAMP (programa de seguridad cloud
+          del gobierno federal). El PR dice: "IL4/FedRAMP environments where
+          exporting service account JSON keys is not permitted."]
+
+          Texto que salió de la slide (díganlo en voz alta si hace falta):
+          - El gap: los backups pedían un key file que IL4/FedRAMP prohíbe.
+
+          Nueva el 30 sep 2026; recortada el mismo día alrededor de la captura
+          del PR. El impuesto del fork a escala de un solo ingeniero. El
+          reporte de la LF dice que el 37% de los forks existe por "security
+          patches or compliance requirements" (notas de fork-tax); este es uno
+          que nunca llegó a ser fork. Digan la frase de la slide anterior: "Su
+          requisito de cumplimiento probablemente también es el de alguien
+          más."
+
+          Evidencia:
+          - Issue #2314 abierto el 16 abr 2026 02:22 UTC; PR #2315 abierto a
+            las 02:52 UTC; merged el 22 jun 2026 13:06 UTC. Del 16 abr al
+            22 jun = 67 días.
+          - Cuerpo del PR: "This is blocking for IL4/FedRAMP environments where
+            exporting service account JSON keys is not permitted." El operator
+            siempre leía credentialsSecret; PBM fallaba con "clientEmail and
+            privateKey are required for GCS credentials". Fix: un flag opcional
+            credentials.workloadIdentity, y PBM cae a Application Default
+            Credentials. Incluye una prueba e2e
+            (demand-backup-gcs-workload-identity).
+          - El PR se escribió con ayuda de IA (el cuerpo del PR lo dice). Si
+            preguntan: una persona lo revisó, salió con pruebas y los
+            maintainers lo hicieron merge de. Esa es la versión buena de la historia
+            sobre la que advierte la slide de la avalancha de IA.
+
+          Digan: "Pude haber cargado este patch. En cambio, abrí el issue esa
+          misma noche." Y cierren.
+
+          [TIEMPO: 60s.]
+        </aside>
+      </section>
+
+      <section id="actions" data-visibility="hidden">
+        <h2>Lo que hacen el lunes</h2>
+        <div class="content" style="justify-content: center; width: 100%;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: stretch; width: 100%;">
+            <div class="panel primary" style="margin: 0; padding: 30px 32px; display: flex; flex-direction: column; gap: 14px;">
+              <p class="text-mono" style="margin: 0; color: var(--primary-color); text-transform: uppercase; letter-spacing: 0.12em; font-size: 15pt; font-weight: 600;">
+                <i class="fa-solid fa-users-gear"></i> Líderes y equipos SRE</p>
+              <ul style="margin: 0; font-size: 19pt; line-height: 1.4;">
+                <li><strong>Cuenten sus forks</strong> y patches, con horas.</li>
+                <li><strong>Reserven 2 h/semana</strong> para upstream.</li>
+                <li><strong>Elijan una fundación</strong> o fondo.</li>
+              </ul>
+            </div>
+            <div class="panel success" style="margin: 0; padding: 30px 32px; display: flex; flex-direction: column; gap: 14px;">
+              <p class="text-mono" style="margin: 0; color: var(--success-color); text-transform: uppercase; letter-spacing: 0.12em; font-size: 15pt; font-weight: 600;">
+                <i class="fa-solid fa-laptop-code"></i> Contribuidores individuales</p>
+              <ul style="margin: 0; font-size: 19pt; line-height: 1.4;">
+                <li><strong>¿Cargan un patch?</strong> Abran el issue upstream.</li>
+                <li><span class="hl">Un patch merged es un fork menos.</span></li>
+                <li>Hagan review del PR de alguien más.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <p class="footnote">Fuentes: <a href="https://www.linuxfoundation.org/research/contribution-roi" target="_blank" rel="noopener">Linux Foundation, "ROI for Open Source Software Contribution", feb 2026</a> · <a href="https://www.cncf.io/blog/2026/03/31/sustaining-opentelemetry-moving-from-dependency-management-to-stewardship/" target="_blank" rel="noopener">OSPO de Bloomberg, blog de CNCF, 31 mar 2026</a></p>
+        <aside class="notes">
+          Texto que salió de la slide (díganlo en voz alta si hace falta):
+          - Cuenten sus forks y patches cargados. Pongan las horas al lado de
+            cada uno.
+          - Reserven 2 horas a la semana para upstream, como hizo Bloomberg.
+          - Elijan una fundación o fondo para lo que corren en producción.
+          - ¿Cargan un patch? Abran el issue upstream esta semana.
+          - Conviertan el fix en un PR. Un patch merged es un fork menos.
+          - Revisen el PR de alguien más. Los reviewers son el recurso más
+            escaso.
+
+          Reescrita el 27 sep 2026: la pregunta del lottery factor y las slides
+          de gh/glab y ORT se reemplazaron por acciones respaldadas por la
+          evidencia del fork tax y de Bloomberg.
+
+          Cada viñeta apunta a una slide:
+          - Cuenten sus forks: el impuesto del fork (86 forks × 60 horas por
+            ciclo de release en promedio).
+          - 2 horas a la semana: la cohorte de Bloomberg en OpenTelemetry.
+          - Una fundación o fondo: la escalera (CNCF desde $2K al año; la LF
+            dice que la membresía rinde 4.8x).
+          - Los reviewers escasean: Godot Foundation, 30 jun 2026, "This
+            reviewer shortage was already a problem, but it was one that we
+            successfully ignored. We can no longer ignore it."
+
+          [TIEMPO: 90s. Cierren con "un patch merged es un fork menos."]
+        </aside>
+      </section>
+
+      <section id="closing">
+        <div style="display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 48px; align-items: center; width: 100%; text-align: left;">
+          <figure style="margin: 0;">
+            <img src="assets/nadia-eghbal-strange-loop-2017.jpg" alt="Nadia Eghbal hablando en Strange Loop 2017 frente a su slide: 2017, dos tercios de los proyectos populares tienen solo 1-2 maintainers" style="width: 100%; height: auto; margin: 0; border-radius: 6px; border: none; box-shadow: none;" />
+            <figcaption class="text-muted" style="margin-top: 8px; font-size: 11pt; line-height: 1.35;">Nadia Eghbal at Strange Loop 2017 · Photo: Chris Koerner, <a href="https://creativecommons.org/licenses/by-sa/2.0/" target="_blank" rel="noopener">CC BY-SA 2.0</a>, <a href="https://commons.wikimedia.org/wiki/File:Nadia_Eghbal_at_Strange_Loop_2017_-_1.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> · cropped</figcaption>
+          </figure>
+        <blockquote style="margin: 0; max-width: none; border: none; padding: 0; box-shadow: none; background: none; width: auto;">
+          <p style="margin: 0; font-size: 30pt; font-weight: 600; line-height: 1.3; font-style: normal;">"Para mantener nuestro ritmo de progreso, necesitamos <span class="hl">reinvertir en las herramientas</span> que nos ayudan a construir cosas más grandes y mejores."</p>
+          <p class="receipt" lang="en" style="margin: 12px 0 0 0;">"In order to maintain our pace of progress, we need to invest back into the tools that help us build bigger and better things." (traducción propia)</p>
+          <p class="text-muted" style="margin: 14px 0 0 0; font-size: 16pt;">Nadia Eghbal · <a href="https://www.fordfoundation.org/wp-content/uploads/2016/07/roads-and-bridges-the-unseen-labor-behind-our-digital-infrastructure.pdf" target="_blank" rel="noopener"><em>Roads and Bridges</em>, Ford Foundation, 2016</a></p>
+        </blockquote>
+        </div>
+                <p class="contact">
+          <i class="fa-solid fa-handshake"></i>&nbsp; Gracias · Christopher Tineo
+        </p>
+        <aside class="notes">
+          La frase de cierre se dice una vez y luego silencio. No la diluyan
+          con agradecimientos. El gracias es la línea siguiente; la pregunta a
+          la sala es lo último que recuerdan.
+
+          Cita (1 oct 2026, reemplazó "It's only fine if we pay for it"):
+          Nadia Eghbal, "Roads and Bridges: The Unseen Labor Behind Our
+          Digital Infrastructure", Ford Foundation, julio 2016, conclusión.
+          Verificada palabra por palabra contra el PDF de la Ford Foundation.
+          La traducción al español es propia; el original en inglés va debajo.
+          "Invertir" es tiempo, patches o dinero, que es el punto de la slide
+          del framework.
+
+          Si la sala está con ustedes, tomen 2-3 preguntas. Si está callada,
+          no lo fuercen. Lean la cita, hagan una pausa y dejen que el silencio
+          haga el trabajo.
+
+          [TIEMPO: 45s. Que aterrice. Paren. Preguntas.]
+        </aside>
+      </section>
+
+
+
+      <section id="contact" class="section-divider">
+        <span class="section-number">Encuéntrenme · llévense las slides</span>
+        <h1 style="font-size: 46pt; line-height: 1.1; max-width: 900px; margin-bottom: 24px;">
+          Sigamos en contacto
+        </h1>
+        <div class="content" style="justify-content: center; align-items: center; padding-top: 8px;">
+          <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; max-width: 1200px; width: 100%;">
+            <div class="stat-card primary" style="align-items: center; text-align: center; padding: 18px 20px; gap: 8px;">
+              <img src="assets/linkedin-qr.png" alt="Código QR a linkedin.com/in/christopher-tineo" style="width: 160px; height: 160px; margin: 0; padding: 8px; background: #ffffff; border-radius: 6px; border: none; box-shadow: none;" />
+              <span class="number" style="font-size: 24pt; white-space: nowrap;"><i class="fa-brands fa-linkedin"></i> LinkedIn</span>
+              <span class="label" style="font-family: var(--mono-font); font-size: 14pt; overflow-wrap: break-word; line-height: 1.3;">linkedin.com/in/<br />christopher&#8209;tineo</span>
+            </div>
+            <div class="stat-card primary" style="align-items: center; text-align: center; padding: 18px 20px; gap: 8px;">
+              <img src="assets/slides-qr.png" alt="Código QR a tineoc.github.io/talks/nerdearla-mx-2026" style="width: 160px; height: 160px; margin: 0; padding: 8px; background: #ffffff; border-radius: 6px; border: none; box-shadow: none;" />
+              <span class="number" style="font-size: 24pt; white-space: nowrap;"><i class="fa-brands fa-github"></i> Slides</span>
+              <span class="label" style="font-family: var(--mono-font); font-size: 14pt; overflow-wrap: break-word; line-height: 1.3;">tineoc.github.io/talks/<br />nerdearla-mx-2026</span>
+            </div>
+            <div class="stat-card primary" style="align-items: center; text-align: center; padding: 18px 20px; gap: 8px;">
+              <img src="assets/nco-qr.png" alt="Código QR a k8s.dev/docs/orientation, la Kubernetes New Contributor Orientation" style="width: 160px; height: 160px; margin: 0; padding: 8px; background: #ffffff; border-radius: 6px; border: none; box-shadow: none;" />
+              <span class="number" style="font-size: 24pt; white-space: nowrap;"><i class="fa-solid fa-dharmachakra"></i> Contribuye</span>
+              <span class="label" style="font-family: var(--mono-font); font-size: 14pt; overflow-wrap: break-word; line-height: 1.3;">k8s.dev/<br />docs/orientation</span>
+            </div>
+            <div class="stat-card primary" style="align-items: center; text-align: center; padding: 18px 20px; gap: 8px;">
+              <img src="assets/cncf-mx-qr.png" alt="Código QR a la lista de capítulos de la comunidad CNCF en México" style="width: 160px; height: 160px; margin: 0; padding: 8px; background: #ffffff; border-radius: 6px; border: none; box-shadow: none;" />
+              <span class="number" style="font-size: 24pt; white-space: nowrap;"><i class="fa-solid fa-people-group"></i> CNCF MX</span>
+              <span class="label" style="font-family: var(--mono-font); font-size: 14pt; overflow-wrap: break-word; line-height: 1.3;">CDMX · GDL<br />QRO · Colima</span>
+            </div>
+          </div>
+        </div>
+        <p class="footnote">Enlaces: <a href="https://www.linkedin.com/in/christopher-tineo/" target="_blank" rel="noopener">linkedin.com/in/christopher-tineo</a> · <a href="https://tineoc.github.io/talks/nerdearla-mx-2026/" target="_blank" rel="noopener">tineoc.github.io/talks/nerdearla-mx-2026</a> · <a href="https://www.kubernetes.dev/docs/orientation/" target="_blank" rel="noopener">Kubernetes New Contributor Orientation</a> · <a href="https://ocgroups.dev/explore?entity=groups&amp;community%5B0%5D=cncf&amp;ts_query=Mexico" target="_blank" rel="noopener">Grupos de la comunidad CNCF en México</a> · <a href="https://github.com/TineoC/talks" target="_blank" rel="noopener">github.com/TineoC/talks</a></p>
+        <aside class="notes">
+          Cuatro códigos QR: LinkedIn, las slides de esta revisión en GitHub
+          Pages (https://tineoc.github.io/talks/nerdearla-mx-2026/), la
+          Kubernetes New Contributor Orientation y los capítulos de CNCF en
+          México.
+
+          QR: Kubernetes New Contributor Orientation (NCO), mentoría de SIG
+          ContribEx, empezó en sep 2024 (kubernetes.dev/docs/orientation,
+          verificado el 1 oct 2026). El QR codifica
+          https://k8s.dev/docs/orientation/, que redirige ahí. Digan: "Si
+          quieren un primer escalón, es este."
+
+          QR: capítulos de CNCF en México (búsqueda en Open Community Groups,
+          ocgroups.dev, que es donde ahora vive community.cncf.io). Hoy
+          aparecen Cloud Native Mexico City, Cloud Native Guadalajara, Cloud
+          Native Querétaro y Cloud Native Colima, más Cloud Native LATAM con
+          sede en CDMX. Digan: "No tienen que empezar solos. Hay un capítulo
+          cerca; únanse, vayan a un meetup y ahí encuentran a la gente que
+          mantiene lo que ustedes usan."
+
+          [TIEMPO: 30s. Pasen a preguntas o cierren.]
+        </aside>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+  <script>
+    // ===== Theme toggle (T key, ?theme=light, persisted in localStorage) =====
+    (function () {
+      const root = document.documentElement;
+      const indicator = document.getElementById('theme-indicator');
+      const STORAGE_KEY = 'fsig-theme';
+      const VALID = new Set(['dark', 'light']);
+
+      function applyTheme(theme) {
+        if (theme === 'light') {
+          root.setAttribute('data-theme', 'light');
+        } else {
+          root.removeAttribute('data-theme');
+        }
+        if (indicator) {
+          indicator.textContent = theme === 'light' ? 'CLARO' : 'OSCURO';
+          indicator.dataset.theme = theme;
+        }
+      }
+
+      function currentTheme() {
+        return root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      }
+
+      const params = new URLSearchParams(window.location.search);
+      const fromQuery = params.get('theme');
+      const fromStorage = (() => {
+        try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+      })();
+      const initial = VALID.has(fromQuery) ? fromQuery
+        : VALID.has(fromStorage) ? fromStorage
+          : 'light';
+      applyTheme(initial);
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 't' || e.key === 'T') {
+          const t = e.target;
+          if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) {
+            return;
+          }
+          const next = currentTheme() === 'light' ? 'dark' : 'light';
+          applyTheme(next);
+          try { localStorage.setItem(STORAGE_KEY, next); } catch (e) { }
+          if (indicator) {
+            indicator.classList.add('show');
+            clearTimeout(indicator._hide);
+            indicator._hide = setTimeout(function () { indicator.classList.remove('show'); }, 1500);
+          }
+        }
+      });
+    })();
+
+    // ===== Typewriter effect for .title-prompt elements =====
+    (function () {
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function typePrompt(el) {
+        if (el.dataset.typed === '1') return;
+        el.dataset.typed = '1';
+        const fullText = el.textContent.trim();
+        el.textContent = '';
+        el.classList.add('is-typing');
+        const cursor = document.createElement('span');
+        cursor.className = 'cursor';
+        el.appendChild(cursor);
+
+        let i = 0;
+        const baseSpeed = 28;
+        const jitter = () => Math.random() * 35;
+        function step() {
+          if (i < fullText.length) {
+            const ch = fullText[i++];
+            el.insertBefore(document.createTextNode(ch), cursor);
+            const isPunctuation = '.!?,'.includes(ch);
+            const wait = isPunctuation ? 220 : baseSpeed + jitter();
+            setTimeout(step, wait);
+          } else {
+            setTimeout(() => { cursor.remove(); el.classList.remove('is-typing'); }, 600);
+          }
+        }
+        setTimeout(step, prefersReduced ? 0 : 250);
+      }
+
+      function resetPrompt(el) {
+        if (el.dataset.typed === '1') {
+          el.dataset.typed = '0';
+          el.textContent = el.dataset.text || el.textContent;
+        }
+      }
+
+      document.querySelectorAll('.title-prompt').forEach(el => {
+        el.dataset.text = el.textContent.trim();
+      });
+
+      if (window.Reveal) {
+        Reveal.on('slidechanged', evt => {
+          const current = evt.currentSlide;
+          if (current) {
+            const prompt = current.querySelector('.title-prompt');
+            if (prompt && !prefersReduced) {
+              typePrompt(prompt);
+            }
+          }
+        });
+      }
+    })();
+
+    // ===== Count-up animation for stat numbers =====
+    (function () {
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReduced || !window.Reveal) return;
+
+      function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+
+      function animateNumber(el) {
+        if (el.dataset.counted === '1') return;
+        el.dataset.counted = '1';
+        const raw = el.textContent.trim();
+        const match = raw.match(/(\d+(?:\.\d+)?)(.*)/);
+        if (!match) return;
+        const target = parseFloat(match[1]);
+        const suffix = match[2] || '';
+        const prefix = raw.startsWith(target.toString()) ? '' : raw.substring(0, raw.indexOf(match[1]));
+        const duration = 900;
+        const start = performance.now();
+        function tick(now) {
+          const elapsed = now - start;
+          const t = Math.min(elapsed / duration, 1);
+          const value = target * easeOutCubic(t);
+          let display;
+          if (Number.isInteger(target)) {
+            display = Math.round(value).toString();
+          } else {
+            display = value.toFixed(1);
+          }
+          el.textContent = prefix + display + suffix;
+          if (t < 1) requestAnimationFrame(tick);
+          else el.textContent = raw;
+        }
+        el.textContent = prefix + '0' + suffix;
+        requestAnimationFrame(tick);
+      }
+
+      Reveal.on('slidechanged', evt => {
+        const current = evt.currentSlide;
+        if (!current) return;
+        current.querySelectorAll('.stat .number').forEach(animateNumber);
+      });
+    })();
+
+    Reveal.initialize({
+      width: 1280,
+      height: 720,
+      margin: 0,
+      controls: true,
+      progress: true,
+      slideNumber: false,
+      hash: true,
+      transition: 'fade',
+      transitionSpeed: 'fast',
+      center: false,
+    });
+  </script>
+</body>
+
