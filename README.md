@@ -41,33 +41,17 @@ Companion hands-on lab for Cloud Native & Kubernetes 101: [cloud-native-k8s-101-
 
 ## How to Consume the Slide Decks
 
-If you scanned a slides QR code at one of my presentations or are browsing this repository, here is how you can open and consume the slides:
+Scanned a QR code at one of my talks? Here's how to open the slides.
 
-### 📄 PDF Version (Best for Quick View & Mobile)
-Click any of the **PDF** links in the table above. 
-- The QR codes displayed at the end of my presentations point directly to these PDFs so you can save them and read them offline on any smartphone, tablet, or computer.
+### 📄 PDF (best for mobile and offline)
+Click a **PDF** link in the table above to read it on any device or save it for later.
 
-### 🌐 Interactive HTML Version (Best for Widescreen & Presenting)
-Click any of the **HTML** links in the table above to open the slide deck directly in your browser. Since these are built using **Reveal.js**, you can interact with them using the following controls:
-- **`Space` or `Arrow Keys`**: Go to the next or previous slide.
-- **`T` key**: Toggle between **Dark Terminal** mode and **Light Cream** mode (high contrast).
-- **`S` key**: Open the **Speaker Notes** window to view timing cues, detailed statistics, and extra background research.
-- **`F` key**: View the presentation in fullscreen mode.
-- **`Esc` key**: Toggle the grid-based slide overview map for fast jumping.
+### 🌐 HTML (best for widescreen)
+Click an **HTML** link in the table above to open the deck in your browser. The Reveal.js decks support:
+- **`Space` / Arrow keys**: next or previous slide.
+- **`T`**: toggle dark and light theme.
+- **`S`**: open the speaker notes.
+- **`F`**: fullscreen.
+- **`Esc`**: slide overview.
 
-The **containers.day** deck (a different framework) uses arrow keys or its on-screen controls to navigate, and also
-answers the **`T` key** to switch between dark and light. Append `?theme=light` to its URL to open straight into light
-mode — useful on a projector that washes the dark theme out. The choice is remembered in the browser.
-
-#### Running HTML Slides Locally
-To run and view the HTML slides locally with all assets and interactive plugins functioning correctly:
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/TineoC/talks.git
-   cd talks
-   ```
-2. Start a simple local web server:
-   ```bash
-   python3 -m http.server 8000
-   ```
-3. Open [http://localhost:8000/slides/sre-day-2026-q2/index.html](http://localhost:8000/slides/sre-day-2026-q2/index.html) in your web browser.
+The **containers.day** deck uses arrow keys or its on-screen controls, and `T` also toggles its theme. Add `?theme=light` to its URL to open it in light mode (handy on washed-out projectors).
