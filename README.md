@@ -26,6 +26,7 @@ it to `talks.json` up front to skip the placeholders.
 <!-- TALKS:START -->
 | Event | Title | Slides | Date |
 | :--- | :--- | :--- | :--- |
+| Nerdearla México 2026 | Open Source Isn't Gratis | [HTML](https://tineoc.github.io/talks/nerdearla-mx-2026/) | November 2026 |
 | DevOpsDays Philadelphia 2026 | Free Software Isn't Gratis | [HTML](https://tineoc.github.io/talks/devopsdays-philly-2026/) · [PDF](slides/devopsdays-philly-2026/devopsdays-philly-2026.pdf) | October 2026 |
 | containers.day | How I 10xed My Career Through Open Source | [HTML](https://tineoc.github.io/talks/containers-day-10x-open-source/) | August 2026 |
 | Coffee & Code Philly | Cloud Native & Kubernetes 101 | [HTML](https://tineoc.github.io/talks/cloud-native-k8s-101/) · [Lab](https://killercoda.com/tineoc/scenario/cloud-native-k8s-101) | July 2026 |
